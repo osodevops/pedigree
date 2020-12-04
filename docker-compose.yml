@@ -1,0 +1,45 @@
+version: '3.3'
+services:
+  application:
+    container_name: pedigree-app
+    image: webdevops/php-nginx:7.4
+    environment:
+      WEB_DOCUMENT_ROOT: /var/www/public
+    working_dir: /var/www
+    volumes:
+      - ./application:/var/www
+    ports:
+      - "8080:80"
+    networks:
+      - pedigree-net
+  db:
+    container_name: pedigree-app-db
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: pedigree
+      MYSQL_USER: pedigree
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - pedigree-data:/var/lib/mysql
+    networks:
+      - pedigree-net
+    ports:
+      - "33061:3306"
+  redis:
+    container_name: pedigree-app-cache
+    image: redis:6.0-alpine
+    volumes:
+      - pedigree-cache:/data
+    networks:
+      - pedigree-net
+    ports:
+      - "6379:6379"
+networks:
+  pedigree-net:
+    driver: "bridge"
+volumes:
+  pedigree-data:
+    driver: "local"
+  pedigree-cache:
+    driver: "local"
