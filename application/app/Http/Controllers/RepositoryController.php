@@ -19,12 +19,14 @@ class RepositoryController
             'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
             'url' => 'https://github.com/CodeLab-Team/pedigree',
             'default_branch' => 'master',
+            'status' => 'active',
             'owner' => [
                 'name' => 'CodeLab-Team',
                 'url' => 'https://github.com/CodeLab-Team',
                 'avatar_url' => 'https://avatars1.githubusercontent.com/u/75502275?v=4',
             ],
             'parent' => [
+                'id' => 318624210,
                 'name' => 'pedigree',
                 'owner' => [
                     'name' => 'laravel',
