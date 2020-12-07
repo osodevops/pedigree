@@ -2,7 +2,8 @@ version: '3.3'
 services:
   application:
     container_name: pedigree-app
-    image: webdevops/php-nginx:7.4
+    build:
+      context: ./docker/application
     environment:
       WEB_DOCUMENT_ROOT: /var/www/public
     working_dir: /var/www

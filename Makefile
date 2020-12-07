@@ -10,5 +10,9 @@ build: # Install dependencies and prepare the application
 	docker-compose exec application php artisan migrate:fresh --seed
 	docker-compose exec application php artisan cache:clear
 
+	# Set up the front-end
+	docker-compose exec application npm install
+	docker-compose exec application npm run dev
+
 	@echo ""
 	@echo "Website hosted at: http://localhost:8000"
