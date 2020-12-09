@@ -27,6 +27,10 @@ class RepositoryResource extends JsonResource
                 'url' => $repository['owner']['html_url'],
                 'avatar_url' => $repository['owner']['avatar_url'],
             ],
+            'parent' => $this->when(array_key_exists('parent', $repository), function () use ($repository) {
+                $parent = $repository['parent'] ?? [];
+                return static::make($parent);
+            }),
             'issues' => [
                 'total' => null,
                 'open' => $repository['open_issues_count'],
@@ -37,7 +41,6 @@ class RepositoryResource extends JsonResource
             ],
             'activity' => [
                 'watchers_count' => $repository['watchers'],
-                'subscribers_count' => $repository['subscribers_count'],
             ],
             'meta' => [
                 'created_at' => $repository['created_at'],
