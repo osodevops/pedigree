@@ -38,6 +38,10 @@ class RepositoryResource extends JsonResource
             'activity' => [
                 'watchers_count' => $repository['watchers'],
                 'subscribers_count' => $repository['subscribers_count'],
+            ],
+            'meta' => [
+                'created_at' => $repository['created_at'],
+                'updated_at' => $repository['updated_at'],
             ]
         ];
     }
