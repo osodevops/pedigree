@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\RepositoryResource;
+
 class RepositoryController
 {
     /**
@@ -11,9 +13,9 @@ class RepositoryController
      * @param  string  $repository
      * @return \Illuminate\Http\Response
      */
-    public function index($user, $repository)
+    public function show($user, $repository)
     {
-        return [
+        return RepositoryResource::make([
             'id' => 318624209,
             'name' => 'pedigree',
             'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
@@ -52,6 +54,6 @@ class RepositoryController
                 'watchers_count' => 103,
                 'subscribers_count' => 22
             ]
-        ];
+        ]);
     }
 }
