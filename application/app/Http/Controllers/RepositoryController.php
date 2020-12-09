@@ -16,7 +16,7 @@ class RepositoryController
         return [
             'id' => 318624209,
             'name' => 'pedigree',
-            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
             'url' => 'https://github.com/CodeLab-Team/pedigree',
             'default_branch' => 'master',
             'status' => 'active',
@@ -52,6 +52,6 @@ class RepositoryController
                 'watchers_count' => 103,
                 'subscribers_count' => 22
             ]
-        ]);
+        ];
     }
 }
