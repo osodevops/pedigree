@@ -36,16 +36,6 @@ class RepositoriesService
     }
 
     /**
-     * Get the username attribute.
-     *
-     * @return string
-     */
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
      * Get the repository from the GitHub API.
      *
      * @return array
@@ -87,22 +77,6 @@ class RepositoriesService
         return $this->service->request(
             'GET',
             "repos/{$this->username}/{$this->name}/commits?{$queryString}"
-        );
-    }
-
-    /**
-     * Get forks for this repository from the GitHub API.
-     *
-     * @param  array  $query
-     * @return array
-     */
-    public function forks(array $query = [])
-    {
-        $queryString = http_build_query($query);
-
-        return $this->service->request(
-            'GET',
-            "repos/{$this->username}/{$this->name}/forks?{$queryString}"
         );
     }
 
