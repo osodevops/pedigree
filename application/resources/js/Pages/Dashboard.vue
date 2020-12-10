@@ -6,24 +6,37 @@
             </h2>
         </template>
 
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <welcome />
-                </div>
-            </div>
-        </div>
+        <base-panel>
+            <search-bar></search-bar>
+
+            <base-card>
+                <h1>rendering card</h1>
+            </base-card>
+            <base-card>
+                <h1>rendering card</h1>
+            </base-card>
+            <base-card>
+                <h1>rendering card</h1>
+            </base-card>
+            <base-card>
+                <h1>rendering card</h1>
+            </base-card>
+        </base-panel>
     </app-layout>
 </template>
 
 <script>
-    import AppLayout from '@/Layouts/AppLayout'
-    import Welcome from '@/Jetstream/Welcome'
+import AppLayout from "@/Layouts/AppLayout";
+import SearchBar from "../Components/SearchBar.vue";
+import BasePanel from "../Components/Base/Panel";
+import BaseCard from "../Components/Base/Card";
 
-    export default {
-        components: {
-            AppLayout,
-            Welcome,
-        },
+export default {
+    components: {
+        AppLayout,
+        SearchBar,
+        BasePanel,
+        BaseCard
     }
+};
 </script>
