@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialiteController
@@ -24,6 +25,7 @@ class SocialiteController
             'profile_photo_path' => $authenticated->getAvatar()
         ]);
 
+        Cache::put(get_class($user) . ":{$user->id}.github.token", $authenticated->token);
         Auth::login($user);
         return redirect()->to('dashboard');
     }
