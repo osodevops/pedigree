@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialiteController
@@ -13,8 +15,16 @@ class SocialiteController
 
     public function show($provider)
     {
-        $user = Socialite::driver($provider)->user();
+        $authenticated = Socialite::driver($provider)->user();
 
-        dd($user);
+        $user = User::firstOrCreate([
+            'email' => $authenticated->getEmail()
+        ], [
+            'name' => $authenticated->getName(),
+            'profile_photo_path' => $authenticated->getAvatar()
+        ]);
+
+        Auth::login($user);
+        return redirect()->to('dashboard');
     }
 }
