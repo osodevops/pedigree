@@ -37,6 +37,9 @@ export default {
         SearchBar,
         BasePanel,
         BaseCard
+    },
+    props: {
+        user: Object
     }
 };
 </script>
