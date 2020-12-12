@@ -31,7 +31,7 @@ class RepositoryController
     public function show($user, $repository)
     {
         return RepositoryResource::make(
-            $this->service->repository($user, $repository)->get()
+            $this->service->authenticateAs(auth()->user())->repository($user, $repository)->get()
         );
     }
 }

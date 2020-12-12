@@ -2,14 +2,13 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use GuzzleHttp\Client;
+use App\Services\GitHub\AuthService;
 use App\Services\GitHub\RepositoriesService;
 
 class GitHub
 {
-    /** @var string */
-    private string $personalAccessToken;
-
     /**
      * HTTP Client pre-configured with authentication.
      *
@@ -18,20 +17,22 @@ class GitHub
     protected Client $client;
 
     /**
-     * Create a new instance of the service.
+     * Authentication service to handle API Authentication.
      *
-     * @param  string  $personalAccessToken
-     * @return void
+     * @var \App\Services\GitHub\AuthService
      */
-    public function __construct($personalAccessToken)
+    protected $auth;
+
+    /**
+     * Authenticate with the API as the given user.
+     *
+     * @param  \App\Models\User  $user
+     * @return $this
+     */
+    public function authenticateAs(User $user)
     {
-        $this->personalAccessToken = $personalAccessToken;
-        $this->client = new Client([
-            'headers' => [
-                'Authorization' => "token {$personalAccessToken}",
-                'Accept' => 'application/vnd.github.v3+json',
-            ]
-        ]);
+        $this->auth = new AuthService($user);
+        return $this;
     }
 
     /**
@@ -56,10 +57,29 @@ class GitHub
      */
     public function request($method, $url)
     {
-        $response = $this->client->request($method, "https://api.github.com/{$url}")
+        $response = $this->getHttpClient()->request($method, "https://api.github.com/{$url}")
             ->getBody()
             ->getContents();
 
         return json_decode($response, true);
+    }
+
+    /**
+     * Get the HTTP client used to make requests.
+     *
+     * @return \GuzzleHttp\Client
+     */
+    protected function getHttpClient()
+    {
+        if ($this->client ?? null) {
+            return $this->client;
+        }
+
+        return $this->client = new Client([
+            'headers' => [
+                'Accept' => 'application/vnd.github.v3+json',
+                'Authorization' => "Bearer " . $this->auth->getToken()
+            ]
+        ]);
     }
 }
