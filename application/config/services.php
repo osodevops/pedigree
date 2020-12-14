@@ -31,6 +31,7 @@ return [
     ],
 
     'github' => [
+        'server_key' => env('GITHUB_SERVER_TOKEN'),
         'client_id' => env('GITHUB_CLIENT_ID'),
         'client_secret' => env('GITHUB_CLIENT_SECRET'),
         'redirect' => '/auth/github/callback',

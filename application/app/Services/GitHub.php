@@ -71,15 +71,22 @@ class GitHub
      */
     protected function getHttpClient()
     {
-        if ($this->client ?? null) {
-            return $this->client;
-        }
-
         return $this->client = new Client([
             'headers' => [
                 'Accept' => 'application/vnd.github.v3+json',
-                'Authorization' => "Bearer " . $this->auth->getToken()
+                'Authorization' => $this->getAuth()->getAuthHeader()
             ]
         ]);
+    }
+
+    /**
+     * Get the current Authentication Service instance.
+     *
+     * @return \App\Services\GitHub\AuthService
+     */
+    protected function getAuth(): AuthService
+    {
+        return $this->auth
+            ?? new AuthService();
     }
 }

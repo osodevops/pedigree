@@ -10,12 +10,21 @@ class AuthService
     /**
      * The user authenticating with the Service.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\User|null  $user
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(?User $user = null)
     {
         $this->authenticated = $user;
+    }
+
+    public function getAuthHeader()
+    {
+        if (is_null($this->authenticated)) {
+            return "Bearer " . config('services.github.server_key');
+        }
+
+        return "Bearer {$this->getToken()}";
     }
 
     /**
