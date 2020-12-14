@@ -2,16 +2,9 @@ import * as Types from "./types";
 
 export default {
     state: {
-        githubUrl: "",
         repositoryInformation: []
     },
-    getters: {
-        //
-    },
     mutations: {
-        [Types.DASHBOARD_UPDATE_GITHUB_URL](state, url) {
-            state.githubUrl = url;
-        },
         [Types.DASHBOARD_UPDATE_REPOSITORY_INFORMATION](
             state,
             repositoryInformation
@@ -20,8 +13,8 @@ export default {
         }
     },
     actions: {
-        getRepositoryInformation({ sate, commit }) {
-            axios.get(`/repos/${state.user.id}/${state.githubUrl}`).then(
+        getRepositoryInformation({ sate, commit }, url) {
+            axios.get(`/repos/${state.user.id}/${url}`).then(
                 ({ data }) => {
                     commit(Types.DASHBOARD_UPDATE_REPOSITORY_INFORMATION, data);
                 },
