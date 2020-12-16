@@ -9,10 +9,8 @@
         <base-panel>
             <search-bar></search-bar>
 
-            <base-card>
-                <jet-button @click="activateCanSee()"
-                    >see full section</jet-button
-                >
+            <base-card @click.native="activateCanSee()">
+                <jet-button>see full section</jet-button>
             </base-card>
             <base-card>
                 <h1>rendering card</h1>
@@ -27,7 +25,9 @@
 
         <!-- <component :is="activeComponent"></component> -->
 
-        <!-- <your-component-name v-show=""></your-component-name -->
+        <repo-detail-view v-show="canSee">
+              <repo-detail-layout> </repo-detail-layout>
+        </repo-detail-view>
     </app-layout>
 </template>
 
@@ -37,6 +37,8 @@ import SearchBar from "@/Components/SearchBar.vue";
 import BasePanel from "@/Components/Base/Panel";
 import BaseCard from "@/Components/Base/Card";
 import JetButton from "@/Jetstream/Button";
+import RepoDetailView from "@/Components/RepoDetailView.vue";
+import RepoDetailLayout from "@/Components/Base/Container.vue";
 
 export default {
     components: {
@@ -44,10 +46,12 @@ export default {
         SearchBar,
         BasePanel,
         BaseCard,
-        JetButton
+        JetButton,
+        RepoDetailView,
+        RepoDetailLayout
     },
     props: {
-        user: Object
+        user: Object,
     },
     data() {
         return {
@@ -66,7 +70,7 @@ export default {
     },
     methods: {
         activateCanSee() {
-            // set can see to true
+            this.canSee = !this.canSee
         }
     }
 };
