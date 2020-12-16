@@ -18,7 +18,7 @@ class RepositoryNotFoundException extends Exception
      */
     public static function throw($user, $repository)
     {
-        throw (new static("The repository `{$user}/{$repository}` could not be found"));
+        throw new static("The repository `{$user}/{$repository}` could not be found");
     }
 
     /**
