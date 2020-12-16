@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Services\GitHub;
 use App\Http\Resources\RepositoryResource;
+use App\Exceptions\RepositoryNotFoundException;
 
 class RepositoryController
 {
@@ -30,8 +32,12 @@ class RepositoryController
      */
     public function show($user, $repository)
     {
-        return RepositoryResource::make(
-            $this->service->repository($user, $repository)->get()
-        );
+        try {
+            return RepositoryResource::make(
+                $this->service->repository($user, $repository)->get()
+            );
+        } catch (Exception $e) {
+            RepositoryNotFoundException::throw($user, $repository);
+        }
     }
 }
