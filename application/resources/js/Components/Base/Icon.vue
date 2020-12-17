@@ -19,13 +19,8 @@ export default {
     },
     computed: {
         classes() {
-            return [this.prefix(this.icon), this.prefix(this.size)].join(' ');
+            return [`fa-${this.icon}`), `fa-${this.size}`)].join(' ');
         }
     },
-    methods: {
-        prefix(value) {
-            return `fa-${value}`;
-        }
-    }
 };
 </script>
