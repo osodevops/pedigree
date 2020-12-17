@@ -1,13 +1,21 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ForkController;
 use App\Http\Controllers\RepositoryController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\SocialiteController;
 
-Route::view('/', 'welcome');
+$router->view('/', 'welcome');
 
-Route::get('/dashboard', [DashboardController::class, 'show'])->name('dashboard')->middleware(['auth:sanctum', 'verified']);
+$router->get('auth/{provider}/redirect', [SocialiteController::class, 'index'])->name('auth.socialite.register');
+$router->get('auth/{provider}/callback', [SocialiteController::class, 'show'])->name('auth.socialite.login');
 
-Route::get('repos/{user}/{repository}', [RepositoryController::class, 'show']);
-Route::get('repos/{user}/{repository}/forks', [ForkController::class, 'index']);
+Route::group(['middleware' => ['auth:sanctum']], function ($router) {
+    $router->get('/dashboard', [DashboardController::class, 'show'])->name('dashboard');
+    $router->get('repos/{user}/{repository}', [RepositoryController::class, 'show']);
+    $router->get('repos/{user}/{repository}/forks', [ForkController::class, 'index']);
+});
+
+$router->redirect('register', '/auth/github/redirect');
+$router->redirect('login', '/auth/github/redirect');
