@@ -11,13 +11,13 @@
 
 <script>
 import { mapGetters, mapMutations, mapState } from "vuex";
-import AppLayout from "@/Layouts/AppLayout";
+import RepoDetailView from "@/Components/RepoDetailView.vue";
 import dashboardModule from "@/Store/Modules/Dashboard/index";
 import searchRepos from "@/components/SearchRepos";
 
 export default {
     components: {
-        AppLayout,
+        RepoDetailView,
         searchRepos
     },
     props: {
@@ -30,8 +30,10 @@ export default {
         activeComponent() {
             if (this.storeDashboard) {
                 switch (this.storeDashboard.stage) {
-                    case "dashboard-search-component":
+                    case "dashboard-search":
                         return searchRepos;
+                    case "dashboard-repo-detail-view":
+                        return RepoDetailView;
                 }
             }
         }
