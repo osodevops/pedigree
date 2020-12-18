@@ -19,8 +19,7 @@ export default {
     },
     actions: {
         getRepositoryInformation({ commit, rootState }, url) {
-            console.log("searchRepos", url);
-            axios.get(`/repos/${rootState.user.id}/${url}`).then(
+            axios.get(`/repos/${rootState.searchBar.url}`).then(
                 ({ data }) => {
                     commit(
                         Types.REPOSITORY_INFORMATION_UPDATE_REPOSITORY_BREAKDOWN,

@@ -1,19 +1,6 @@
 <template>
     <base-panel>
         <search-bar :searchMethod="getRepositoryInformation"></search-bar>
-
-        <base-card>
-            <h1>rendering card</h1>
-        </base-card>
-        <base-card>
-            <h1>rendering card</h1>
-        </base-card>
-        <base-card>
-            <h1>rendering card</h1>
-        </base-card>
-        <base-card>
-            <h1>rendering card</h1>
-        </base-card>
     </base-panel>
 </template>
 
@@ -29,7 +16,6 @@ export default {
     components: {
         SearchBar,
         BasePanel,
-        BaseCard,
         JetButton
     },
     mounted() {

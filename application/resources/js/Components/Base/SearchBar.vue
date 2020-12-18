@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full p-4">
+    <form class="w-full p-4" @submit.prevent="searchMethod(url)">
         <div class="flex flex-wrap">
             <jet-input
                 class="w-8/12 mr-2"
@@ -8,15 +8,14 @@
                 :placeholder="placeholder"
             ></jet-input>
             <button
-                type="button"
+                type="submit"
                 class="w-64 bg-red-500 text-white font-semibold text-center rounded"
-                @click="searchMethod(url)"
             >
                 Search
             </button>
         </div>
         <jet-input-error :message="errorMessage"></jet-input-error>
-    </div>
+    </form>
 </template>
 
 <script>

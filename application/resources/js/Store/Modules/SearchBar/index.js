@@ -7,7 +7,9 @@ export default {
     },
     mutations: {
         [Types.SEARCH_BAR_UPDATE_URL](state, url) {
-            state.url = url;
+            let matches = [...url.matchAll(/(https:\/\/github\.com\/)?([\w\d-]*)\/([\w\d-]*)(.*)?/g)];
+            const [username, repository] = [matches[0][2], matches[0][3]];
+            state.url = `${username}/${repository}`;
         }
     }
 };

@@ -1,19 +1,27 @@
 <template>
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
-            <h1>RepoDetailView component</h1>
-            <base-container>
-                <!-- content -->
-            </base-container>
+    <div>
+        <div class="flex">
+            <div style="width: 50px; height:50px" class="mr-4">
+                <img :src="repository.owner.avatar_url">
+            </div>
+            <div class="flex flex-col">
+                <span class="text-lg font-semibold">{{repository.name}}</span>
+                <span>{{repository.owner.name}}</span>
+                <p class="italic">{{repository.description}}</p>
+            </div>
         </div>
+
     </div>
 </template>
 <script>
-import BaseContainer from "@/Components/Base/Container";
+import BaseCard from "@/Components/Base/Card";
 
 export default {
     components: {
-        BaseContainer
+        BaseCard
+    },
+    props: {
+        repository: Object
     }
 };
 </script>
