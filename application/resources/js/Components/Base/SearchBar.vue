@@ -7,7 +7,7 @@
                 @input="searchBarUpdateUrl"
                 :placeholder="placeholder"
             ></jet-input>
-            <jet-button type="button" @click.native="searchMethod(url)">
+            <jet-button>
                 Search
             </jet-button>
         </div>
