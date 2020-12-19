@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full p-4">
+    <form class="w-full p-4" @submit.prevent="searchMethod(url)">
         <div class="flex flex-wrap">
             <jet-input
                 class="w-8/12 mr-2"
@@ -12,7 +12,7 @@
             </jet-button>
         </div>
         <jet-input-error :message="errorMessage"></jet-input-error>
-    </div>
+    </form>
 </template>
 
 <script>
