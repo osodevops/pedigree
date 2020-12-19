@@ -1,10 +1,8 @@
 <template>
-    <div>
-        <h2>Container component</h2>
+    <div class="bg-white w-3/4 mx-auto rounded p-4 shadow-md">
+        <slot></slot>
     </div>
 </template>
 <script>
-export default {
-    
-}
+export default {};
 </script>
