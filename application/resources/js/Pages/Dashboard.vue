@@ -2,7 +2,9 @@
     <app-layout>
         <search-repos></search-repos>
         <div v-if="this.activeRepository">
-            <repo-detail-view :repository="this.activeRepository"></repo-detail-view>
+            <repo-detail-view
+                :repository="this.activeRepository"
+            ></repo-detail-view>
         </div>
     </app-layout>
 </template>
@@ -24,22 +26,9 @@ export default {
         user: Object
     },
     computed: {
-        storeDashboard() {
-            return this.$store.state.dashboard;
-        },
         activeRepository() {
             if (!this.$store.state.searchRepos) return false;
             return this.$store.state.searchRepos.repositoryBreakdown.data;
-        },
-        activeComponent() {
-            if (this.storeDashboard) {
-                switch (this.storeDashboard.stage) {
-                    case "dashboard-search":
-                        return searchRepos;
-                    case "dashboard-repo-detail-view":
-                        return RepoDetailView;
-                }
-            }
         }
     },
     mounted() {
