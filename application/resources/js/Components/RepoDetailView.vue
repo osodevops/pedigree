@@ -43,6 +43,16 @@
                         >{{ repository.url }}</a
                     >
                 </div>
+
+                <div class="mt-2" v-if="repository.forkData.length > 0">
+                    <h1>fork information</h1>
+                    <div v-for="fork in repository.forkData" :key="fork.id">
+                        <p>{{ fork.id }}</p>
+                    </div>
+                </div>
+                <div v-else>
+                    <p>Repository has no forks.</p>
+                </div>
             </div>
         </div>
     </base-container>
