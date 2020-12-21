@@ -2,7 +2,7 @@
     <form class="w-full p-4" @submit.prevent="searchMethod(url)">
         <div class="flex flex-wrap">
             <jet-input
-                class="w-8/12 mr-2"
+                class="w-11/12 mr-2"
                 v-model="url"
                 :placeholder="placeholder"
             ></jet-input>
