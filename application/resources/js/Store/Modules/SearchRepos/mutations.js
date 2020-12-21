@@ -17,7 +17,7 @@ export default {
         state.githubRepositoryName = repoName;
     },
     [Types.SEARCH_REPOS_UPDATE_FORKS_INFORMATION](state, forkData) {
-        state.repositoryBreakdown.forkData = forkData;
+        state.forkData = forkData;
     },
     [Types.SEARCH_REPO_LOADING_STATE](state, isLoading) {
         state.loadingGithubInfo = isLoading;

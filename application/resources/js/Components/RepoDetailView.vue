@@ -46,64 +46,65 @@
                 </div>
 
                 <!-- fork data section -->
-                <div
-                    class="flex mt-4 ml-4"
-                    v-if="repository.forkData.length > 0"
-                >
-                    <div v-for="fork in repository.forkData" :key="fork.id">
+                <div class="flex flex-wrap">
+                    <div
+                        v-for="fork in forkData"
+                        :key="fork.id"
+                        class="flex w-1/2 p-4"
+                    >
                         <div style="width: 75px; height:75px" class="mr-4">
                             <img :src="fork.owner.avatar_url" />
                         </div>
 
-                        <div class="flex items-center">
-                            <span class="font-bold">{{ fork.owner.name }}</span>
-                            <div class="flex items-center ml-4">
-                                <Icon
-                                    icon="code-branch"
-                                    class="text-gray-400"
-                                />
-                                <span class="ml-2 font-bold">{{
-                                    fork.default_branch
-                                }}</span>
-                            </div>
-                            <div class="flex items-center ml-4">
-                                <Icon
-                                    icon="code-branch"
-                                    class="text-gray-400"
-                                />
-                                <span class="ml-2"
-                                    ><span class="font-bold">{{
-                                        fork.forks.total
+                        <div class="flex w-2/3 flex-wrap">
+                            <span class="font-semibold text-2xl w-full">
+                                {{ fork.owner.name }}
+                            </span>
+
+                            <div class="flex w-full">
+                                <div class="flex">
+                                    <Icon
+                                        icon="code-branch"
+                                        class="text-gray-400"
+                                    />
+                                    <span class="ml-2 font-bold">{{
+                                        fork.default_branch
                                     }}</span>
-                                    forks</span
-                                >
+                                </div>
+                                <div class="flex ml-4">
+                                    <Icon
+                                        icon="code-branch"
+                                        class="text-gray-400"
+                                    />
+                                    <span class="ml-2"
+                                        ><span class="font-bold">{{
+                                            fork.forks.total
+                                        }}</span>
+                                        forks</span
+                                    >
+                                </div>
+                                <div class="flex ml-4">
+                                    <Icon icon="star" class="text-gray-400" />
+                                    <span class="ml-2"
+                                        ><span class="font-bold">{{
+                                            fork.activity.watchers_count
+                                        }}</span>
+                                        stars</span
+                                    >
+                                </div>
                             </div>
-                            <div class="flex items-center ml-4">
-                                <Icon icon="star" class="text-gray-400" />
-                                <span class="ml-2"
-                                    ><span class="font-bold">{{
-                                        fork.activity.watchers_count
-                                    }}</span>
-                                    stars</span
+
+                            <div class="w-full mt-2">
+                                <p class="italic">{{ fork.description }}</p>
+                                <a
+                                    class="italic text-blue-500 hover:text-blue-400"
+                                    :href="fork.url"
+                                    >{{ fork.url }}</a
                                 >
                             </div>
                         </div>
 
-                        <div class="mt-2">
-                            <p class="italic">{{ fork.description }}</p>
-                            <a
-                                class="italic text-blue-500 hover:text-blue-400"
-                                :href="fork.url"
-                                >{{ fork.url }}</a
-                            >
-                            <a
-                                class="italic text-blue-500 hover:text-blue-400"
-                                :href="fork.owner.url"
-                                >Owner profiile {{ fork.owner.url }}</a
-                            >
-                        </div>
-
-                        <div class="mt-2">
+                        <div class="w-1/3">
                             <p>
                                 Is ahead by:
                                 <span class="font-semibold">{{
@@ -119,13 +120,13 @@
                             <p>
                                 Current Status:
                                 <span class="font-semibold">{{
-                                    fork.differences.status
+                                    fork.difference.status
                                 }}</span>
                             </p>
                             <p>
                                 Total Commits:
                                 <span class="font-semibold">{{
-                                    fork.differences.total_commits
+                                    fork.difference.total_commits
                                 }}</span>
                             </p>
                             <p>
@@ -149,9 +150,6 @@
                         </div>
                     </div>
                 </div>
-                <div v-else class="flex mt-4 ml-4">
-                    <p>repository has no forks</p>
-                </div>
             </div>
         </div>
     </base-container>
@@ -168,7 +166,8 @@ export default {
         Icon
     },
     props: {
-        repository: Object
+        repository: Object,
+        forkData: Array
     }
 };
 </script>

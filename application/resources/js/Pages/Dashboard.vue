@@ -4,6 +4,7 @@
         <div v-if="this.activeRepository">
             <repo-detail-view
                 :repository="this.activeRepository"
+                :forkData="this.activeForks"
             ></repo-detail-view>
         </div>
     </app-layout>
@@ -29,6 +30,10 @@ export default {
         activeRepository() {
             if (!this.$store.state.searchRepos) return false;
             return this.$store.state.searchRepos.repositoryBreakdown.data;
+        },
+        activeForks() {
+            if (!this.$store.state.searchRepos) return false;
+            return this.$store.state.searchRepos.forkData;
         }
     },
     mounted() {

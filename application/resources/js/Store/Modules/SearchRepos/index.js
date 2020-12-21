@@ -9,7 +9,7 @@ export default {
         errorMessage: "",
         githubUsername: "",
         githubRepositoryName: "",
-        forkData: "",
+        forkData: [],
         loadingGithubInfo: false
     },
     mutations,
