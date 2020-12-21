@@ -50,43 +50,43 @@
                     <div
                         v-for="fork in forkData"
                         :key="fork.id"
-                        class="flex w-1/2 p-4"
+                        class="flex w-1/2 p-2"
                     >
                         <div style="width: 75px; height:75px" class="mr-4">
                             <img :src="fork.owner.avatar_url" />
                         </div>
 
-                        <div class="flex w-2/3 flex-wrap">
-                            <span class="font-semibold text-2xl w-full">
+                        <div class="flex flex-wrap">
+                            <span class="capitalize text-2xl w-full">
                                 {{ fork.owner.name }}
                             </span>
 
                             <div class="flex w-full">
-                                <div class="flex">
+                                <div class="flex items-center">
                                     <Icon
                                         icon="code-branch"
                                         class="text-gray-400"
                                     />
-                                    <span class="ml-2 font-bold">{{
+                                    <span class="ml-2 text-sm font-semibold">{{
                                         fork.default_branch
                                     }}</span>
                                 </div>
-                                <div class="flex ml-4">
+                                <div class="flex items-center ml-4">
                                     <Icon
                                         icon="code-branch"
                                         class="text-gray-400"
                                     />
                                     <span class="ml-2"
-                                        ><span class="font-bold">{{
+                                        ><span class="text-sm font-semibold">{{
                                             fork.forks.total
                                         }}</span>
                                         forks</span
                                     >
                                 </div>
-                                <div class="flex ml-4">
+                                <div class="flex items-center ml-4">
                                     <Icon icon="star" class="text-gray-400" />
                                     <span class="ml-2"
-                                        ><span class="font-bold">{{
+                                        ><span class="text-sm font-semibold">{{
                                             fork.activity.watchers_count
                                         }}</span>
                                         stars</span
@@ -102,51 +102,84 @@
                                     >{{ fork.url }}</a
                                 >
                             </div>
-                        </div>
 
-                        <div class="w-1/3">
-                            <p>
-                                Is ahead by:
-                                <span class="font-semibold">{{
-                                    fork.difference.ahead_by
-                                }}</span>
-                            </p>
-                            <p>
-                                Is behind by:
-                                <span class="font-semibold">{{
-                                    fork.difference.behind_by
-                                }}</span>
-                            </p>
-                            <p>
-                                Current Status:
-                                <span class="font-semibold">{{
-                                    fork.difference.status
-                                }}</span>
-                            </p>
-                            <p>
-                                Total Commits:
-                                <span class="font-semibold">{{
-                                    fork.difference.total_commits
-                                }}</span>
-                            </p>
-                            <p>
-                                Open Issues:
-                                <span class="font-semibold">{{
-                                    fork.issues.open
-                                }}</span>
-                            </p>
-                            <p v-show="fork.issues.resolved">
-                                Issues Resolved:
-                                <span class="font-semibold">{{
-                                    fork.issues.resolved
-                                }}</span>
-                            </p>
-                            <p v-show="fork.issues.total">
-                                Total Amount of Issues:
-                                <span class="font-semibold">{{
-                                    fork.issues.resolved
-                                }}</span>
-                            </p>
+                            <div class="w-full">
+                                <table class="bg-white rounded mt-4">
+                                    <thead>
+                                        <th
+                                            class="bg-gray-800 text-sm text-white font-semibold capitalize text-left px-2 py-1"
+                                        >
+                                            Ahead by
+                                        </th>
+                                        <th
+                                            class="bg-gray-800 text-sm text-white font-semibold capitalize text-left px-2 py-1"
+                                        >
+                                            Behind by
+                                        </th>
+                                        <th
+                                            class="bg-gray-800 text-sm text-white font-semibold capitalize text-left px-2 py-1"
+                                        >
+                                            Status
+                                        </th>
+                                        <th
+                                            class="bg-gray-800 text-sm text-white font-semibold capitalize text-left px-2 py-1"
+                                        >
+                                            Total Commits
+                                        </th>
+                                        <th
+                                            class="bg-gray-800 text-sm text-white font-semibold capitalize text-left px-2 py-1"
+                                        >
+                                            Open Issues
+                                        </th>
+                                        <th
+                                            class="bg-gray-800 text-sm text-white font-semibold capitalize text-left px-2 py-1"
+                                            v-show="fork.issues.resolved"
+                                        >
+                                            Issues Resolved
+                                        </th>
+                                        <th
+                                            class="bg-gray-800 text-sm text-white font-semibold capitalize text-left px-2 py-1"
+                                            v-show="fork.issues.total"
+                                        >
+                                            Total Issues
+                                        </th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-sm px-2 py-1">
+                                                {{ fork.difference.ahead_by }}
+                                            </td>
+                                            <td class="text-sm px-2 py-1">
+                                                {{ fork.difference.behind_by }}
+                                            </td>
+                                            <td class="text-sm px-2 py-1">
+                                                {{ fork.difference.status }}
+                                            </td>
+                                            <td class="text-sm px-2 py-1">
+                                                {{
+                                                    fork.difference
+                                                        .total_commits
+                                                }}
+                                            </td>
+                                            <td class="text-sm px-2 py-1">
+                                                {{ fork.issues.open }}
+                                            </td>
+                                            <td
+                                                class="text-sm px-2 py-1"
+                                                v-show="fork.issues.resolved"
+                                            >
+                                                {{ fork.issues.resolved }}
+                                            </td>
+                                            <td
+                                                class="text-sm px-2 py-1"
+                                                v-show="fork.issues.total"
+                                            >
+                                                {{ fork.issues.resolved }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
