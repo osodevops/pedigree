@@ -44,9 +44,10 @@ class ForkController
                     //         "{$baseRepository->getUsername()}:{$repository['default_branch']}"
                     //     );
                 } catch (\Exception $e) {
+                    return;
                     // Do nothing
                 }
                 return RepositoryResource::make($repository);
-            });
+            })->filter();
     }
 }
