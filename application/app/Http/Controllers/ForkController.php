@@ -36,7 +36,7 @@ class ForkController
                 try {
                     $repository['difference'] = $baseRepository->compare(
                         $repository['default_branch'],
-                        "{$baseRepository->getUsername()}:{$repository['default_branch']}"
+                        "{$repository['owner']['login']}:{$repository['default_branch']}"
                     );
                     // $repository['difference'] = $this->service->repository($repository['owner']['login'], $repository['name'])
                     //     ->compare(

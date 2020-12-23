@@ -15,7 +15,7 @@ const getRepositoryInformation = ({ commit, state, dispatch }, url) => {
 
     axios
         .get(
-            `/repos/${state.githubRepositoryName}/${state.githubRepositoryName}`
+            `/repos/${state.githubUsername}/${state.githubRepositoryName}`
         )
         .then(
             ({ data }) => {
