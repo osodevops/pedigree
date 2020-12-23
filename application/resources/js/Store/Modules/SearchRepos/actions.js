@@ -13,6 +13,8 @@ const getRepositoryInformation = ({ commit, state, dispatch }, url) => {
 
     commit(Types.SEARCH_REPO_LOADING_STATE, true);
 
+    commit(Types.SEARCH_REPOS_UPDATE_FORKS_INFORMATION, []);
+
     axios
         .get(
             `/repos/${state.githubUsername}/${state.githubRepositoryName}`
