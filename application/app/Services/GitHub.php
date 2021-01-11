@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\User;
 use GuzzleHttp\Client;
 use App\Services\GitHub\AuthService;
+use App\Services\GitHub\StatsService;
 use App\Services\GitHub\RepositoriesService;
 
 class GitHub
@@ -46,6 +47,16 @@ class GitHub
     {
         return (new RepositoriesService($this))
             ->setRepository($username, $name);
+    }
+
+    /**
+     * Get an instance of the statistics service.
+     *
+     * @return App\Services\GitHub\StatsService
+     */
+    public function stats()
+    {
+        return (new StatsService($this));
     }
 
     /**
