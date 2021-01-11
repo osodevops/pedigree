@@ -18,6 +18,8 @@ Route::group(['middleware' => ['auth:sanctum']], function ($router) {
     $router->get('repos/{user}/{repository}/forks', [ForkController::class, 'index']);
 
     $router->get('repos/{user}/{repository}/stats/commits', [Statistics\CommitController::class, 'show']);
+
+    $router->get('repos/{user}/{repository}/stats/languages', [Statistics\LanguageController::class, 'show']);
 });
 
 $router->redirect('register', '/auth/github/redirect');

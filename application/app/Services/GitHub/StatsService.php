@@ -28,4 +28,19 @@ class StatsService
             "repos/{$user}/{$repository}/stats/commit_activity"
         );
     }
+
+    /**
+     * Get the languages statistics for the given repository.
+     *
+     * @param  string  $user
+     * @param  string  $repository
+     * @return array
+     */
+    public function languages($user, $repository)
+    {
+        return $this->service->request(
+            'GET',
+            "repos/{$user}/{$repository}/languages"
+        );
+    }
 }
