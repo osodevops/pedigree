@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Owner;
 use App\Services\GitHub;
+use App\Models\Difference;
+use App\Models\Repository;
 use App\Http\Resources\RepositoryResource;
 
 class ForkController
@@ -30,6 +33,10 @@ class ForkController
      */
     public function index($user, $repository)
     {
+        $base = Repository::where('name', $repository)
+            ->where('owner_id', $user)
+            ->first();
+
         $baseRepository = $this->service->repository($user, $repository);
 
         $queryOptions = [
@@ -37,9 +44,21 @@ class ForkController
             'page' => request('page', 1)
         ];
 
-        return RepositoryResource::collection(
+        $forks = RepositoryResource::collection(
             $this->service->repository($user, $repository)->forks($queryOptions)
         );
+
+        return tap($forks->toArray(request()), function ($forks) use ($base) {
+            foreach ($forks as $fork) {
+                $owner = Owner::firstOrCreate(['id' => $fork['owner']['name']], $fork['owner']);
+                $owner->repositories()->updateOrCreate(
+                    ['id' => $fork['id']],
+                    $fork + ['parent_id' => $base['id']]
+                );
+                Difference::firstOrCreate(['base_repository_id' => $base['id'], 'repository_id' => $fork['id']]);
+            }
+        });
+
         return collect($baseRepository->forks(['per_page' => 100]))
             ->map(function ($repository) use ($baseRepository) {
                 try {
