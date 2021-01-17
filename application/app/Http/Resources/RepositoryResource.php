@@ -37,10 +37,8 @@ class RepositoryResource extends JsonResource
             }),
             'open_issues' => $repository['open_issues_count'],
             'watchers_count' => $repository['watchers'],
-            'meta' => [
-                'created_at' => $repository['created_at'],
-                'updated_at' => $repository['updated_at'],
-            ]
+            'created_at' => $repository['created_at'],
+            'updated_at' => $repository['updated_at'],
         ];
     }
 }

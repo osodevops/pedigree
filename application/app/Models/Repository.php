@@ -28,8 +28,17 @@ class Repository extends Model
      * @var string[]
      */
     protected $fillable = [
-        'id', 'name', 'description', 'url', 'default_branch', 'owner_id', 'parent_id',
+        'id', 'name', 'description', 'default_branch', 'owner_id', 'parent_id',
         'open_issues_count', 'watchers_count', 'created_at', 'updated_at',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'url',
     ];
 
     /**
@@ -50,5 +59,15 @@ class Repository extends Model
     public function parent()
     {
         return $this->belongsTo(static::class, 'parent_id');
+    }
+
+    /**
+     * Get the "url" attribute.
+     *
+     * @return string
+     */
+    public function getUrlAttribute()
+    {
+        return "https://github.com/{$this->owner_id}/{$this->id}";
     }
 }

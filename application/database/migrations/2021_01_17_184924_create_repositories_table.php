@@ -16,8 +16,7 @@ class CreateRepositoriesTable extends Migration
         Schema::create('repositories', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->unique()->index();
             $table->string('name');
-            $table->string('description', 500);
-            $table->string('url', 200);
+            $table->string('description', 500)->nullable();
             $table->string('default_branch', 50);
             $table->unsignedInteger('open_issues_count')->default(0);
             $table->unsignedInteger('watchers_count')->default(0);

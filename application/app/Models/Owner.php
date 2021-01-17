@@ -29,4 +29,14 @@ class Owner extends Model
     protected $fillable = [
         'id', 'url', 'avatar_url',
     ];
+
+    /**
+     * An owner has many repositories.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function repositories()
+    {
+        return $this->hasMany(Repository::class);
+    }
 }
