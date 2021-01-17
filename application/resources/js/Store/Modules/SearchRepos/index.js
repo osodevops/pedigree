@@ -77,7 +77,7 @@ export default {
                     ({ data }) => {
                         commit(
                             Types.SEARCH_REPOS_UPDATE_FORKS_INFORMATION,
-                            data
+                            data.data
                         );
                     },
                     error => {
