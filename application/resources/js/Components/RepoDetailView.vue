@@ -167,31 +167,31 @@
                                 <tbody>
                                     <tr>
                                         <td class="text-sm px-2 py-1">
-                                            {{ fork.difference.ahead_by }}
+                                            <!-- {{ fork.difference.ahead_by || '-' }} -->
                                         </td>
                                         <td class="text-sm px-2 py-1">
-                                            {{ fork.difference.behind_by }}
+                                            <!-- {{ fork.difference.behind_by || '-' }} -->
                                         </td>
                                         <td class="text-sm px-2 py-1">
-                                            {{ fork.difference.status }}
+                                            <!-- {{ fork.difference.status || '-' }} -->
                                         </td>
                                         <td class="text-sm px-2 py-1">
-                                            {{ fork.difference.total_commits }}
+                                            <!-- {{ fork.difference.total_commits || '-' }} -->
                                         </td>
                                         <td class="text-sm px-2 py-1">
-                                            {{ fork.issues.open }}
+                                            {{ fork.issues.open || '-' }}
                                         </td>
                                         <td
                                             class="text-sm px-2 py-1"
                                             v-show="fork.issues.resolved"
                                         >
-                                            {{ fork.issues.resolved }}
+                                            {{ fork.issues.resolved || '-' }}
                                         </td>
                                         <td
                                             class="text-sm px-2 py-1"
                                             v-show="fork.issues.total"
                                         >
-                                            {{ fork.issues.resolved }}
+                                            {{ fork.issues.total }}
                                         </td>
                                     </tr>
                                 </tbody>
