@@ -65,7 +65,7 @@
         <div v-show="forkData.length > 0" class="w-3/4 mx-auto mt-3 mb-2">
             <section class="w-full flex flex-wrap">
                 <h1 class="text-2xl text-gray-700">
-                    Fork Information
+                    Forks
                 </h1>
 
                 <jet-input
@@ -77,71 +77,93 @@
 
             <section class="w-full mt-3">
                 <div
-                    v-for="fork in filtedForkedData"
+                    v-for="(fork, index) in filtedForkedData"
                     :key="fork.id"
                     class="w-full"
                 >
                     <div
-                        class="flex flex-wrap justify-between items-center mb-3 p-4 bg-white rounded shadow-sm"
+                        class="flex flex-wrap mb-3 p-4 bg-white rounded shadow-sm"
                     >
-                        <div class="w-1/5 flex">
-                            <div
-                                class="w-48 mr-4"
-                                style="width: 48px; height:48px;"
-                            >
-                                <img :src="fork.owner.avatar_url" />
-                            </div>
+                        <div
+                            v-if="fork.showMore === false"
+                            class="w-full flex flex-wrap justify-between items-center"
+                        >
+                            <div class="w-1/5 flex">
+                                <div
+                                    class="w-48 mr-4"
+                                    style="width: 48px; height:48px;"
+                                >
+                                    <img :src="fork.owner.avatar_url" />
+                                </div>
 
-                            <div class="w-auto">
-                                <span class="capitalize text-xl font-semibold">
-                                    {{ fork.owner.name }}
-                                </span>
+                                <div class="w-auto">
+                                    <span
+                                        class="capitalize text-xl font-semibold"
+                                    >
+                                        {{ fork.owner.name }}
+                                    </span>
 
-                                <span class="block text-sm text-gray-600">
-                                    {{ fork.description }}
-                                </span>
+                                    <span class="block text-sm text-gray-600">
+                                        {{ fork.description }}
+                                    </span>
 
-                                <div class="flex items-center">
-                                    <Icon
-                                        icon="code-branch"
-                                        class="text-gray-400"
-                                    />
-                                    <span class="ml-2 text-sm text-gray-600">{{
-                                        fork.default_branch
-                                    }}</span>
+                                    <div class="flex items-center">
+                                        <Icon
+                                            icon="code-branch"
+                                            class="text-gray-400"
+                                        />
+                                        <span
+                                            class="ml-2 text-sm text-gray-600"
+                                            >{{ fork.default_branch }}</span
+                                        >
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="flex items-center ml-4">
-                            <Icon icon="code-branch" class="text-gray-400" />
-                            <span class="ml-2"
-                                ><span class="text-sm font-semibold">{{
-                                    fork.forks.total
-                                }}</span>
-                                forks</span
+                            <div class="flex items-center ml-4">
+                                <Icon
+                                    icon="code-branch"
+                                    class="text-gray-400"
+                                />
+                                <span class="ml-2"
+                                    ><span class="text-sm font-semibold">{{
+                                        fork.forks.total
+                                    }}</span>
+                                    forks</span
+                                >
+                            </div>
+
+                            <div class="flex items-center ml-4">
+                                <Icon icon="star" class="text-gray-400" />
+                                <span class="ml-2"
+                                    ><span class="text-sm font-semibold">{{
+                                        fork.activity.watchers_count
+                                    }}</span>
+                                    stars</span
+                                >
+                            </div>
+
+                            <div>
+                                <span>
+                                    Status
+                                    <!-- Status: {{ fork.difference.status || "-" }} -->
+                                </span>
+                            </div>
+
+                            <div>
+                                <jet-button
+                                    type="button"
+                                    @click.native="updateForkShowState(index)"
+                                    >More Info</jet-button
+                                >
+                            </div>
+                        </div>
+                        <div v-else class="w-full flex flex-wrap">
+                            <jet-button
+                                type="button"
+                                @click.native="updateForkShowState(index)"
+                                >Less Info</jet-button
                             >
-                        </div>
-
-                        <div class="flex items-center ml-4">
-                            <Icon icon="star" class="text-gray-400" />
-                            <span class="ml-2"
-                                ><span class="text-sm font-semibold">{{
-                                    fork.activity.watchers_count
-                                }}</span>
-                                stars</span
-                            >
-                        </div>
-
-                        <div>
-                            <span>
-                                Status
-                                <!-- Status: {{ fork.difference.status || "-" }} -->
-                            </span>
-                        </div>
-
-                        <div>
-                            <jet-button>More Info</jet-button>
                         </div>
 
                         <!-- <div class="w-full mt-2">
@@ -261,21 +283,41 @@ export default {
     },
     props: {
         repository: Object,
-        forkData: Array
+        forkData: {
+            type: Array
+        }
     },
     data() {
         return {
-            searchText: ""
+            searchText: "",
+            forks: []
         };
     },
     computed: {
         filtedForkedData() {
-            return this.forkData;
+            return this.forks;
         }
+    },
+    mounted() {
+        let forks = _.cloneDeep(
+            this.forkData.map(fork => {
+                fork.showMore = false;
+                return fork;
+            })
+        );
+
+        forks.forEach((fork, index) => {
+            this.$set(this.forks, index, fork);
+        });
     },
     methods: {
         updateSearch(value) {
             this.searchText = value;
+        },
+        updateForkShowState(index) {
+            this.forks[index].showMore === true
+                ? (this.forks[index].showMore = false)
+                : (this.forks[index].showMore = true);
         }
     }
 };
