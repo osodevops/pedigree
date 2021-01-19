@@ -69,70 +69,91 @@
                 </h1>
 
                 <jet-input
-                    class="ml-auto w-128"
+                    class="ml-auto w-1/5"
                     placeholder="search by fork user, or status"
                     @input="updateSearch"
                 ></jet-input>
             </section>
+
             <section class="w-full mt-3">
                 <div
                     v-for="fork in filtedForkedData"
                     :key="fork.id"
                     class="w-full"
                 >
-                    <div class="flex p-4 bg-white rounded shadow-md">
-                        <div style="width: 75px; height:75px" class="mr-4">
-                            <img :src="fork.owner.avatar_url" />
-                        </div>
+                    <div
+                        class="flex flex-wrap justify-between items-center mb-3 p-4 bg-white rounded shadow-sm"
+                    >
+                        <div class="w-1/5 flex">
+                            <div
+                                class="w-48 mr-4"
+                                style="width: 48px; height:48px;"
+                            >
+                                <img :src="fork.owner.avatar_url" />
+                            </div>
 
-                        <div class="flex flex-wrap">
-                            <span class="capitalize text-2xl w-full">
-                                {{ fork.owner.name }}
-                            </span>
+                            <div class="w-auto">
+                                <span class="capitalize text-xl font-semibold">
+                                    {{ fork.owner.name }}
+                                </span>
 
-                            <div class="flex w-full">
+                                <span class="block text-sm text-gray-600">
+                                    {{ fork.description }}
+                                </span>
+
                                 <div class="flex items-center">
                                     <Icon
                                         icon="code-branch"
                                         class="text-gray-400"
                                     />
-                                    <span class="ml-2 text-sm font-semibold">{{
+                                    <span class="ml-2 text-sm text-gray-600">{{
                                         fork.default_branch
                                     }}</span>
                                 </div>
-                                <div class="flex items-center ml-4">
-                                    <Icon
-                                        icon="code-branch"
-                                        class="text-gray-400"
-                                    />
-                                    <span class="ml-2"
-                                        ><span class="text-sm font-semibold">{{
-                                            fork.forks.total
-                                        }}</span>
-                                        forks</span
-                                    >
-                                </div>
-                                <div class="flex items-center ml-4">
-                                    <Icon icon="star" class="text-gray-400" />
-                                    <span class="ml-2"
-                                        ><span class="text-sm font-semibold">{{
-                                            fork.activity.watchers_count
-                                        }}</span>
-                                        stars</span
-                                    >
-                                </div>
                             </div>
+                        </div>
 
-                            <div class="w-full mt-2">
-                                <p class="italic">{{ fork.description }}</p>
-                                <a
-                                    class="italic text-blue-500 hover:text-blue-400"
-                                    :href="fork.url"
-                                    >{{ fork.url }}</a
-                                >
-                            </div>
+                        <div class="flex items-center ml-4">
+                            <Icon icon="code-branch" class="text-gray-400" />
+                            <span class="ml-2"
+                                ><span class="text-sm font-semibold">{{
+                                    fork.forks.total
+                                }}</span>
+                                forks</span
+                            >
+                        </div>
 
-                            <div class="w-full">
+                        <div class="flex items-center ml-4">
+                            <Icon icon="star" class="text-gray-400" />
+                            <span class="ml-2"
+                                ><span class="text-sm font-semibold">{{
+                                    fork.activity.watchers_count
+                                }}</span>
+                                stars</span
+                            >
+                        </div>
+
+                        <div>
+                            <span>
+                                Status
+                                <!-- Status: {{ fork.difference.status || "-" }} -->
+                            </span>
+                        </div>
+
+                        <div>
+                            <jet-button>More Info</jet-button>
+                        </div>
+
+                        <!-- <div class="w-full mt-2">
+                            <p class="italic">{{ fork.description }}</p>
+                            <a
+                                class="italic text-blue-500 hover:text-blue-400"
+                                :href="fork.url"
+                                >{{ fork.url }}</a
+                            >
+                        </div> -->
+
+                        <!-- <div class="w-full">
                                 <table class="bg-white rounded mt-4">
                                     <thead>
                                         <th
@@ -176,16 +197,23 @@
                                     <tbody>
                                         <tr>
                                             <td class="text-sm px-2 py-1">
-                                                <!-- {{ fork.difference.ahead_by || '-' }} -->
+                                                {{
+                                                    fork.difference.ahead_by ||
+                                                        "-"
+                                                }}
                                             </td>
                                             <td class="text-sm px-2 py-1">
-                                                <!-- {{ fork.difference.behind_by || '-' }} -->
+                                                {{
+                                                    fork.difference.behind_by ||
+                                                        "-"
+                                                }}
                                             </td>
+                                            <td class="text-sm px-2 py-1"></td>
                                             <td class="text-sm px-2 py-1">
-                                                <!-- {{ fork.difference.status || '-' }} -->
-                                            </td>
-                                            <td class="text-sm px-2 py-1">
-                                                <!-- {{ fork.difference.total_commits || '-' }} -->
+                                                {{
+                                                    fork.difference
+                                                        .total_commits || "-"
+                                                }}
                                             </td>
                                             <td class="text-sm px-2 py-1">
                                                 {{ fork.issues.open || "-" }}
@@ -207,10 +235,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                            </div>
-                        </div>
-
-                        <HistorgramGraph />
+                            </div> -->
                     </div>
                 </div>
             </section>
@@ -223,6 +248,7 @@ import BaseCard from "@/Components/Base/Card";
 import Icon from "@/Components/Base/Icon";
 import HistorgramGraph from "@/Components/HistorgramGraph";
 import JetInput from "@/Jetstream/Input";
+import JetButton from "@/Jetstream/Button";
 
 export default {
     components: {
@@ -230,7 +256,8 @@ export default {
         BaseCard,
         Icon,
         HistorgramGraph,
-        JetInput
+        JetInput,
+        JetButton
     },
     props: {
         repository: Object,
