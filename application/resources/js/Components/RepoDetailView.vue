@@ -12,14 +12,12 @@
                         <img :src="repository.owner.avatar_url" />
                     </div>
                     <div class="flex flex-col">
-                        <span class="text-2xl font-semibold">{{
-                            repository.name
-                        }}</span>
-                        <div class="flex items-center">
-                            <span class="font-bold">{{
+                        <span class="text-2xl"
+                            >{{ repository.name }} /
+                            <span class="font-semibold">{{
                                 repository.owner.name
-                            }}</span>
-                        </div>
+                            }}</span></span
+                        >
                         <div class="mt-2">
                             <p class="italic">{{ repository.description }}</p>
                         </div>
@@ -30,10 +28,11 @@
             </base-container>
             <div class="w-1/4 p-4">
                 <a
-                    class="italic text-blue-500 hover:text-blue-400"
+                    class="underline text-decoration-none text-gray-600 hover:text-gray-400 leading-3 cursor-pointer"
                     :href="repository.url"
-                    >{{ repository.url }}</a
-                >
+                    >View on Github
+                    <Icon icon="location-arrow" class="text-gray-400"
+                /></a>
                 <div class="flex items-center">
                     <Icon icon="code-branch" class="text-gray-400" />
                     <span class="font-bold ml-2">{{
@@ -58,6 +57,8 @@
                         stars</span
                     >
                 </div>
+
+                <!-- languages section -->
             </div>
         </div>
 
@@ -179,13 +180,13 @@
                                             <!-- {{ fork.difference.total_commits || '-' }} -->
                                         </td>
                                         <td class="text-sm px-2 py-1">
-                                            {{ fork.issues.open || '-' }}
+                                            {{ fork.issues.open || "-" }}
                                         </td>
                                         <td
                                             class="text-sm px-2 py-1"
                                             v-show="fork.issues.resolved"
                                         >
-                                            {{ fork.issues.resolved || '-' }}
+                                            {{ fork.issues.resolved || "-" }}
                                         </td>
                                         <td
                                             class="text-sm px-2 py-1"
