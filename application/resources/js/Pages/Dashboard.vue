@@ -3,6 +3,7 @@
         <search-repos></search-repos>
         <div v-if="this.activeRepository">
             <repo-detail-view
+                v-if="activeForks.length > 0"
                 :repository="this.activeRepository"
                 :forkData="this.activeForks"
             ></repo-detail-view>
