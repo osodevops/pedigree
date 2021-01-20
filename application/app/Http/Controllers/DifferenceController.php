@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class DifferenceController extends Controller
 {
-    public function index($username, $repository)
+    public function index(Request $request, $username, $repository)
     {
         $baseRepository = Repository::where('owner_id', $username)
             ->where('name', $repository)
@@ -16,6 +16,6 @@ class DifferenceController extends Controller
 
         return $baseRepository->differences()
             ->with('repository')
-            ->paginate();
+            ->paginate($request->get('per_page', 50));
     }
 }

@@ -31,10 +31,6 @@ class RepositoryResource extends JsonResource
                 $parent = $repository['parent'] ?? [];
                 return static::make($parent);
             }),
-            'difference' => $this->when(array_key_exists('difference', $repository), function () use ($repository) {
-                $difference = $repository['difference'] ?? [];
-                return Arr::only($difference, ['status', 'ahead_by', 'behind_by', 'total_commits']);
-            }),
             'open_issues' => $repository['open_issues_count'],
             'watchers_count' => $repository['watchers'],
             'created_at' => $repository['created_at'],
