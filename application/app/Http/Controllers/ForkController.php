@@ -55,11 +55,17 @@ class ForkController
                     ['id' => $fork['id']],
                     $fork + ['parent_id' => $base['id']]
                 );
-                Difference::firstOrCreate(['base_repository_id' => $base['id'], 'repository_id' => $fork['id']])
-                    ->setRelations([
-                        'baseRepository' => $base,
-                        'repository' => $fork
-                    ]);
+
+                Difference::updateOrCreate([
+                    'base_repository_id' => $base['id'],
+                    'repository_id' => $fork['id'],
+                ], [
+                    'status' => 'unknown',
+                ])
+                ->setRelations([
+                    'baseRepository' => $base,
+                    'repository' => $fork
+                ]);
             }
         });
     }

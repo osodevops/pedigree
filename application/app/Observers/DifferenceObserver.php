@@ -20,4 +20,22 @@ class DifferenceObserver
             $difference->repository
         );
     }
+
+    /**
+     * Handle the Difference "updated" event.
+     *
+     * @param  \App\Models\Difference  $difference
+     * @return void
+     */
+    public function updated(Difference $difference)
+    {
+        if ($difference->status != "unknown") {
+            return;
+        }
+
+        CacheDifference::dispatchAfterResponse(
+            $difference->baseRepository,
+            $difference->repository
+        );
+    }
 }
