@@ -349,7 +349,8 @@ export default {
         repository: Object,
         forkData: {
             type: Array
-        }
+        },
+        loading: Boolean
     },
     data() {
         return {

@@ -16,13 +16,10 @@ const getRepositoryInformation = ({ commit, state, dispatch }, url) => {
     commit(Types.SEARCH_REPOS_UPDATE_FORKS_INFORMATION, []);
 
     axios
-        .get(
-            `/repos/${state.githubUsername}/${state.githubRepositoryName}`
-        )
+        .get(`/repos/${state.githubUsername}/${state.githubRepositoryName}`)
         .then(
             ({ data }) => {
                 commit(Types.SEARCH_REPOS_UPDATE_REPOSITORY_BREAKDOWN, data);
-                commit(Types.SEARCH_REPO_LOADING_STATE, false);
                 dispatch("getRepositoryForkInformation");
             },
             error => {
@@ -38,6 +35,7 @@ const getRepositoryForkInformation = ({ commit, state }) => {
         .then(
             ({ data }) => {
                 commit(Types.SEARCH_REPOS_UPDATE_FORKS_INFORMATION, data);
+                commit(Types.SEARCH_REPO_LOADING_STATE, false);
             },
             error => {
                 commit(Types.SEARCH_REPOS_UPDATE_ERROR_MESSAGE, error);
