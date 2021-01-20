@@ -4,87 +4,122 @@
             Repository Overview
         </h1>
 
-        <base-container>
-            <div class="flex mb-4">
-                <!-- Repository Information -->
-                <div style="width: 75px; height:75px" class="mr-4">
-                    <img :src="repository.owner.avatar_url" />
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-2xl font-semibold">{{
-                        repository.name
-                    }}</span>
-                    <div class="flex items-center">
-                        <span class="font-bold">{{
-                            repository.owner.name
-                        }}</span>
-                        <div class="flex items-center ml-4">
-                            <Icon icon="code-branch" class="text-gray-400" />
-                            <span class="ml-2 font-bold">{{
-                                repository.default_branch
-                            }}</span>
-                        </div>
-                        <div class="flex items-center ml-4">
-                            <Icon icon="code-branch" class="text-gray-400" />
-                            <span class="ml-2"
-                                ><span class="font-bold">{{
-                                    repository.forks.total
-                                }}</span>
-                                forks</span
-                            >
-                        </div>
-                        <div class="flex items-center ml-4">
-                            <Icon icon="star" class="text-gray-400" />
-                            <span class="ml-2"
-                                ><span class="font-bold">{{
-                                    repository.activity.watchers_count
-                                }}</span>
-                                stars</span
-                            >
-                        </div>
-                    </div>
-                    <div class="mt-2">
-                        <p class="italic">{{ repository.description }}</p>
-                        <a
-                            class="italic text-blue-500 hover:text-blue-400"
-                            :href="repository.url"
-                            >{{ repository.url }}</a
-                        >
-                    </div>
-                </div>
-            </div>
-        </base-container>
-
-        <h1
-            v-show="forkData.length > 0"
-            class="w-3/4 mx-auto text-2xl mt-2 mb-2 text-gray-700"
-        >
-            Fork Information
-        </h1>
-
-        <!-- fork data section -->
-        <div class="mt-6 w-3/4 mx-auto flex flex-wrap">
-            <div v-for="fork in forkData" :key="fork.id" class="w-1/2 p-2">
-                <div class="flex p-2 bg-white rounded shadow-md">
+        <div class="mx-auto flex flex-wrap w-3/4">
+            <base-container>
+                <div class="flex mb-4">
+                    <!-- Repository Information -->
                     <div style="width: 75px; height:75px" class="mr-4">
-                        <img :src="fork.owner.avatar_url" />
+                        <img :src="repository.owner.avatar_url" />
                     </div>
+                    <div class="flex flex-col">
+                        <span class="text-2xl"
+                            >{{ repository.name }} /
+                            <span class="font-semibold">{{
+                                repository.owner.name
+                            }}</span></span
+                        >
+                        <div class="mt-2">
+                            <p class="italic">{{ repository.description }}</p>
+                        </div>
 
-                    <div class="flex flex-wrap">
-                        <span class="capitalize text-2xl w-full">
-                            {{ fork.owner.name }}
-                        </span>
+                        <HistorgramGraph />
+                    </div>
+                </div>
+            </base-container>
+            <div class="w-1/4 p-4">
+                <a
+                    class="underline text-decoration-none text-gray-600 hover:text-gray-400 leading-3 cursor-pointer"
+                    :href="repository.url"
+                    >View on Github
+                    <Icon icon="location-arrow" class="text-gray-400"
+                /></a>
+                <div class="flex items-center">
+                    <Icon icon="code-branch" class="text-gray-400" />
+                    <span class="font-bold ml-2">{{
+                        repository.default_branch
+                    }}</span>
+                </div>
+                <div class="flex items-center">
+                    <Icon icon="code-branch" class="text-gray-400" />
+                    <span class="ml-2">
+                        <span class="font-bold">{{
+                            repository.forks.total
+                        }}</span>
+                        forks
+                    </span>
+                </div>
+                <div class="flex items-center">
+                    <Icon icon="star" class="text-gray-400" />
+                    <span class="ml-2"
+                        ><span class="font-bold">{{
+                            repository.activity.watchers_count
+                        }}</span>
+                        stars</span
+                    >
+                </div>
 
-                        <div class="flex w-full">
-                            <div class="flex items-center">
-                                <Icon
-                                    icon="code-branch"
-                                    class="text-gray-400"
-                                />
-                                <span class="ml-2 text-sm font-semibold">{{
-                                    fork.default_branch
-                                }}</span>
+                <!-- languages section -->
+            </div>
+        </div>
+
+        <div v-show="forkData.length > 0" class="w-3/4 mx-auto mt-3 mb-2">
+            <section class="w-full flex flex-wrap">
+                <h1 class="text-2xl text-gray-700">
+                    Forks
+                </h1>
+
+                <jet-input
+                    class="ml-auto w-1/5"
+                    placeholder="search by fork user, or status"
+                    @input="updateSearch"
+                ></jet-input>
+            </section>
+
+            <section class="w-full mt-3">
+                <div
+                    v-for="(fork, index) in filtedForkedData"
+                    :key="fork.id"
+                    class="w-full"
+                >
+                    <div
+                        class="flex flex-wrap mb-3 p-4 bg-white rounded shadow-sm"
+                    >
+                        <div
+                            v-if="fork.showMore === false"
+                            class="w-full flex flex-wrap justify-between items-center"
+                        >
+                            <div class="w-1/5 flex">
+                                <div
+                                    class="w-48 mr-4"
+                                    style="width: 48px; height:48px;"
+                                >
+                                    <img :src="fork.owner.avatar_url" />
+                                </div>
+
+                                <div class="w-auto">
+                                    <span
+                                        class="capitalize text-xl font-semibold"
+                                    >
+                                        {{ fork.owner.name }}
+                                    </span>
+
+                                    <span class="block text-sm text-gray-600">
+                                        {{ fork.description }}
+                                    </span>
+
+                                    <div class="flex items-center">
+                                        <Icon
+                                            icon="code-branch"
+                                            class="text-gray-400"
+                                        />
+                                        <span
+                                            class="ml-2 text-sm text-gray-600"
+                                            >{{ fork.default_branch }}</span
+                                        >
+                                    </div>
+                                </div>
                             </div>
+
                             <div class="flex items-center ml-4">
                                 <Icon
                                     icon="code-branch"
@@ -97,6 +132,7 @@
                                     forks</span
                                 >
                             </div>
+
                             <div class="flex items-center ml-4">
                                 <Icon icon="star" class="text-gray-400" />
                                 <span class="ml-2"
@@ -106,94 +142,125 @@
                                     stars</span
                                 >
                             </div>
+
+                            <div>
+                                <span>
+                                    Status
+                                    <!-- Status: {{ fork.difference.status || "-" }} -->
+                                </span>
+                            </div>
+
+                            <div>
+                                <jet-button
+                                    type="button"
+                                    @click.native="updateForkShowState(index)"
+                                    >More Info</jet-button
+                                >
+                            </div>
+                        </div>
+                        <div v-else class="w-full flex flex-wrap">
+                            <jet-button
+                                type="button"
+                                @click.native="updateForkShowState(index)"
+                                >Less Info</jet-button
+                            >
                         </div>
 
-                        <div class="w-full mt-2">
+                        <!-- <div class="w-full mt-2">
                             <p class="italic">{{ fork.description }}</p>
                             <a
                                 class="italic text-blue-500 hover:text-blue-400"
                                 :href="fork.url"
                                 >{{ fork.url }}</a
                             >
-                        </div>
+                        </div> -->
 
-                        <div class="w-full">
-                            <table class="bg-white rounded mt-4">
-                                <thead>
-                                    <th
-                                        class="bg-gray-800 text-sm text-white font-semibold capitalize text-left px-2 py-1"
-                                    >
-                                        Ahead by
-                                    </th>
-                                    <th
-                                        class="bg-gray-800 text-sm text-white font-semibold capitalize text-left px-2 py-1"
-                                    >
-                                        Behind by
-                                    </th>
-                                    <th
-                                        class="bg-gray-800 text-sm text-white font-semibold capitalize text-left px-2 py-1"
-                                    >
-                                        Status
-                                    </th>
-                                    <th
-                                        class="bg-gray-800 text-sm text-white font-semibold capitalize text-left px-2 py-1"
-                                    >
-                                        Total Commits
-                                    </th>
-                                    <th
-                                        class="bg-gray-800 text-sm text-white font-semibold capitalize text-left px-2 py-1"
-                                    >
-                                        Open Issues
-                                    </th>
-                                    <th
-                                        class="bg-gray-800 text-sm text-white font-semibold capitalize text-left px-2 py-1"
-                                        v-show="fork.issues.resolved"
-                                    >
-                                        Issues Resolved
-                                    </th>
-                                    <th
-                                        class="bg-gray-800 text-sm text-white font-semibold capitalize text-left px-2 py-1"
-                                        v-show="fork.issues.total"
-                                    >
-                                        Total Issues
-                                    </th>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="text-sm px-2 py-1">
-                                            <!-- {{ fork.difference.ahead_by || '-' }} -->
-                                        </td>
-                                        <td class="text-sm px-2 py-1">
-                                            <!-- {{ fork.difference.behind_by || '-' }} -->
-                                        </td>
-                                        <td class="text-sm px-2 py-1">
-                                            <!-- {{ fork.difference.status || '-' }} -->
-                                        </td>
-                                        <td class="text-sm px-2 py-1">
-                                            <!-- {{ fork.difference.total_commits || '-' }} -->
-                                        </td>
-                                        <td class="text-sm px-2 py-1">
-                                            {{ fork.issues.open || '-' }}
-                                        </td>
-                                        <td
-                                            class="text-sm px-2 py-1"
+                        <!-- <div class="w-full">
+                                <table class="bg-white rounded mt-4">
+                                    <thead>
+                                        <th
+                                            class="bg-gray-800 text-sm text-white font-semibold capitalize text-left px-2 py-1"
+                                        >
+                                            Ahead by
+                                        </th>
+                                        <th
+                                            class="bg-gray-800 text-sm text-white font-semibold capitalize text-left px-2 py-1"
+                                        >
+                                            Behind by
+                                        </th>
+                                        <th
+                                            class="bg-gray-800 text-sm text-white font-semibold capitalize text-left px-2 py-1"
+                                        >
+                                            Status
+                                        </th>
+                                        <th
+                                            class="bg-gray-800 text-sm text-white font-semibold capitalize text-left px-2 py-1"
+                                        >
+                                            Total Commits
+                                        </th>
+                                        <th
+                                            class="bg-gray-800 text-sm text-white font-semibold capitalize text-left px-2 py-1"
+                                        >
+                                            Open Issues
+                                        </th>
+                                        <th
+                                            class="bg-gray-800 text-sm text-white font-semibold capitalize text-left px-2 py-1"
                                             v-show="fork.issues.resolved"
                                         >
-                                            {{ fork.issues.resolved || '-' }}
-                                        </td>
-                                        <td
-                                            class="text-sm px-2 py-1"
+                                            Issues Resolved
+                                        </th>
+                                        <th
+                                            class="bg-gray-800 text-sm text-white font-semibold capitalize text-left px-2 py-1"
                                             v-show="fork.issues.total"
                                         >
-                                            {{ fork.issues.total }}
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                                            Total Issues
+                                        </th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-sm px-2 py-1">
+                                                {{
+                                                    fork.difference.ahead_by ||
+                                                        "-"
+                                                }}
+                                            </td>
+                                            <td class="text-sm px-2 py-1">
+                                                {{
+                                                    fork.difference.behind_by ||
+                                                        "-"
+                                                }}
+                                            </td>
+                                            <td class="text-sm px-2 py-1"></td>
+                                            <td class="text-sm px-2 py-1">
+                                                {{
+                                                    fork.difference
+                                                        .total_commits || "-"
+                                                }}
+                                            </td>
+                                            <td class="text-sm px-2 py-1">
+                                                {{ fork.issues.open || "-" }}
+                                            </td>
+                                            <td
+                                                class="text-sm px-2 py-1"
+                                                v-show="fork.issues.resolved"
+                                            >
+                                                {{
+                                                    fork.issues.resolved || "-"
+                                                }}
+                                            </td>
+                                            <td
+                                                class="text-sm px-2 py-1"
+                                                v-show="fork.issues.total"
+                                            >
+                                                {{ fork.issues.total }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div> -->
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
     </div>
 </template>
@@ -201,16 +268,57 @@
 import BaseContainer from "@/Components/Base/Container";
 import BaseCard from "@/Components/Base/Card";
 import Icon from "@/Components/Base/Icon";
+import HistorgramGraph from "@/Components/HistorgramGraph";
+import JetInput from "@/Jetstream/Input";
+import JetButton from "@/Jetstream/Button";
 
 export default {
     components: {
         BaseContainer,
         BaseCard,
-        Icon
+        Icon,
+        HistorgramGraph,
+        JetInput,
+        JetButton
     },
     props: {
         repository: Object,
-        forkData: Array
+        forkData: {
+            type: Array
+        }
+    },
+    data() {
+        return {
+            searchText: "",
+            forks: []
+        };
+    },
+    computed: {
+        filtedForkedData() {
+            return this.forks;
+        }
+    },
+    mounted() {
+        let forks = _.cloneDeep(
+            this.forkData.map(fork => {
+                fork.showMore = false;
+                return fork;
+            })
+        );
+
+        forks.forEach((fork, index) => {
+            this.$set(this.forks, index, fork);
+        });
+    },
+    methods: {
+        updateSearch(value) {
+            this.searchText = value;
+        },
+        updateForkShowState(index) {
+            this.forks[index].showMore === true
+                ? (this.forks[index].showMore = false)
+                : (this.forks[index].showMore = true);
+        }
     }
 };
 </script>
