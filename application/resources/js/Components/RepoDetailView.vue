@@ -360,7 +360,20 @@ export default {
     },
     computed: {
         filtedForkedData() {
-            return this.forks;
+            return this.forks.filter(fork => {
+                if (this.searchText === "") return fork;
+
+                if (this.searchText === fork.status) {
+                    return fork;
+                } else {
+                    if (
+                        fork.owner.name
+                            .toLowerCase()
+                            .includes(this.searchText.toLowerCase())
+                    )
+                        return fork;
+                }
+            });
         }
     },
     mounted() {
