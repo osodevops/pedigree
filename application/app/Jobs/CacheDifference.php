@@ -18,14 +18,24 @@ class CacheDifference implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
+    /** @var \App\Services\GitHub */
     protected $service;
+
+    /** @var \App\Models\Repository */
     protected $baseRepository;
+
+    /** @var \App\Models\Repository */
     protected $repository;
+
+    /** @var string */
     protected $branch;
 
     /**
      * Create a new job instance.
      *
+     * @param  \App\Models\Repository  $base
+     * @param  \App\Models\Repository  $repository
+     * @param  string  $branch
      * @return void
      */
     public function __construct($base, $repository, $branch = 'main')
@@ -42,7 +52,7 @@ class CacheDifference implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $difference = $this->service->repository($this->repository->owner->id, $this->repository->name)
             ->compare(
@@ -50,7 +60,7 @@ class CacheDifference implements ShouldQueue
                 "{$this->baseRepository->owner->id}:{$this->branch}"
             );
 
-        Difference::updateOrcreate([
+        Difference::updateOrCreate([
             'base_repository_id' => $this->baseRepository->id,
             'repository_id' => $this->repository->id,
             'status' => 'unknown',
