@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Owner;
+use App\Models\Difference;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -59,6 +60,16 @@ class Repository extends Model
     public function parent()
     {
         return $this->belongsTo(static::class, 'parent_id');
+    }
+
+    /**
+     * A repository has many differences.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function differences()
+    {
+        return $this->hasMany(Difference::class, 'base_repository_id');
     }
 
     /**
