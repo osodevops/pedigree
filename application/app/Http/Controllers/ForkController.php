@@ -51,27 +51,16 @@ class ForkController
         return tap($forks->toArray(request()), function ($forks) use ($base) {
             foreach ($forks as $fork) {
                 $owner = Owner::firstOrCreate(['id' => $fork['owner']['name']], $fork['owner']);
-                $owner->repositories()->updateOrCreate(
+                $fork = $owner->repositories()->updateOrCreate(
                     ['id' => $fork['id']],
                     $fork + ['parent_id' => $base['id']]
                 );
-                Difference::firstOrCreate(['base_repository_id' => $base['id'], 'repository_id' => $fork['id']]);
+                Difference::firstOrCreate(['base_repository_id' => $base['id'], 'repository_id' => $fork['id']])
+                    ->setRelations([
+                        'baseRepository' => $base,
+                        'repository' => $fork
+                    ]);
             }
         });
-
-        return collect($baseRepository->forks(['per_page' => 100]))
-            ->map(function ($repository) use ($baseRepository) {
-                try {
-                    $repository['difference'] = $this->service->repository($repository['owner']['login'], $repository['name'])
-                        ->compare(
-                            $repository['default_branch'],
-                            "{$baseRepository->getUsername()}:{$repository['default_branch']}"
-                        );
-                } catch (\Exception $e) {
-                    return;
-                    // Do nothing
-                }
-                return RepositoryResource::make($repository);
-            })->filter();
     }
 }
