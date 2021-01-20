@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class DifferenceController extends Controller
 {
+    /**
+     * Retrieve a list of the differences from this repo.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $username
+     * @param  string  $repository
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request, $username, $repository)
     {
         $baseRepository = Repository::where('owner_id', $username)
