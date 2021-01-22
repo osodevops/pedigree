@@ -10,71 +10,68 @@ export default {
                 dataLabels: {
                     enabled: false
                 },
-                colors: ["#008FFB"],
-                title: {
-                    text: "HeatMap Chart (Single color)"
-                }
+                legend: {
+                    show: false
+                },
+                colors: ["#008FFB"]
             },
             series: [
                 {
-                    name: "Metric1",
                     data: [
                         {
-                            x: "W1",
+                            x: 1,
                             y: 22
                         },
                         {
-                            x: "W2",
+                            x: 2,
                             y: 29
                         },
                         {
-                            x: "W3",
+                            x: 3,
                             y: 13
                         },
                         {
-                            x: "W4",
+                            x: 4,
                             y: 32
                         }
                     ]
                 },
                 {
-                    name: "Metric2",
                     data: [
                         {
-                            x: "W1",
+                            x: 1,
                             y: 22
                         },
                         {
-                            x: "W2",
+                            x: 2,
                             y: 29
                         },
                         {
-                            x: "W3",
+                            x: 3,
                             y: 13
                         },
                         {
-                            x: "W4",
+                            x: 4,
                             y: 32
                         }
                     ]
                 },
                 {
-                    name: "Metric3",
                     data: [
                         {
-                            x: "W1",
+                            x: 1,
                             y: 22
                         },
                         {
-                            x: "W2",
+                            x: 2,
                             y: 29
                         },
                         {
-                            x: "W3",
+                            x: 3,
                             y: 13
                         },
                         {
-                            x: "W4",
+                            x: 4,
                             y: 32
                         }
                     ]

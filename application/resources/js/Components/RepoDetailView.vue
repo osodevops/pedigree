@@ -120,7 +120,7 @@
                                 </div>
                             </div>
 
-                            <div class="flex items-center ml-4">
+                            <div class="flex items-center">
                                 <Icon
                                     icon="code-branch"
                                     class="text-gray-400"
@@ -133,7 +133,7 @@
                                 >
                             </div>
 
-                            <div class="flex items-center ml-4">
+                            <div class="flex items-center">
                                 <Icon icon="star" class="text-gray-400" />
                                 <span class="ml-2"
                                     ><span class="text-sm font-semibold">{{
@@ -159,21 +159,85 @@
                             </div>
                         </div>
                         <div v-else class="w-full flex flex-wrap">
-                            <jet-button
-                                type="button"
-                                @click.native="updateForkShowState(index)"
-                                >Less Info</jet-button
+                            <div
+                                class="w-full flex flex-wrap justify-between items-center"
                             >
-                        </div>
+                                <div class="w-1/5 flex">
+                                    <div
+                                        class="w-48 mr-4"
+                                        style="width: 48px; height:48px;"
+                                    >
+                                        <img :src="fork.owner.avatar_url" />
+                                    </div>
 
-                        <!-- <div class="w-full mt-2">
-                            <p class="italic">{{ fork.description }}</p>
-                            <a
-                                class="italic text-blue-500 hover:text-blue-400"
-                                :href="fork.url"
-                                >{{ fork.url }}</a
-                            >
-                        </div> -->
+                                    <div class="w-auto">
+                                        <span
+                                            class="capitalize text-xl font-semibold"
+                                        >
+                                            {{ fork.owner.name }}
+                                        </span>
+
+                                        <span
+                                            class="block text-sm text-gray-600"
+                                        >
+                                            {{ fork.description }}
+                                        </span>
+
+                                        <div class="flex items-center">
+                                            <Icon
+                                                icon="code-branch"
+                                                class="text-gray-400"
+                                            />
+                                            <span
+                                                class="ml-2 text-sm text-gray-600"
+                                                >{{ fork.default_branch }}</span
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center">
+                                    <Icon
+                                        icon="code-branch"
+                                        class="text-gray-400"
+                                    />
+                                    <span class="ml-2"
+                                        ><span class="text-sm font-semibold">{{
+                                            fork.forks.total
+                                        }}</span>
+                                        forks</span
+                                    >
+                                </div>
+
+                                <div class="flex items-center">
+                                    <Icon icon="star" class="text-gray-400" />
+                                    <span class="ml-2"
+                                        ><span class="text-sm font-semibold">{{
+                                            fork.activity.watchers_count
+                                        }}</span>
+                                        stars</span
+                                    >
+                                </div>
+
+                                <div>
+                                    <a
+                                        :href="fork.url"
+                                        class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray transition ease-in-out duration-150"
+                                        >View on Github</a
+                                    >
+
+                                    <jet-button
+                                        type="button"
+                                        @click.native="
+                                            updateForkShowState(index)
+                                        "
+                                        class="ml-3"
+                                        >Less Info</jet-button
+                                    >
+                                </div>
+                            </div>
+                            <historgram-graph></historgram-graph>
+                        </div>
 
                         <!-- <div class="w-full">
                                 <table class="bg-white rounded mt-4">
@@ -285,7 +349,8 @@ export default {
         repository: Object,
         forkData: {
             type: Array
-        }
+        },
+        loading: Boolean
     },
     data() {
         return {
@@ -295,7 +360,20 @@ export default {
     },
     computed: {
         filtedForkedData() {
-            return this.forks;
+            return this.forks.filter(fork => {
+                if (this.searchText === "") return fork;
+
+                if (this.searchText === fork.status) {
+                    return fork;
+                } else {
+                    if (
+                        fork.owner.name
+                            .toLowerCase()
+                            .includes(this.searchText.toLowerCase())
+                    )
+                        return fork;
+                }
+            });
         }
     },
     mounted() {
