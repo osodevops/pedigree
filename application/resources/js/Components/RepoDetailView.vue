@@ -1,10 +1,10 @@
 <template>
     <div>
-        <h1 class="w-3/4 mx-auto text-2xl mt-2 mb-2 text-gray-700">
+        <h1 class="mx-auto text-2xl mt-2 mb-2 text-gray-700">
             Repository Overview
         </h1>
 
-        <div class="mx-auto flex flex-wrap w-3/4">
+        <div class="mx-auto flex flex-wrap">
             <base-container>
                 <div class="flex mb-4">
                     <!-- Repository Information -->
@@ -62,7 +62,7 @@
             </div>
         </div>
 
-        <div v-show="forkData.length > 0" class="w-3/4 mx-auto mt-3 mb-2">
+        <div v-show="forkData.length > 0" class="mx-auto mt-3 mb-2">
             <section class="w-full flex flex-wrap">
                 <h1 class="text-2xl text-gray-700">
                     Forks

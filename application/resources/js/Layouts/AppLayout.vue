@@ -249,7 +249,7 @@
         </nav>
 
         <!-- Page Content -->
-        <main>
+        <main class="px-4 md:px-8 mx-auto max-w-5xl">
             <slot></slot>
         </main>
 
