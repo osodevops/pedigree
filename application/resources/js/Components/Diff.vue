@@ -6,7 +6,7 @@
                 <div style="height: 5px;" :style="{width: behindPercentage}" class="bg-gray-300 rounded-tl-full rounded-bl-full"></div>
             </div>
         </div>
-        <div class="h-10 bg-gray-500" style="width:2px"></div>
+        <div class="h-10 bg-gray-500" style="width:1px"></div>
         <div class="flex flex-1 flex-col">
             <span class="ml-2 text-gray-800 text-sm mb-1">{{ aheadBy }} ahead</span>
             <div class="w-full">
