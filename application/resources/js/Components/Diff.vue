@@ -1,14 +1,14 @@
 <template>
     <div class="flex justify-center items-center">
         <div class="flex items-end flex-1 flex-col">
-            <span class="mr-2 text-gray-800 text-sm mb-1">{{ behindBy }} behind</span>
+            <span class="mr-2 text-gray-800 text-xs mb-1">{{ behindBy }}</span>
             <div class="w-full flex justify-end">
                 <div style="height: 5px;" :style="{width: behindPercentage}" class="bg-gray-300 rounded-tl-full rounded-bl-full"></div>
             </div>
         </div>
         <div class="h-10 bg-gray-500" style="width:1px"></div>
         <div class="flex flex-1 flex-col">
-            <span class="ml-2 text-gray-800 text-sm mb-1">{{ aheadBy }} ahead</span>
+            <span class="ml-2 text-gray-800 text-xs mb-1">{{ aheadBy }}</span>
             <div class="w-full">
                 <div style="height: 5px" :style="{width: aheadPercentage}" class="bg-gray-300 rounded-tr-full rounded-br-full"></div>
             </div>
@@ -34,7 +34,7 @@ export default {
     },
     computed: {
         maxScale() {
-            return Math.max(this.behindBy, this.aheadBy, +this.max);
+            return Math.max(this.behindBy, this.aheadBy, +this.max, 1);
         },
         aheadPercentage() {
             const perc = Math.floor((this.aheadBy / this.maxScale) * 100);
