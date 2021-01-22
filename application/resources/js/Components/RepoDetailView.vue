@@ -363,7 +363,7 @@ export default {
             return this.forks.filter(fork => {
                 if (this.searchText === "") return fork;
 
-                if (this.searchText === fork.status) {
+                if (this.searchText.toLowerCase() === fork.status.toLowerCase()) {
                     return fork;
                 } else {
                     if (
