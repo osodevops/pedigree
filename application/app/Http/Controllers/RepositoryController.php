@@ -34,7 +34,7 @@ class RepositoryController
     {
         try {
             return RepositoryResource::make(
-                $this->service->authenticateAs(auth()->user())->repository($user, $repository)->get()
+                $this->service->repository($user, $repository)->get()
             );
         } catch (Exception $e) {
             RepositoryNotFoundException::throw($user, $repository);

@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\User;
 use GuzzleHttp\Client;
-use App\Services\GitHub\AuthService;
 use App\Services\GitHub\StatsService;
 use App\Services\GitHub\RepositoriesService;
 
@@ -16,25 +15,6 @@ class GitHub
      * @var \GuzzleHttp\Client
      */
     protected Client $client;
-
-    /**
-     * Authentication service to handle API Authentication.
-     *
-     * @var \App\Services\GitHub\AuthService
-     */
-    protected $auth;
-
-    /**
-     * Authenticate with the API as the given user.
-     *
-     * @param  \App\Models\User  $user
-     * @return $this
-     */
-    public function authenticateAs(User $user)
-    {
-        $this->auth = new AuthService($user);
-        return $this;
-    }
 
     /**
      * Get an instance of the repositories service.
@@ -85,19 +65,8 @@ class GitHub
         return $this->client = new Client([
             'headers' => [
                 'Accept' => 'application/vnd.github.v3+json',
-                'Authorization' => $this->getAuth()->getAuthHeader()
+                'Authorization' => "Bearer " . config('services.github.server_key'),
             ]
         ]);
-    }
-
-    /**
-     * Get the current Authentication Service instance.
-     *
-     * @return \App\Services\GitHub\AuthService
-     */
-    protected function getAuth(): AuthService
-    {
-        return $this->auth
-            ?? new AuthService();
     }
 }
