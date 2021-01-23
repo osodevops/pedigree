@@ -38,11 +38,10 @@ class RepositoryController
     public function show(Request $request, $user, $repository)
     {
         try {
-            return RepositoryResource::make(
+            $resource = RepositoryResource::make(
                 $this->service->repository($user, $repository)->get()
             );
         } catch (Exception $e) {
-            dd($e);
             RepositoryNotFoundException::throw($user, $repository);
         }
 

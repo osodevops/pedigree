@@ -35,7 +35,7 @@ class ForkController
     {
         $base = Repository::where('name', $repository)
             ->where('owner_id', $user)
-            ->first();
+            ->firstOrFail();
 
         $baseRepository = $this->service->repository($user, $repository);
 
