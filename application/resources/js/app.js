@@ -16,13 +16,16 @@ Vue.use(PortalVue);
 
 import store from "@/Store/store";
 import { mapMutations } from "vuex";
-import VueApexCharts from "vue-apexcharts";
+// import VueApexCharts from "vue-apexcharts";
+import VTitle from 'v-title';
+import 'v-title/lib/element-ui';
 
-Vue.use(VueApexCharts);
+Vue.use(VTitle);
+// Vue.use(VueApexCharts);
 
 const app = document.getElementById("app");
 
-Vue.component("ApexChart", VueApexCharts);
+// Vue.component("ApexChart", VueApexCharts);
 
 new Vue({
     store,

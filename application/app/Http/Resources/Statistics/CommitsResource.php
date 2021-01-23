@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Statistics;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CommitsResource extends JsonResource
@@ -14,8 +15,8 @@ class CommitsResource extends JsonResource
      */
     public function toArray($request)
     {
-        return collect($this->resource)->map(function ($week) {
-            return $this->formatWeek($week);
+        return collect($this->resource)->map(function ($week, $offset) {
+            return $this->formatWeek($week, $offset);
         });
     }
 
@@ -23,16 +24,40 @@ class CommitsResource extends JsonResource
      * Format the given week of data for rendering.
      *
      * @param  array  $week
+     * @param  int  $offset
      * @return array
      */
-    private function formatWeek($week)
+    private function formatWeek($week, $offset)
     {
+        $weekStart = Carbon::parse($week['week']);
         return [
+            'display_month' => $this->getDisplayMonth($offset, $weekStart),
+            'dates' => $this->getDates($weekStart),
             'count' => $week['days'],
             'scale' => collect($week['days'])->map(function ($count) {
                 return $this->calculateScale($count);
             })
         ];
+    }
+
+    private function getDates($dayOfWeek)
+    {
+        return collect(range(0, 6))->map(function ($day) use ($dayOfWeek) {
+            if ($day > 0) {
+                $dayOfWeek->addDay();
+            }
+
+            return $dayOfWeek->format("M j, Y");
+        });
+    }
+
+    private function getDisplayMonth($offset, $weekStart)
+    {
+        if (! in_array($offset, [1, 14, 27, 40])) {
+            return;
+        }
+
+        return $weekStart->format('M');
     }
 
     /**

@@ -1,10 +1,10 @@
 <template>
     <div>
-        <h1 class="w-3/4 mx-auto text-2xl mt-2 mb-2 text-gray-700">
+        <h1 class="mx-auto text-2xl mt-2 mb-2 text-gray-700">
             Repository Overview
         </h1>
 
-        <div class="mx-auto flex flex-wrap w-3/4">
+        <div class="mx-auto flex flex-wrap">
             <base-container>
                 <div class="flex mb-4">
                     <!-- Repository Information -->
@@ -21,9 +21,10 @@
                         <div class="mt-2">
                             <p class="italic">{{ repository.description }}</p>
                         </div>
-
-                        <HistorgramGraph />
                     </div>
+                </div>
+                <div class="max-w-full">
+                    <commits-heatmap :username="repository.owner.name" :repository="repository.name" />
                 </div>
             </base-container>
             <div class="w-1/4 p-4">
@@ -40,19 +41,10 @@
                     }}</span>
                 </div>
                 <div class="flex items-center">
-                    <Icon icon="code-branch" class="text-gray-400" />
-                    <span class="ml-2">
-                        <span class="font-bold">{{
-                            repository.forks.total
-                        }}</span>
-                        forks
-                    </span>
-                </div>
-                <div class="flex items-center">
                     <Icon icon="star" class="text-gray-400" />
                     <span class="ml-2"
                         ><span class="font-bold">{{
-                            repository.activity.watchers_count
+                            repository.watchers_count
                         }}</span>
                         stars</span
                     >
@@ -62,7 +54,7 @@
             </div>
         </div>
 
-        <div v-show="forkData.length > 0" class="w-3/4 mx-auto mt-3 mb-2">
+        <div v-show="forkData.length > 0" class="mx-auto mt-3 mb-2">
             <section class="w-full flex flex-wrap">
                 <h1 class="text-2xl text-gray-700">
                     Forks
@@ -339,20 +331,18 @@
 import BaseContainer from "@/Components/Base/Container";
 import BaseCard from "@/Components/Base/Card";
 import Icon from "@/Components/Base/Icon";
-import HistorgramGraph from "@/Components/HistorgramGraph";
 import JetInput from "@/Jetstream/Input";
 import JetButton from "@/Jetstream/Button";
-import Diff from "@/Components/Diff";
+import CommitsHeatmap from '@/Components/HeatmapContainer.vue';
 
 export default {
     components: {
         BaseContainer,
         BaseCard,
         Icon,
-        HistorgramGraph,
         JetInput,
         JetButton,
-        Diff
+        CommitsHeatmap,
     },
     props: {
         repository: Object,
@@ -372,7 +362,7 @@ export default {
             return this.forks.filter(fork => {
                 if (this.searchText === "") return fork;
 
-                if (this.searchText === fork.status) {
+                if (this.searchText.toLowerCase() === fork.status.toLowerCase()) {
                     return fork;
                 } else {
                     if (

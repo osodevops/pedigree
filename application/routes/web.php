@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ForkController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DifferenceController;
 use App\Http\Controllers\RepositoryController;
 use App\Http\Controllers\Statistics;
 

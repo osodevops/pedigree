@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Owner;
 use App\Services\GitHub;
+use App\Models\Difference;
+use App\Models\Repository;
 use App\Http\Resources\RepositoryResource;
 
 class ForkController
@@ -30,6 +33,10 @@ class ForkController
      */
     public function index($user, $repository)
     {
+        $base = Repository::where('name', $repository)
+            ->where('owner_id', $user)
+            ->firstOrFail();
+
         $baseRepository = $this->service->repository($user, $repository);
 
         $queryOptions = [
@@ -37,22 +44,29 @@ class ForkController
             'page' => request('page', 1)
         ];
 
-        return RepositoryResource::collection(
+        $forks = RepositoryResource::collection(
             $this->service->repository($user, $repository)->forks($queryOptions)
         );
-        return collect($baseRepository->forks(['per_page' => 100]))
-            ->map(function ($repository) use ($baseRepository) {
-                try {
-                    $repository['difference'] = $this->service->repository($repository['owner']['login'], $repository['name'])
-                        ->compare(
-                            $repository['default_branch'],
-                            "{$baseRepository->getUsername()}:{$repository['default_branch']}"
-                        );
-                } catch (\Exception $e) {
-                    return;
-                    // Do nothing
-                }
-                return RepositoryResource::make($repository);
-            })->filter();
+
+        return tap($forks->toArray(request()), function ($forks) use ($base) {
+            foreach ($forks as $fork) {
+                $owner = Owner::firstOrCreate(['id' => $fork['owner']['name']], $fork['owner']);
+                $fork = $owner->repositories()->updateOrCreate(
+                    ['id' => $fork['id']],
+                    $fork + ['parent_id' => $base['id']]
+                );
+
+                Difference::updateOrCreate([
+                    'base_repository_id' => $base['id'],
+                    'repository_id' => $fork['id'],
+                ], [
+                    'status' => 'unknown',
+                ])
+                ->setRelations([
+                    'baseRepository' => $base,
+                    'repository' => $fork
+                ]);
+            }
+        });
     }
 }

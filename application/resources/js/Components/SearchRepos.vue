@@ -1,7 +1,7 @@
 <template>
-    <base-panel>
+    <base-card>
         <search-bar :searchMethod="getRepositoryInformation"></search-bar>
-    </base-panel>
+    </base-card>
 </template>
 
 <script>
@@ -16,7 +16,8 @@ export default {
     components: {
         SearchBar,
         BasePanel,
-        JetButton
+        JetButton,
+        BaseCard
     },
     mounted() {
         this.$store.registerModule("searchRepos", SearchReposModule);

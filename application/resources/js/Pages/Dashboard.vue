@@ -4,9 +4,8 @@
 
         <BaseLoadingSpinner v-show="loading" />
 
-        <div v-if="this.activeRepository">
+        <div v-if="this.activeRepository.id">
             <repo-detail-view
-                v-if="activeForks.length > 0"
                 :repository="activeRepository"
                 :forkData="activeForks"
             ></repo-detail-view>
@@ -34,11 +33,12 @@ export default {
     },
     computed: {
         activeRepository() {
-            if (!this.$store.state.searchRepos) return false;
-            return this.$store.state.searchRepos.repositoryBreakdown.data;
+            if (!this.$store.state.searchRepos) return {};
+            return this.$store.state.searchRepos.repositoryBreakdown;
         },
         activeForks() {
-            if (!this.$store.state.searchRepos) return false;
+            if (!this.$store.state.searchRepos) return [];
+            if (!this.$store.state.searchRepos.forkData) return [];
             return this.$store.state.searchRepos.forkData;
         },
         loading() {

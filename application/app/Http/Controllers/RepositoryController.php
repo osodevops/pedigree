@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use App\Models\Owner;
 use App\Services\GitHub;
+use Illuminate\Http\Request;
 use App\Http\Resources\RepositoryResource;
 use App\Exceptions\RepositoryNotFoundException;
 
@@ -26,18 +28,26 @@ class RepositoryController
     /**
      * Retrieve a single repository.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  string  $user
      * @param  string  $repository
      * @return \Illuminate\Http\Response
+     *
+     * @throws App\Exceptions\RepositoryNotFoundException
      */
-    public function show($user, $repository)
+    public function show(Request $request, $user, $repository)
     {
         try {
-            return RepositoryResource::make(
+            $resource = RepositoryResource::make(
                 $this->service->repository($user, $repository)->get()
             );
         } catch (Exception $e) {
             RepositoryNotFoundException::throw($user, $repository);
         }
+
+        return tap($resource->toArray($request), function ($repository) {
+            $owner = Owner::updateOrCreate(['id' => $repository['owner']['name']], $repository['owner']);
+            $owner->repositories()->updateOrCreate(['id' => $repository['id']], $repository);
+        });
     }
 }
