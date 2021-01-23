@@ -46,7 +46,7 @@ class RepositoryController
         }
 
         return tap($resource->toArray($request), function ($repository) {
-            $owner = Owner::updateOrCreate(['id' => $repository['owner']['name']], $repository['owner']);
+            $owner = Owner::updateOrCreate(['id' => $repository['owner']['id']], $repository['owner']);
             $owner->repositories()->updateOrCreate(['id' => $repository['id']], $repository);
         });
     }

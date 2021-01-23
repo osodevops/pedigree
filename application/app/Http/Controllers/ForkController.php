@@ -50,7 +50,7 @@ class ForkController
 
         return tap($forks->toArray(request()), function ($forks) use ($base) {
             foreach ($forks as $fork) {
-                $owner = Owner::firstOrCreate(['id' => $fork['owner']['name']], $fork['owner']);
+                $owner = Owner::firstOrCreate(['id' => $fork['owner']['id']], $fork['owner']);
                 $fork = $owner->repositories()->updateOrCreate(
                     ['id' => $fork['id']],
                     $fork + ['parent_id' => $base['id']]

@@ -7,9 +7,7 @@
                 :placeholder="placeholder"
                 onClick="this.select();"
             ></jet-input>
-            <jet-button>
-                Search
-            </jet-button>
+            <jet-button>Search</jet-button>
         </div>
         <jet-input-error :message="errorMessage"></jet-input-error>
     </form>
