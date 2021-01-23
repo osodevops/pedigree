@@ -19,7 +19,7 @@
                     <Icon icon="star" class="text-gray-400" />
                     <span class="ml-2"
                         ><span class="font-bold">{{
-                            repository.watchers_count
+                            numberFormat(repository.watchers_count)
                         }}</span>
                         stars</span
                     >
@@ -380,6 +380,9 @@ export default {
             this.forks[index].showMore === true
                 ? (this.forks[index].showMore = false)
                 : (this.forks[index].showMore = true);
+        },
+        numberFormat(number) {
+            return window.numberFormat(number);
         }
     }
 };
