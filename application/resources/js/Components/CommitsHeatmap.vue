@@ -22,13 +22,15 @@
 
 
 <script>
+import colours from "@/Config/colours";
+
 export default {
     props: {
         data: Array
     },
     data() {
         return {
-            colours: ['#ebedf1', '#9be9a8', '#41c463', '#31a14e', '#216e39']
+            colours: colours.heatmap
         }
     },
     methods: {

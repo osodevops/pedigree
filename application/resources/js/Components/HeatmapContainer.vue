@@ -19,8 +19,14 @@ export default {
         BaseCard,
     },
     props: {
-        username: String,
-        repository: String
+        username: {
+            type: String,
+            required: true,
+        },
+        repository: {
+            type: String,
+            required: true,
+        }
     },
     data() {
         return {
