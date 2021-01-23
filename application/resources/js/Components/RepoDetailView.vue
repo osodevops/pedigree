@@ -21,9 +21,10 @@
                         <div class="mt-2">
                             <p class="italic">{{ repository.description }}</p>
                         </div>
-
-                        <HistorgramGraph />
                     </div>
+                </div>
+                <div class="max-w-full">
+                    <commits-heatmap :username="repository.owner.name" :repository="repository.name" />
                 </div>
             </base-container>
             <div class="w-1/4 p-4">
@@ -40,19 +41,10 @@
                     }}</span>
                 </div>
                 <div class="flex items-center">
-                    <Icon icon="code-branch" class="text-gray-400" />
-                    <span class="ml-2">
-                        <span class="font-bold">{{
-                            repository.forks.total
-                        }}</span>
-                        forks
-                    </span>
-                </div>
-                <div class="flex items-center">
                     <Icon icon="star" class="text-gray-400" />
                     <span class="ml-2"
                         ><span class="font-bold">{{
-                            repository.activity.watchers_count
+                            repository.watchers_count
                         }}</span>
                         stars</span
                     >
@@ -332,18 +324,18 @@
 import BaseContainer from "@/Components/Base/Container";
 import BaseCard from "@/Components/Base/Card";
 import Icon from "@/Components/Base/Icon";
-import HistorgramGraph from "@/Components/HistorgramGraph";
 import JetInput from "@/Jetstream/Input";
 import JetButton from "@/Jetstream/Button";
+import CommitsHeatmap from '@/Components/HeatmapContainer.vue';
 
 export default {
     components: {
         BaseContainer,
         BaseCard,
         Icon,
-        HistorgramGraph,
         JetInput,
-        JetButton
+        JetButton,
+        CommitsHeatmap,
     },
     props: {
         repository: Object,

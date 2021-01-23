@@ -1,5 +1,5 @@
 <template>
-    <div class="md:mx-2 mx-3 flex flex-col items-end xl:items-center overflow-hidden pt-1 h-full text-center">
+    <div class="flex flex-col items-end xl:items-center overflow-hidden h-full text-center">
         <commits-heatmap :data="data" />
     </div>
 </template>
@@ -12,18 +12,19 @@ export default {
         CommitsHeatmap
     },
     props: {
-        data: Array
+        username: String,
+        repository: String,
     },
     data() {
         return {
-            temp: []
+            data: []
         }
     },
     mounted() {
-        // axios.get('repos/laravel/laravel/stats/commits')
-        //     .then(({data}) => {
-        //         this.temp = data.data;
-        //     });
+        axios.get(`repos/${this.username}/${this.repository}/stats/commits`)
+            .then(({data}) => {
+                this.data = data.data;
+            });
     }
 }
 </script>
