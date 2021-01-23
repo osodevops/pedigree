@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="flex flex-col sm:flex-row">
+        <div class="flex flex-col sm:flex-row mb-4">
             <div style="width: 75px; height:75px" class="mr-4">
                 <img :src="repository.owner.avatar_url" />
             </div>
@@ -28,11 +28,7 @@
                     </div>
                 </div>
             </div>
-
         </div>
-        <ul class="flex flex-no-wrap">
-            <jet-nav-link href="#overview" :active="true">Overview</jet-nav-link>
-        </ul>
     </div>
 </template>
 
