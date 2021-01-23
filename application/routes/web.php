@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Statistics;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ForkController;
 use App\Http\Controllers\DashboardController;
