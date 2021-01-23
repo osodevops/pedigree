@@ -1,9 +1,7 @@
 <template>
     <div>
         <div class="mx-auto flex flex-wrap flex-1">
-            <div class="mb-4">
-                <commits-heatmap :username="repository.owner.name" :repository="repository.name" />
-            </div>
+            <commits-heatmap :username="repository.owner.name" :repository="repository.name" class="mb-4" />
             <repository-languages :username="repository.owner.name" :repository="repository.name" />
         </div>
 
