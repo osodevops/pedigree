@@ -1,4 +1,5 @@
 import * as Types from "./types";
+import Vue from "vue";
 
 export default {
     namespaced: true,
@@ -31,6 +32,13 @@ export default {
         },
         [Types.SEARCH_REPO_LOADING_STATE](state, isLoading) {
             state.loadingGithubInfo = isLoading;
+        },
+        [Types.SEARCH_REPOS_UPDATE_FORK_DIFFERENCES](state, difference) {
+            let index = state.forkData.findIndex(
+                fork => fork.id === difference.repository_id
+            );
+            state.forkData[index].difference = {};
+            Vue.set(state.forkData[index], "difference", difference);
         }
     },
     actions: {
@@ -68,7 +76,7 @@ export default {
                     }
                 );
         },
-        getRepositoryForkInformation({ commit, state }) {
+        getRepositoryForkInformation({ commit, dispatch, state }) {
             axios
                 .get(
                     `/repos/${state.githubUsername}/${state.githubRepositoryName}/forks`
@@ -77,13 +85,47 @@ export default {
                     ({ data }) => {
                         commit(
                             Types.SEARCH_REPOS_UPDATE_FORKS_INFORMATION,
-                            data.data
+                            data
                         );
+
+                        dispatch("getForkDifferences");
                     },
                     error => {
                         commit(Types.SEARCH_REPOS_UPDATE_ERROR_MESSAGE, error);
                     }
                 );
+        },
+        getForkDifferences({ commit, state }) {
+            let polling = setInterval(() => {
+                axios
+                    .get(
+                        `/repos/${state.githubUsername}/${state.githubRepositoryName}/differences`
+                    )
+                    .then(
+                        ({ data }) => {
+                            data.data.forEach(differences => {
+                                commit(
+                                    Types.SEARCH_REPOS_UPDATE_FORK_DIFFERENCES,
+                                    differences
+                                );
+                            });
+
+                            if (
+                                state.forkData.find(
+                                    fork => fork.difference.status === "unknown"
+                                ) === undefined
+                            ) {
+                                clearInterval(polling);
+                            }
+                        },
+                        error => {
+                            commit(
+                                Types.SEARCH_REPOS_UPDATE_ERROR_MESSAGE,
+                                error
+                            );
+                        }
+                    );
+            }, 3000);
         }
     }
 };
