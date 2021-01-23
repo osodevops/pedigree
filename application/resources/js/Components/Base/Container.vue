@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white w-3/4 mx-auto rounded p-4 shadow-md">
+    <div class="max-w-4xl mx-auto">
         <slot></slot>
     </div>
 </template>

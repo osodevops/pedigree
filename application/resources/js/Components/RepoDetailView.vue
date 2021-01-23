@@ -1,33 +1,12 @@
 <template>
     <div>
-        <h1 class="mx-auto text-2xl mt-2 mb-2 text-gray-700">
-            Repository Overview
-        </h1>
-
-        <div class="mx-auto flex flex-wrap">
-            <base-container>
-                <div class="flex mb-4">
-                    <!-- Repository Information -->
-                    <div style="width: 75px; height:75px" class="mr-4">
-                        <img :src="repository.owner.avatar_url" />
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-2xl"
-                            >{{ repository.name }} /
-                            <span class="font-semibold">{{
-                                repository.owner.name
-                            }}</span></span
-                        >
-                        <div class="mt-2">
-                            <p class="italic">{{ repository.description }}</p>
-                        </div>
-                    </div>
-                </div>
+        <div class="mx-auto flex flex-wrap flex-1">
+            <base-card>
                 <div class="max-w-full">
                     <commits-heatmap :username="repository.owner.name" :repository="repository.name" />
                 </div>
-            </base-container>
-            <div class="w-1/4 p-4">
+            </base-card>
+            <div class="min-w-xs max-w-sm p-4">
                 <a
                     class="underline text-decoration-none text-gray-600 hover:text-gray-400 leading-3 cursor-pointer"
                     :href="repository.url"

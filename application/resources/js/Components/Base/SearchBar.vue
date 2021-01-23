@@ -1,8 +1,8 @@
 <template>
-    <form class="w-full p-4" @submit.prevent="searchMethod(url)">
-        <div class="flex flex-wrap">
+    <form class="w-full" @submit.prevent="searchMethod(url)">
+        <div class="flex flex-no-wrap">
             <jet-input
-                class="w-11/12 mr-2"
+                class="flex-1 mr-2"
                 v-model="url"
                 :placeholder="placeholder"
             ></jet-input>

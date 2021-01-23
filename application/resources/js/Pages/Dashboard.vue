@@ -1,15 +1,26 @@
 <template>
     <app-layout>
-        <search-repos></search-repos>
+        <section class="bg-gray-100 w-full border-b border-gray-200 pt-8 mb-8">
+            <container>
+                <div :class="{'mb-4': activeRepository.id, 'mb-8': !activeRepository.id}">
+                    <search-repos></search-repos>
+                </div>
+
+                <div v-if="activeRepository.id">
+                    <repository-header :repository="activeRepository" />
+                </div>
+            </container>
+        </section>
 
         <BaseLoadingSpinner v-show="loading" />
-
-        <div v-if="this.activeRepository.id">
-            <repo-detail-view
-                :repository="activeRepository"
-                :forkData="activeForks"
-            ></repo-detail-view>
-        </div>
+        <container>
+            <div v-if="this.activeRepository.id">
+                <repo-detail-view
+                    :repository="activeRepository"
+                    :forkData="activeForks"
+                ></repo-detail-view>
+            </div>
+        </container>
     </app-layout>
 </template>
 
@@ -20,13 +31,17 @@ import RepoDetailView from "@/Components/RepoDetailView.vue";
 import dashboardModule from "@/Store/Modules/Dashboard/index";
 import searchRepos from "@/components/SearchRepos";
 import AppLayout from "@/Layouts/AppLayout";
+import RepositoryHeader from "@/Components/RepositoryHeader";
+import Container from "@/Components/Base/Container";
 
 export default {
     components: {
         AppLayout,
         RepoDetailView,
         searchRepos,
-        BaseLoadingSpinner
+        BaseLoadingSpinner,
+        RepositoryHeader,
+        Container,
     },
     props: {
         user: Object
