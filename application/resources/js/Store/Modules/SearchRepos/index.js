@@ -113,7 +113,7 @@ export default {
                             if (
                                 state.forkData.find(
                                     fork => fork.difference.status === "unknown"
-                                ) === "undefined"
+                                ) === undefined
                             ) {
                                 clearInterval(polling);
                             }
