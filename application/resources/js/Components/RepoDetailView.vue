@@ -1,32 +1,10 @@
 <template>
     <div>
         <div class="mx-auto flex flex-wrap flex-1">
-            <commits-heatmap :username="repository.owner.name" :repository="repository.name" />
-            <div class="min-w-xs max-w-sm p-4">
-                <a
-                    class="underline text-decoration-none text-gray-600 hover:text-gray-400 leading-3 cursor-pointer"
-                    :href="repository.url"
-                    >View on Github
-                    <Icon icon="location-arrow" class="text-gray-400"
-                /></a>
-                <div class="flex items-center">
-                    <Icon icon="code-branch" class="text-gray-400" />
-                    <span class="font-bold ml-2">{{
-                        repository.default_branch
-                    }}</span>
-                </div>
-                <div class="flex items-center">
-                    <Icon icon="star" class="text-gray-400" />
-                    <span class="ml-2"
-                        ><span class="font-bold">{{
-                            numberFormat(repository.watchers_count)
-                        }}</span>
-                        stars</span
-                    >
-                </div>
-
-                <!-- languages section -->
+            <div class="mb-4">
+                <commits-heatmap :username="repository.owner.name" :repository="repository.name" />
             </div>
+            <repository-languages :username="repository.owner.name" :repository="repository.name" />
         </div>
 
         <div v-show="forkData.length > 0" class="mx-auto mt-3 mb-2">
@@ -308,7 +286,9 @@ import BaseCard from "@/Components/Base/Card";
 import Icon from "@/Components/Base/Icon";
 import JetInput from "@/Jetstream/Input";
 import JetButton from "@/Jetstream/Button";
-import CommitsHeatmap from '@/Components/HeatmapContainer.vue';
+import CommitsHeatmap from '@/Components/HeatmapContainer';
+import RepositoryLanguages from "@/Components/RepositoryLanguagesContainer";
+
 
 export default {
     components: {
@@ -318,6 +298,7 @@ export default {
         JetInput,
         JetButton,
         CommitsHeatmap,
+        RepositoryLanguages,
     },
     props: {
         repository: Object,

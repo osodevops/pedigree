@@ -1,13 +1,13 @@
 <template>
-    <div class="max-w-xs">
-        <div class="flex flex-no-wrap">
-            <div v-for="(language, key) in data"
+    <div class="min-w-xs max-w-full">
+        <div class="flex flex-no-wrap my-2">
+            <div v-for="(language, key) in languages"
                 :key="key" class="h-2 bar"
                 :style="{width: `${language.percentage}%`, backgroundColor:colours[key]}">
             </div>
         </div>
         <div class="flex flex-wrap">
-            <div v-for="(language, key) in data" :key="key" class="flex flex-no-wrap items-center text-xs text-black w-1/2 mt-1" style="min-width: 80px">
+            <div v-for="(language, key) in languages" :key="key" class="flex flex-no-wrap items-center text-xs text-black w-1/2 mt-1" style="min-width: 80px; max-width: 160px">
                 <span class="ml-3 h-3 w-3 rounded-full mr-1" :style="{backgroundColor: colours[key]}"></span>
                 <span class="font-semibold">{{ key }}</span>
                 <span class="ml-auto">{{ language.percentage }}%</span>
@@ -21,28 +21,13 @@ import colours from "@/Config/colours";
 
 export default {
     props: {
-        username: {
-            type: String,
-            required: true
-        },
-        repository: {
-            type: String,
-            required: true
-        }
+        languages: [],
     },
     data() {
         return {
-            data: [],
             colours: colours.languages,
         };
     },
-    mounted() {
-        axios
-            .get(`/repos/${this.username}/${this.repository}/stats/languages`)
-            .then(({ data }) => {
-                this.data = data.data;
-            });
-    }
 }
 </script>
 
