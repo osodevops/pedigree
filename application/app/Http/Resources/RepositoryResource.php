@@ -23,7 +23,6 @@ class RepositoryResource extends JsonResource
             'url' => $repository['html_url'],
             'default_branch' => $repository['default_branch'],
             'owner' => [
-                'id' => $repository['owner']['id'],
                 'name' => $repository['owner']['login'],
                 'url' => $repository['owner']['html_url'],
                 'avatar_url' => $repository['owner']['avatar_url'],
@@ -32,25 +31,10 @@ class RepositoryResource extends JsonResource
                 $parent = $repository['parent'] ?? [];
                 return static::make($parent);
             }),
-            'difference' => $this->when(array_key_exists('difference', $repository), function () use ($repository) {
-                $difference = $repository['difference'] ?? [];
-                return Arr::only($difference, ['status', 'ahead_by', 'behind_by', 'total_commits']);
-            }),
-            'issues' => [
-                'total' => null,
-                'open' => $repository['open_issues_count'],
-                'resolved' => null
-            ],
-            'forks' => [
-                'total' => $repository['forks'],
-            ],
-            'activity' => [
-                'watchers_count' => $repository['watchers'],
-            ],
-            'meta' => [
-                'created_at' => $repository['created_at'],
-                'updated_at' => $repository['updated_at'],
-            ]
+            'open_issues' => $repository['open_issues_count'],
+            'watchers_count' => $repository['watchers'],
+            'created_at' => $repository['created_at'],
+            'updated_at' => $repository['updated_at'],
         ];
     }
 }
