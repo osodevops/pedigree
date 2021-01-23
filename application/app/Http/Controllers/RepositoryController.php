@@ -38,8 +38,8 @@ class RepositoryController
     public function show(Request $request, $user, $repository)
     {
         try {
-            $resource = RepositoryResource::make(
-                $this->service->authenticateAs(auth()->user())->repository($user, $repository)->get()
+            return RepositoryResource::make(
+                $this->service->repository($user, $repository)->get()
             );
         } catch (Exception $e) {
             dd($e);
