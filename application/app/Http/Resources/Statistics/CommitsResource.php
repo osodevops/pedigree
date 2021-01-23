@@ -15,9 +15,14 @@ class CommitsResource extends JsonResource
      */
     public function toArray($request)
     {
-        return collect($this->resource)->map(function ($week, $offset) {
+        $commits = collect($this->resource)->map(function ($week, $offset) {
             return $this->formatWeek($week, $offset);
         });
+
+        return [
+            'commits' => $commits,
+            'total' => $commits->sum('total'),
+        ];
     }
 
     /**
@@ -30,11 +35,13 @@ class CommitsResource extends JsonResource
     private function formatWeek($week, $offset)
     {
         $weekStart = Carbon::parse($week['week']);
+        $days = collect($week['days']);
         return [
+            'total' => $days->sum(),
             'display_month' => $this->getDisplayMonth($offset, $weekStart),
             'dates' => $this->getDates($weekStart),
             'count' => $week['days'],
-            'scale' => collect($week['days'])->map(function ($count) {
+            'scale' => $days->map(function ($count) {
                 return $this->calculateScale($count);
             })
         ];

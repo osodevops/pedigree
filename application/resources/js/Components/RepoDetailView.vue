@@ -1,11 +1,7 @@
 <template>
     <div>
         <div class="mx-auto flex flex-wrap flex-1">
-            <base-card>
-                <div class="max-w-full">
-                    <commits-heatmap :username="repository.owner.name" :repository="repository.name" />
-                </div>
-            </base-card>
+            <commits-heatmap :username="repository.owner.name" :repository="repository.name" />
             <div class="min-w-xs max-w-sm p-4">
                 <a
                     class="underline text-decoration-none text-gray-600 hover:text-gray-400 leading-3 cursor-pointer"
