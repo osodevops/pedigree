@@ -30,7 +30,7 @@ export default {
     },
     data() {
         return {
-            languages: []
+            languages: {}
         }
     },
     mounted() {

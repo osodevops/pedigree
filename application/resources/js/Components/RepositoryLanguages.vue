@@ -21,7 +21,7 @@ import colours from "@/Config/colours";
 
 export default {
     props: {
-        languages: [],
+        languages: Object
     },
     data() {
         return {
