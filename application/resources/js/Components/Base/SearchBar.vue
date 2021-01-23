@@ -1,9 +1,9 @@
 <template>
-    <form class="w-full" @submit.prevent="searchMethod(url)">
+    <form class="w-full" @submit.prevent="searchMethod(internalUrl)">
         <div class="flex flex-no-wrap">
             <jet-input
                 class="flex-1 mr-2"
-                v-model="url"
+                v-model="internalUrl"
                 :placeholder="placeholder"
                 onClick="this.select();"
             ></jet-input>
@@ -36,11 +36,16 @@ export default {
             type: Function,
             default: () => {},
             required: true
+        },
+        url: {
+            type: String,
+            default: ""
         }
     },
     data() {
         return {
-            url: ""
+            // clone is important here as it stops the prop url data from being mutated.
+            internalUrl: _.clone(this.url)
         };
     }
 };
