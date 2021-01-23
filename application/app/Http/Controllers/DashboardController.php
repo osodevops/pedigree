@@ -14,11 +14,10 @@ class DashboardController
      */
     public function show($user = null, $repository = null)
     {
-        if ($user) {
-            if (! $repository) {
-                return redirect()->route('dashboard');
-            }
+        if ($user && ! $repository) {
+            return redirect()->route('dashboard');
         }
+
         $repository = Repository::with('owner')
             ->where('name', $user ?? config('app.default_repository.name'))
             ->where('owner_id', $repository ?? config('app.default_repository.owner_id'))
