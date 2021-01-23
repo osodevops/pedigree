@@ -21,11 +21,13 @@ export default {
     props: {
         behindBy: {
             type: Number,
-            default: 0
+            default: 0,
+            required: true,
         },
         aheadBy: {
             type: Number,
-            default: 0
+            default: 0,
+            required: true,
         },
         max: {
             type: Number,
