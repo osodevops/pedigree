@@ -33,6 +33,7 @@ class RepositoryResource extends JsonResource
             }),
             'open_issues' => $repository['open_issues_count'],
             'watchers_count' => $repository['watchers'],
+            'license' => optional($repository['license'])['name'] ?? null,
             'created_at' => $repository['created_at'],
             'updated_at' => $repository['updated_at'],
         ];
