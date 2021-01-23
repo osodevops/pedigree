@@ -1,5 +1,7 @@
 <template>
-    <search-bar :searchMethod="getRepositoryInformation"></search-bar>
+    <base-card>
+        <search-bar :searchMethod="getRepositoryInformation"></search-bar>
+    </base-card>
 </template>
 
 <script>

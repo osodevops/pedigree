@@ -1,8 +1,5 @@
 <template>
     <app-layout>
-        <div class="bg-white p-4 rounded shadow mt-8">
-            <heatmap :data="commits" />
-        </div>
         <search-repos></search-repos>
 
         <BaseLoadingSpinner v-show="loading" />
@@ -24,24 +21,16 @@ import RepoDetailView from "@/Components/RepoDetailView.vue";
 import dashboardModule from "@/Store/Modules/Dashboard/index";
 import searchRepos from "@/components/SearchRepos";
 import AppLayout from "@/Layouts/AppLayout";
-import Heatmap from "@/Components/HeatmapContainer";
-
 
 export default {
     components: {
         AppLayout,
         RepoDetailView,
         searchRepos,
-        BaseLoadingSpinner,
-        Heatmap,
+        BaseLoadingSpinner
     },
     props: {
         user: Object
-    },
-    data() {
-        return {
-            commits: _.map(_.range(0, 52), () => { return [0,1,2,3,4,3,2]; }),
-        }
     },
     computed: {
         activeRepository() {
