@@ -28,7 +28,10 @@ export default {
             state.githubRepositoryName = repoName;
         },
         [Types.SEARCH_REPOS_UPDATE_FORKS_INFORMATION](state, forkData) {
-            state.forkData = forkData;
+            state.forkData = forkData.map(fork => {
+                fork.showMore = false;
+                return fork;
+            });
         },
         [Types.SEARCH_REPO_LOADING_STATE](state, isLoading) {
             state.loadingGithubInfo = isLoading;
@@ -39,6 +42,11 @@ export default {
             );
             state.forkData[index].difference = {};
             Vue.set(state.forkData[index], "difference", difference);
+        },
+        [Types.SEARCH_REPOS_UPDATE_FORK_SHOW_STATE](state, index) {
+            state.forkData[index].showMore === true
+                ? (state.forkData[index].showMore = false)
+                : (state.forkData[index].showMore = true);
         }
     },
     actions: {
