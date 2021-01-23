@@ -69,7 +69,7 @@
 
             <section class="w-full mt-3">
                 <div
-                    v-for="(fork, index) in filtedForkedData"
+                    v-for="(fork, index) in filteredForks"
                     :key="fork.id"
                     class="w-full"
                 >
@@ -135,11 +135,18 @@
                                 >
                             </div>
 
-                            <div>
+                            <!-- <div>
                                 <span>
                                     Status
-                                    <!-- Status: {{ fork.difference.status || "-" }} -->
+                                    Status: {{ fork.difference.status || "-" }}
                                 </span>
+                            </div> -->
+
+                            <div>
+                                <diff
+                                    :ahead-by="fork.difference ? fork.difference.ahead_by : 0"
+                                    :behind_by="fork.difference ? fork.difference.behind_by : 0"
+                                    :max="forkMaxScale" />
                             </div>
 
                             <div>
@@ -351,7 +358,7 @@ export default {
         };
     },
     computed: {
-        filtedForkedData() {
+        filteredForks() {
             return this.forks.filter(fork => {
                 if (this.searchText === "") return fork;
 
@@ -366,6 +373,16 @@ export default {
                         return fork;
                 }
             });
+        },
+        forkMaxScale() {
+            if (this.filteredForks.length === 0) return 0;
+            let max = 0;
+            _.forEach(this.filteredForks, (fork) => {
+                if (typeof fork.difference === "undefined") return;
+                max = fork.difference.ahead_by > max ? fork.difference.ahead_by : max;
+                max = fork.difference.behind_by > max ? fork.difference.behind_by : max;
+            });
+            return max;
         }
     },
     mounted() {
