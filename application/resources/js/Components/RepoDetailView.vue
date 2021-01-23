@@ -7,10 +7,6 @@
 
         <div v-show="forkData.length > 0" class="mx-auto mt-3 mb-2">
             <section class="w-full flex flex-wrap">
-                <h1 class="text-2xl text-gray-700">
-                    Forks
-                </h1>
-
                 <jet-input
                     class="ml-auto w-1/5"
                     placeholder="search by fork user, or status"

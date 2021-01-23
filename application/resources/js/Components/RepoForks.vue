@@ -1,11 +1,14 @@
 <template>
     <section class="w-full mt-3">
+        <div class="bg-gray-100 border border-gray-200 text-gray-700 rounded-tl-lg rounded-tr-lg">
+            <div class="px-4 py-2 text-sm font-semibold">Forks</div>
+        </div>
         <div
             v-for="(fork, index) in filteredForks"
             :key="fork.id"
-            class="w-full"
+            class="w-full row"
         >
-            <div class="flex flex-wrap mb-3 p-4 bg-white rounded shadow-sm">
+            <div class="flex flex-wrap p-4 border-l border-r border-b border-gray-200">
                 <div
                     v-if="fork.showMore === false"
                     class="w-full flex flex-wrap justify-between items-center"
@@ -215,4 +218,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.row:last-child {
+    border-radius: 0px 0px .5rem .5rem;
+}
+</style>
