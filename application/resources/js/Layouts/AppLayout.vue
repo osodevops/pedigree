@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import JetApplicationMark from "@/Jetstream/ApplicationMark";
+import JetApplicationMark from "@/Components/Logos/Shield";
 import JetDropdown from "@/Jetstream/Dropdown";
 import JetDropdownLink from "@/Jetstream/DropdownLink";
 import JetNavLink from "@/Jetstream/NavLink";
