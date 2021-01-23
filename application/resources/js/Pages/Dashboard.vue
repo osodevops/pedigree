@@ -44,7 +44,8 @@ export default {
         BaseContainer,
     },
     props: {
-        repository: Object
+        repository: Object,
+        search: Object
     },
     computed: {
         activeRepository() {
