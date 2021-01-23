@@ -21,8 +21,14 @@ import colours from "@/Config/colours";
 
 export default {
     props: {
-        username: String,
-        repository: String
+        username: {
+            type: String,
+            required: true
+        },
+        repository: {
+            type: String,
+            required: true
+        }
     },
     data() {
         return {
