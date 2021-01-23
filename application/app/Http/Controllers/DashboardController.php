@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use App\Models\Repository;
 
 class DashboardController
 {
@@ -14,6 +14,13 @@ class DashboardController
      */
     public function show()
     {
-        return Inertia::render('Dashboard');
+        $repository = Repository::with('owner')
+            ->where('name', config('app.default_repository.name'))
+            ->where('owner_id', config('app.default_repository.owner_id'))
+            ->first();
+
+        return Inertia::render('Dashboard', [
+            'repository' => $repository ?? (object) [],
+        ]);
     }
 }

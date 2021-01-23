@@ -44,7 +44,7 @@ export default {
         BaseContainer,
     },
     props: {
-        user: Object
+        repository: Object
     },
     computed: {
         activeRepository() {
@@ -63,6 +63,9 @@ export default {
     },
     mounted() {
         this.$store.registerModule("dashboard", dashboardModule);
+        if (this.repository.id) {
+            this.$store.state.searchRepos.repositoryBreakdown = this.repository;
+        }
     },
     beforeDestroy() {
         this.$store.unregisterModule("dashboard", dashboardModule);

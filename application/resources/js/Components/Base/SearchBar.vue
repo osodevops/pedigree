@@ -5,6 +5,7 @@
                 class="flex-1 mr-2"
                 v-model="url"
                 :placeholder="placeholder"
+                onClick="this.select();"
             ></jet-input>
             <jet-button>
                 Search

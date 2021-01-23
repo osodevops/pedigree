@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="mx-auto flex flex-wrap flex-1">
-            <commits-heatmap :username="repository.owner.name" :repository="repository.name" class="mb-4" />
-            <repository-languages :username="repository.owner.name" :repository="repository.name" />
+            <commits-heatmap :username="repository.owner.id" :repository="repository.name" class="mb-4" />
+            <repository-languages :username="repository.owner.id" :repository="repository.name" />
         </div>
 
         <div v-show="forkData.length > 0" class="mx-auto mt-3 mb-2">
@@ -43,7 +43,7 @@
                                     <span
                                         class="capitalize text-xl font-semibold"
                                     >
-                                        {{ fork.owner.name }}
+                                        {{ fork.owner.id }}
                                     </span>
 
                                     <span class="block text-sm text-gray-600">
@@ -124,7 +124,7 @@
                                         <span
                                             class="capitalize text-xl font-semibold"
                                         >
-                                            {{ fork.owner.name }}
+                                            {{ fork.owner.id }}
                                         </span>
 
                                         <span
@@ -320,7 +320,7 @@ export default {
                     return fork;
                 } else {
                     if (
-                        fork.owner.name
+                        fork.owner.id
                             .toLowerCase()
                             .includes(this.searchText.toLowerCase())
                     )

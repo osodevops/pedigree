@@ -230,4 +230,9 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
     ],
+
+    'default_repository' => [
+        'name' => env('DEFAULT_REPOSITORY_NAME', 'laravel'),
+        'owner_id' => env('DEFAULT_REPOSITORY_OWNER_ID', 'laravel'),
+    ]
 ];

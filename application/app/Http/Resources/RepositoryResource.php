@@ -23,7 +23,7 @@ class RepositoryResource extends JsonResource
             'url' => $repository['html_url'],
             'default_branch' => $repository['default_branch'],
             'owner' => [
-                'name' => $repository['owner']['login'],
+                'id' => $repository['owner']['login'],
                 'url' => $repository['owner']['html_url'],
                 'avatar_url' => $repository['owner']['avatar_url'],
             ],
