@@ -31,7 +31,7 @@
 
         </div>
         <ul class="flex flex-no-wrap">
-            <jet-nav-link href="#overview" @click="setTab('overview')" :active="tab === 'overview'">Overview</jet-nav-link>
+            <jet-nav-link href="#overview" :active="true">Overview</jet-nav-link>
         </ul>
     </div>
 </template>

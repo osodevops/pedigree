@@ -13,7 +13,7 @@
         </section>
 
         <BaseLoadingSpinner v-show="loading" />
-        <base-container>
+        <base-container id="overview">
             <div v-if="this.activeRepository.id">
                 <repo-detail-view
                     :repository="activeRepository"

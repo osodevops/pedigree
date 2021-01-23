@@ -6,7 +6,7 @@
 
 <script>
     export default {
-        props: ['href', 'active'],
+        props: ['active'],
 
         computed: {
             classes() {
