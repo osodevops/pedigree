@@ -78,7 +78,7 @@
 
                         <div>
                             <jet-button type="button" @click.native="updateForkShowState(index)">
-                                More Info
+                                {{ fork.showMore ? 'Less info' : 'More info' }}
                             </jet-button>
                         </div>
                     </div>
