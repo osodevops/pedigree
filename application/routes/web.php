@@ -14,8 +14,7 @@ $router->group(['prefix' => 'repos/{user}/{repository}'], function ($router) {
     $router->get('/forks', [ForkController::class, 'index']);
     $router->get('/differences', [DifferenceController::class, 'index']);
 
-    $router->get('/stats/commits', [Statistics\CommitController::class, 'show'])
-        ->middleware(['cache.response']);
+    $router->get('/stats/commits', [Statistics\CommitController::class, 'show']);
     $router->get('/stats/languages', [Statistics\LanguageController::class, 'show'])
         ->middleware(['cache.response']);
 });
