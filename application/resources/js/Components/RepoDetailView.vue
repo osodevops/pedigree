@@ -6,14 +6,6 @@
         </div>
 
         <div v-show="forkData.length > 0" class="mx-auto mt-3 mb-2">
-            <section class="w-full flex flex-wrap">
-                <jet-input
-                    class="ml-auto w-1/5"
-                    placeholder="search by fork user, or status"
-                    @input="updateSearch"
-                ></jet-input>
-            </section>
-
             <RepoForks v-if="forkData.length > 0" />
         </div>
     </div>
@@ -45,9 +37,6 @@ export default {
         loading: Boolean
     },
     methods: {
-        updateSearch(value) {
-            this.searchText = value;
-        },
         numberFormat(number) {
             return window.numberFormat(number);
         }

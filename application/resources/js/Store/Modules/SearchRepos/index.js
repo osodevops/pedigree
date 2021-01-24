@@ -40,6 +40,8 @@ export default {
             let index = state.forkData.findIndex(
                 fork => fork.id === difference.repository_id
             );
+
+            if (! state.forkData[index]) return;
             state.forkData[index].difference = {};
             Vue.set(state.forkData[index], "difference", difference);
         },
@@ -48,6 +50,23 @@ export default {
                 ? (state.forkData[index].showMore = false)
                 : (state.forkData[index].showMore = true);
         }
+    },
+    getters: {
+        filteredForks: (state) => (query, status) => {
+            return state.forkData.filter(fork => {
+                if (query === "") return fork;
+
+                if (status !== "") {
+                    if (fork.difference && status.toLowerCase() !== fork.difference.status.toLowerCase()) {
+                        return;
+                    }
+                }
+
+                if (fork.owner.id.toLowerCase().includes(query.toLowerCase())) {
+                    return fork;
+                }
+            });
+        },
     },
     actions: {
         getRepositoryInformation({ commit, state, dispatch }, url) {
@@ -120,7 +139,7 @@ export default {
 
                             if (
                                 state.forkData.find(
-                                    fork => fork.difference.status === "unknown"
+                                    fork => (fork.difference && fork.difference.status === "unknown")
                                 ) === undefined
                             ) {
                                 clearInterval(polling);
