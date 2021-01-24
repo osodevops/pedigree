@@ -92,7 +92,7 @@ export default {
         getRepositoryInformation({ commit, state, dispatch }, url) {
             let matches = [
                 ...url.matchAll(
-                    /(https:\/\/github\.com\/)?([\w\d-]*)\/([\w\d-]*)(.*)?/g
+                    /(https:\/\/github\.com\/)?([\w\d-\.]*)\/([\w\d-\.]*)(.*)?/g
                 )
             ];
             const [username, repository] = [matches[0][2], matches[0][3]];

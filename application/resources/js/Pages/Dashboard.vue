@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations, mapState } from "vuex";
+import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
 import BaseLoadingSpinner from "@/Components/Base/LoadingSpinner";
 import RepoDetailView from "@/Components/RepoDetailView.vue";
 import dashboardModule from "@/Store/Modules/Dashboard/index";
@@ -66,10 +66,17 @@ export default {
             return this.$store.state.searchRepos.loadingGithubInfo;
         }
     },
+    methods: {
+        ...mapActions("searchRepos", ['getRepositoryInformation']),
+    },
     mounted() {
         this.$store.registerModule("dashboard", dashboardModule);
         if (this.repository.id) {
             this.$store.state.searchRepos.repositoryBreakdown = this.repository;
+        } else {
+            if (this.search.user) {
+                this.getRepositoryInformation(`${this.search.user}/${this.search.repository}`);
+            }
         }
     },
     beforeDestroy() {
