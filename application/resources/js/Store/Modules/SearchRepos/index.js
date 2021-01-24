@@ -59,7 +59,7 @@ export default {
                 if (query === "" && status === "") return fork;
 
                 if (status !== "") {
-                    if (fork.difference && status.toLowerCase() !== fork.difference.status.toLowerCase()) {
+                    if (!fork.difference || (fork.difference && status.toLowerCase() !== fork.difference.status.toLowerCase())) {
                         return;
                     }
                 }
