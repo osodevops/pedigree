@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white w-3/4 mx-auto rounded p-4 shadow-md">
+    <div class="px-4 mx-auto min-w-xs" style="max-width: 850px">
         <slot></slot>
     </div>
 </template>

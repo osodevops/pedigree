@@ -7,7 +7,7 @@ use App\Http\Controllers\DifferenceController;
 use App\Http\Controllers\RepositoryController;
 use App\Http\Controllers\Statistics;
 
-$router->get('/', [DashboardController::class, 'show'])->name('dashboard');
+$router->get('/{user?}/{repository?}', [DashboardController::class, 'show'])->name('dashboard');
 
 $router->group(['prefix' => 'repos/{user}/{repository}'], function ($router) {
     $router->get('/', [RepositoryController::class, 'show']);

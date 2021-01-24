@@ -1,14 +1,13 @@
 <template>
-    <form class="w-full p-4" @submit.prevent="searchMethod(internalUrl)">
-        <div class="flex flex-wrap">
+    <form class="w-full" @submit.prevent="searchMethod(internalUrl)">
+        <div class="flex flex-no-wrap">
             <jet-input
-                class="w-11/12 mr-2"
+                class="flex-1 mr-2"
                 v-model="internalUrl"
                 :placeholder="placeholder"
+                onClick="this.select();"
             ></jet-input>
-            <jet-button>
-                Search
-            </jet-button>
+            <jet-button>Search</jet-button>
         </div>
         <jet-input-error :message="errorMessage"></jet-input-error>
     </form>

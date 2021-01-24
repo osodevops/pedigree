@@ -1,5 +1,5 @@
 <template>
-    <svg width="828" height="128">
+    <svg width="800" height="128">
         <g transform="translate(10, 20)">
             <g v-for="(week, weekKey) in data" :key="weekKey" :transform="`translate(${calculateWeekX(weekKey)}, 0)`">
                 <text :x="15" y="-8" class="month" v-if="week.display_month">{{ week.display_month }}</text>

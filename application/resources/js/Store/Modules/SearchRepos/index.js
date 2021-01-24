@@ -28,8 +28,10 @@ export default {
             state.githubRepositoryName = repoName;
         },
         [Types.SEARCH_REPOS_UPDATE_FORKS_INFORMATION](state, forkData) {
-            state.forkData = forkData.map(fork => {
+            state.forkData = forkData.map((fork, index) => {
                 fork.showMore = false;
+
+                Vue.set(state.forkData, index, fork);
                 return fork;
             });
         },
@@ -40,7 +42,9 @@ export default {
             let index = state.forkData.findIndex(
                 fork => fork.id === difference.repository_id
             );
-            state.forkData[index].difference = {};
+
+            if (! state.forkData[index]) return;
+            Vue.set(state.forkData[index], "difference", {});
             Vue.set(state.forkData[index], "difference", difference);
         },
         [Types.SEARCH_REPOS_UPDATE_FORK_SHOW_STATE](state, index) {
@@ -48,6 +52,23 @@ export default {
                 ? (state.forkData[index].showMore = false)
                 : (state.forkData[index].showMore = true);
         }
+    },
+    getters: {
+        filteredForks: (state) => (query, status) => {
+            return state.forkData.filter(fork => {
+                if (query === "") return fork;
+
+                if (status !== "") {
+                    if (fork.difference && status.toLowerCase() !== fork.difference.status.toLowerCase()) {
+                        return;
+                    }
+                }
+
+                if (fork.owner.id.toLowerCase().includes(query.toLowerCase())) {
+                    return fork;
+                }
+            });
+        },
     },
     actions: {
         getRepositoryInformation({ commit, state, dispatch }, url) {
@@ -64,6 +85,7 @@ export default {
                 repository
             );
 
+            commit(Types.SEARCH_REPOS_UPDATE_REPOSITORY_BREAKDOWN, {});
             commit(Types.SEARCH_REPO_LOADING_STATE, true);
 
             axios
@@ -120,7 +142,7 @@ export default {
 
                             if (
                                 state.forkData.find(
-                                    fork => fork.difference.status === "unknown"
+                                    fork => (fork.difference && fork.difference.status === "unknown")
                                 ) === undefined
                             ) {
                                 clearInterval(polling);
