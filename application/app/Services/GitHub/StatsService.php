@@ -23,10 +23,13 @@ class StatsService
      */
     public function commits($user, $repository)
     {
-        return $this->service->request(
+        $data = $this->service->request(
             'GET',
             "repos/{$user}/{$repository}/stats/commit_activity"
         );
+
+        throw_if(empty($data), new \Exception("No data found"));
+        return $data;
     }
 
     /**

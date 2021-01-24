@@ -27,8 +27,10 @@ class CommitController
      */
     public function show($user, $repository)
     {
-        return CommitsResource::make(
-            $this->service->stats()->commits($user, $repository)
-        );
+        $commits = retry(5, function () use ($user, $repository) {
+            return $this->service->stats()->commits($user, $repository);
+        });
+
+        return CommitsResource::make($commits);
     }
 }
