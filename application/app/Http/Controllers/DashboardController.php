@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use App\Models\Repository;
+use Illuminate\Support\Arr;
 
 class DashboardController
 {
@@ -16,12 +17,11 @@ class DashboardController
      */
     public function show($user = null, $repository = null)
     {
-        if ($user && ! $repository) {
+        [$user, $repo] = $this->determineRepository($user, $repository);
+
+        if ($user && ! $repo) {
             return redirect()->route('dashboard');
         }
-
-        $user = $user ?? config('app.default_repository.owner_id');
-        $repo = $repository ?? config('app.default_repository.name');
 
         $repository = Repository::with('owner')
             ->where('name', $repo)
@@ -35,5 +35,25 @@ class DashboardController
                 'repository' => $repository ? $repository->name : $repo
             ]
         ]);
+    }
+
+    /**
+     * Determine the repository to use for the dashboard.
+     *
+     * @param  string|null  $user
+     * @param  string|null  $repo
+     * @return array
+     */
+    private function determineRepository($user, $repo)
+    {
+        if ($user) {
+            if ($repo) {
+                return [$user, $repo];
+            }
+        }
+
+        return array_values(
+            Arr::shuffle(config('pedigree.repos'))[0]
+        );
     }
 }
