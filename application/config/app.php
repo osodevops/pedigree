@@ -232,7 +232,7 @@ return [
     ],
 
     'default_repository' => [
-        'name' => env('DEFAULT_REPOSITORY_NAME', 'laravel'),
-        'owner_id' => env('DEFAULT_REPOSITORY_OWNER_ID', 'laravel'),
+        'name' => env('DEFAULT_REPOSITORY_NAME', 'osodevops'),
+        'owner_id' => env('DEFAULT_REPOSITORY_OWNER_ID', 'pedigree'),
     ]
 ];

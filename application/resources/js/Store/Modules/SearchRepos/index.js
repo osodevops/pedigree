@@ -85,6 +85,7 @@ export default {
                 repository
             );
 
+            commit(Types.SEARCH_REPOS_UPDATE_REPOSITORY_BREAKDOWN, {});
             commit(Types.SEARCH_REPO_LOADING_STATE, true);
 
             axios
