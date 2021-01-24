@@ -19,10 +19,7 @@
                 <div class="flex flex-wrap p-4 border-l border-r border-b border-gray-200">
                     <div class="w-full flex flex-wrap justify-between items-center">
                         <div class="flex-1 flex">
-                            <div
-                                class="w-48 mr-4"
-                                style="width: 48px; height:48px;"
-                            >
+                            <div class="mr-4" style="width: 48px; height:48px;">
                                 <img :src="fork.owner.avatar_url" />
                             </div>
 
@@ -57,13 +54,14 @@
                                 'bg-indigo-100 text-indigo-600': fork.difference.status === 'diverged',
                                 'bg-gray-100 text-gray-400': fork.difference.status === 'unknown',
                             }">
-                                <Icon icon="circle" size="xs" class="sm:mr-1" /><span class="hidden sm:block">{{ fork.difference.status }}</span>
+                                <Icon icon="circle" size="xs" class="mr-1" /><span>{{ fork.difference.status }}</span>
                             </span>
                             <span v-else class="rounded bg-gray-100 text-gray-400 text-xs px-2 py-1 flex items-center">
-                                <Icon icon="circle" size="xs" class="sm:mr-1" /><span class="hidden sm:block">unknown</span>
+                                <Icon icon="circle" size="xs" class="mr-1" /><span>unknown</span>
                             </span>
                         </div>
-                        <div class="hidden sm:block">
+
+                        <div class="hidden sm:block mx-2">
                             <Diff
                                 :aheadBy="fork.difference ? (fork.difference.ahead_by || 0) : 0"
                                 :behindBy="fork.difference ? (fork.difference.behind_by || 0) : 0"
@@ -77,8 +75,8 @@
                             </jet-button>
                         </div>
                     </div>
-                    <div v-if="fork.showMore === true">
-                        Showing more
+                    <div v-if="fork.showMore === true" class="max-w-full pt-4">
+                        <repo-detail-view :repository="fork" />
                     </div>
                 </div>
             </div>
@@ -92,13 +90,15 @@ import Icon from "@/Components/Base/Icon";
 import JetInput from "@/Jetstream/Input";
 import JetButton from "@/Jetstream/Button";
 import Diff from "@/Components/Diff";
+import RepoDetailView from "@/Components/RepoDetailView";
 
 export default {
     components: {
         Icon,
         JetInput,
         JetButton,
-        Diff
+        Diff,
+        RepoDetailView
     },
     data() {
         return {

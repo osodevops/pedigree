@@ -17,8 +17,10 @@
             <div v-if="this.activeRepository.id">
                 <repo-detail-view
                     :repository="activeRepository"
-                    :forkData="activeForks"
                 ></repo-detail-view>
+                <div v-show="activeForks.length > 0" class="mx-auto mt-3 mb-2">
+                    <RepoForks v-if="activeForks.length > 0" />
+                </div>
             </div>
         </base-container>
     </app-layout>
@@ -33,6 +35,7 @@ import searchRepos from "@/components/SearchRepos";
 import AppLayout from "@/Layouts/AppLayout";
 import RepositoryHeader from "@/Components/RepositoryHeader";
 import BaseContainer from "@/Components/Base/Container";
+import RepoForks from "@/Components/RepoForks";
 
 export default {
     components: {
@@ -42,6 +45,7 @@ export default {
         BaseLoadingSpinner,
         RepositoryHeader,
         BaseContainer,
+        RepoForks,
     },
     props: {
         repository: Object,
