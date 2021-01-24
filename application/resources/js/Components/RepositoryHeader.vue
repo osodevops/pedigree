@@ -6,9 +6,9 @@
             </div>
             <div class="flex flex-col">
                 <h1 class="flex flex-col sm:flex-row mb-2">
-                    <span class="text-md sm:text-xl">{{ repository.name }}</span>
+                    <span class="text-md sm:text-xl">{{ repository.owner.id }}</span>
                     <span class="text-xl mx-2 hidden sm:block">/</span>
-                    <span class="text-xl font-semibold">{{ repository.owner.id }}</span>
+                    <span class="text-xl font-semibold">{{ repository.name }}</span>
                 </h1>
                 <div class="mb-2">
                     <p class="text-sm text-gray-700">{{ repository.description }}</p>
