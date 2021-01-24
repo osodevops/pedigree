@@ -69,6 +69,24 @@ export default {
                 }
             });
         },
+        forkMaxScale: (state) => {
+            const data = state.forkData;
+            if (data.length === 0) return 0;
+
+            let max = 0;
+            _.forEach(data, fork => {
+                if (typeof fork.difference === "undefined") return;
+                max =
+                    fork.difference.ahead_by > max
+                        ? fork.difference.ahead_by
+                        : max;
+                max =
+                    fork.difference.behind_by > max
+                        ? fork.difference.behind_by
+                        : max;
+            });
+            return max;
+        }
     },
     actions: {
         getRepositoryInformation({ commit, state, dispatch }, url) {
@@ -85,6 +103,7 @@ export default {
                 repository
             );
 
+            commit(Types.SEARCH_REPOS_UPDATE_FORKS_INFORMATION, []);
             commit(Types.SEARCH_REPOS_UPDATE_REPOSITORY_BREAKDOWN, {});
             commit(Types.SEARCH_REPO_LOADING_STATE, true);
 

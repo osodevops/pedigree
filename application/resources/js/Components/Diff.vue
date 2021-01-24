@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-center items-center w-44">
+    <div class="flex justify-center items-center w-44" v-title.delay="`${behindBy} commits behind, ${aheadBy} commits ahead`">
         <div class="flex items-end flex-1 flex-col">
             <span class="mr-2 text-gray-800" style="font-size: 10px">{{ behindBy }}</span>
             <div class="w-full flex justify-end">

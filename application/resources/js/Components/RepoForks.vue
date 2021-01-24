@@ -1,9 +1,16 @@
 <template>
     <section class="w-full mt-3">
-        <section class="w-full flex flex-wrap">
+        <section class="w-full flex flex-wrap mb-4">
+            <btn-group classes="w-full sm:w-auto">
+                <button type="button" :class="{'active': status === ''}" @click="setStatus('')">All</button>
+                <button type="button" :class="{'active': status === 'ahead'}" @click="setStatus('ahead')">Ahead</button>
+                <button type="button" :class="{'active': status === 'diverged'}" @click="setStatus('diverged')">Diverged</button>
+                <button type="button" :class="{'active': status === 'behind'}" @click="setStatus('behind')">Behind</button>
+                <button type="button" :class="{'active': status === 'identical'}" @click="setStatus('identical')">Identical</button>
+            </btn-group>
             <jet-input
-                class="ml-auto"
-                placeholder="search by fork user, or status"
+                class="ml-auto hidden sm:block"
+                placeholder="Search forks..."
                 v-model="searchText"
             ></jet-input>
         </section>
@@ -12,7 +19,7 @@
                 <div class="px-4 py-2 text-sm font-semibold">Forks</div>
             </div>
             <div
-                v-for="(fork, index) in filteredForks(searchText, '')"
+                v-for="(fork, index) in filteredForks(searchText, status)"
                 :key="fork.id"
                 class="w-full row"
             >
@@ -91,6 +98,7 @@ import JetInput from "@/Jetstream/Input";
 import JetButton from "@/Jetstream/Button";
 import Diff from "@/Components/Diff";
 import RepoDetailView from "@/Components/RepoDetailView";
+import BtnGroup from "@/Components/Base/ButtonGroup";
 
 export default {
     components: {
@@ -98,36 +106,25 @@ export default {
         JetInput,
         JetButton,
         Diff,
-        RepoDetailView
+        RepoDetailView,
+        BtnGroup
     },
     data() {
         return {
-            searchText: ""
+            searchText: "",
+            status: ""
         };
     },
     computed: {
-        ...mapGetters("searchRepos", ["filteredForks"]),
-        forkMaxScale() {
-            if (this.filteredForks(this.searchText).length === 0) return 0;
-            let max = 0;
-            _.forEach(this.filteredForks, fork => {
-                if (typeof fork.difference === "undefined") return;
-                max =
-                    fork.difference.ahead_by > max
-                        ? fork.difference.ahead_by
-                        : max;
-                max =
-                    fork.difference.behind_by > max
-                        ? fork.difference.behind_by
-                        : max;
-            });
-            return max;
-        }
+        ...mapGetters("searchRepos", ["filteredForks", "forkMaxScale"]),
     },
     methods: {
         ...mapMutations("searchRepos", ["updateForkShowState"]),
         numberFormat(number) {
             return window.numberFormat(number);
+        },
+        setStatus(status) {
+            this.status = status;
         }
     }
 };
