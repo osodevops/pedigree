@@ -12,15 +12,12 @@
                 <div class="px-4 py-2 text-sm font-semibold">Forks</div>
             </div>
             <div
-                v-for="(fork, index) in filteredForks(searchText)"
+                v-for="(fork, index) in filteredForks(searchText, '')"
                 :key="fork.id"
                 class="w-full row"
             >
                 <div class="flex flex-wrap p-4 border-l border-r border-b border-gray-200">
-                    <div
-                        v-if="fork.showMore === false"
-                        class="w-full flex flex-wrap justify-between items-center"
-                    >
+                    <div class="w-full flex flex-wrap justify-between items-center">
                         <div class="flex-1 flex">
                             <div
                                 class="w-48 mr-4"
@@ -34,85 +31,54 @@
                                     {{ fork.owner.id }}
                                 </span>
 
-                                <div class="flex text-black flex-col sm:flex-row text-gray-700">
+                                <div class="flex text-black flex-col sm:flex-row text-gray-600">
                                     <div class="flex items-center mr-4 mb-1 sm:mb-0">
                                         <Icon icon="code-branch" size="xs" />
                                         <span class="text-sm ml-1">{{fork.default_branch}}</span>
                                     </div>
                                     <div class="flex items-center mr-4 mb-1 sm:mb-0">
-                                        <Icon icon="star" size="sm" />
+                                        <Icon icon="star" size="xs" />
                                         <span class="text-sm ml-1">{{numberFormat(fork.watchers_count)}} stars</span>
                                     </div>
                                     <div class="flex items-center mb-1 sm:mb-0" v-if="fork.license">
-                                        <Icon icon="balance-scale" size="sm" />
+                                        <Icon icon="balance-scale" size="xs" />
                                         <span class="text-sm ml-1">{{ fork.license }}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <Diff
-                            :aheadBy="fork.difference ? (fork.difference.ahead_by || 0) : 0"
-                            :behindBy="fork.difference ? (fork.difference.behind_by || 0) : 0"
-                            :max="forkMaxScale"
-                        />
+                        <div class="mx-2">
+                            <span v-if="fork.difference" class="rounded text-xs px-2 py-1 flex items-center" :class="{
+                                'bg-red-100 text-red-600': fork.difference.status === 'error',
+                                'bg-orange-100 text-orange-600': fork.difference.status === 'behind',
+                                'bg-blue-100 text-blue-600': fork.difference.status === 'identical',
+                                'bg-green-100 text-green-600': fork.difference.status === 'ahead',
+                                'bg-indigo-100 text-indigo-600': fork.difference.status === 'diverged',
+                                'bg-gray-100 text-gray-400': fork.difference.status === 'unknown',
+                            }">
+                                <Icon icon="circle" size="xs" class="sm:mr-1" /><span class="hidden sm:block">{{ fork.difference.status }}</span>
+                            </span>
+                            <span v-else class="rounded bg-gray-100 text-gray-400 text-xs px-2 py-1 flex items-center">
+                                <Icon icon="circle" size="xs" class="sm:mr-1" /><span class="hidden sm:block">unknown</span>
+                            </span>
+                        </div>
+                        <div class="hidden sm:block">
+                            <Diff
+                                :aheadBy="fork.difference ? (fork.difference.ahead_by || 0) : 0"
+                                :behindBy="fork.difference ? (fork.difference.behind_by || 0) : 0"
+                                :max="forkMaxScale"
+                            />
+                        </div>
 
                         <div>
-                            <jet-button
-                                type="button"
-                                @click.native="updateForkShowState(index)"
-                                >More Info</jet-button
-                            >
+                            <jet-button type="button" @click.native="updateForkShowState(index)">
+                                More Info
+                            </jet-button>
                         </div>
                     </div>
-                    <div v-else class="w-full flex flex-wrap">
-                        <div
-                            class="w-full flex flex-wrap justify-between items-center"
-                        >
-                            <div class="flex-1 flex">
-                                <div
-                                    class="w-48 mr-4"
-                                    style="width: 48px; height:48px;"
-                                >
-                                    <img :src="fork.owner.avatar_url" />
-                                </div>
-
-                                <div class="w-auto">
-                                    <span class="capitalize text-xl font-semibold">
-                                        {{ fork.owner.name }}
-                                    </span>
-
-                                    <span class="block text-sm text-gray-600">
-                                        {{ fork.description }}
-                                    </span>
-
-                                    <div class="flex items-center">
-                                        <Icon
-                                            icon="code-branch"
-                                            class="text-gray-400"
-                                        />
-                                        <span class="ml-2 text-sm text-gray-600">{{
-                                            fork.default_branch
-                                        }}</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div>
-                                <a
-                                    :href="fork.url"
-                                    class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray transition ease-in-out duration-150"
-                                    >View on Github</a
-                                >
-
-                                <jet-button
-                                    type="button"
-                                    @click.native="updateForkShowState(index)"
-                                    class="ml-3"
-                                    >Less Info</jet-button
-                                >
-                            </div>
-                        </div>
+                    <div v-if="fork.showMore === true">
+                        Showing more
                     </div>
                 </div>
             </div>
