@@ -106,7 +106,6 @@ export default {
         };
     },
     computed: {
-        ...mapState("searchRepos", ["forkData"]),
         ...mapGetters("searchRepos", ["filteredForks"]),
         forkMaxScale() {
             if (this.filteredForks(this.searchText).length === 0) return 0;
