@@ -56,7 +56,7 @@ export default {
     getters: {
         filteredForks: (state) => (query, status) => {
             return state.forkData.filter(fork => {
-                if (query === "") return fork;
+                if (query === "" && status === "") return fork;
 
                 if (status !== "") {
                     if (fork.difference && status.toLowerCase() !== fork.difference.status.toLowerCase()) {
