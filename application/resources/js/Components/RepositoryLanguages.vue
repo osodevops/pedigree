@@ -1,6 +1,6 @@
 <template>
     <div class="min-w-xs max-w-full">
-        <div class="flex flex-no-wrap my-2">
+        <div class="flex flex-no-wrap my-2 rounded-full overflow-hidden">
             <div v-for="(language, key) in languages"
                 :key="key" class="h-2 bar"
                 :style="{width: `${language.percentage}%`, backgroundColor:colours[key]}">
