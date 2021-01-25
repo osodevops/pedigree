@@ -58,9 +58,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
       - name: Install Dependencies
+        working-directory: ./
         run: npm install
       - name: Build/Generate static site
-        working-directory: ../
+        working-directory: ./
         if: endsWith(github.ref, '/master')
         run: |
           npm run prod
