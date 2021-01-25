@@ -17,8 +17,6 @@ ENV PHP_FPM_MAX_REQUESTS="1000"
 # Copy existing application directory contents
 COPY --chown=www-data . /var/www/html
 
-COPY ./storage/oauth-public.key /var/www/html/storage
-
 # Switch to www-data
 USER www-data
 
@@ -27,7 +25,7 @@ RUN rm -rf /var/www/html/public/storage
 RUN ln -s /var/www/html/storage/app/public /var/www/html/public/storage
 
 # Copy the PHP-FPM configuration file
-COPY ./docker/app/php/configs/www.conf /usr/local/etc/php-fpm.d/www.conf
+COPY ./docker/app/php/production/configs/www.conf /usr/local/etc/php-fpm.d/www.conf
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
