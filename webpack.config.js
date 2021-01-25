@@ -1,5 +1,7 @@
 const path = require('path');
 
+console.log(path.resolve('resources/js'));
+
 module.exports = {
     resolve: {
         alias: {
