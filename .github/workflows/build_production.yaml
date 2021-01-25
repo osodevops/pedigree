@@ -42,7 +42,7 @@ jobs:
 
       - name: Install composer dependencies
         run: composer install --prefer-dist --no-dev
-        
+
       - name: Setup Node.js 12.13.1 (LTS)
         uses: actions/setup-node@v1
         with:
@@ -73,14 +73,14 @@ jobs:
           region: eu-west-2
 
       - name: Build NGINX
-        run: docker build -f ./application/docker/app/nginx/Dockerfile --no-cache=true --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -t ${{ steps.ecr.outputs.account }}.dkr.ecr.eu-west-2.amazonaws.com/pedigree/production/nginx:${{ steps.build_number.outputs.number }} .
+        run: docker build -f ./docker/app/nginx/Dockerfile --no-cache=true --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -t ${{ steps.ecr.outputs.account }}.dkr.ecr.eu-west-2.amazonaws.com/pedigree/production/nginx:${{ steps.build_number.outputs.number }} .
 
       - name: Push NGINX
         run: |
           docker push ${{ steps.ecr.outputs.account }}.dkr.ecr.eu-west-2.amazonaws.com/pedigree/production/nginx:${{ steps.build_number.outputs.number }}
 
       - name: Build PHP
-        run: docker build -f ./application/docker/app/php/production/Dockerfile --no-cache=true --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -t ${{ steps.ecr.outputs.account }}.dkr.ecr.eu-west-2.amazonaws.com/pedigree/production/php:${{ steps.build_number.outputs.number }} .
+        run: docker build -f ./docker/app/php/production/Dockerfile --no-cache=true --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -t ${{ steps.ecr.outputs.account }}.dkr.ecr.eu-west-2.amazonaws.com/pedigree/production/php:${{ steps.build_number.outputs.number }} .
 
       - name: Push PHP
         run: |
