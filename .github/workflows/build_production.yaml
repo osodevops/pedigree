@@ -3,6 +3,11 @@ on:
   push:
     branches:
       - master
+      
+defaults:
+  run:
+    working-directory: ./application
+    
 jobs:
   build:
     runs-on: ubuntu-latest
