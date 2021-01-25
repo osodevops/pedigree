@@ -5,7 +5,7 @@ on:
       - master
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-16.04
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -58,10 +58,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
       - name: Install Dependencies
-        working-directory: ./
         run: npm install
       - name: Build/Generate static site
-        working-directory: ./
         if: endsWith(github.ref, '/master')
         run: |
           npm run prod
