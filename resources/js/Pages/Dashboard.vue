@@ -31,7 +31,7 @@ import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
 import BaseLoadingSpinner from "@/Components/Base/LoadingSpinner";
 import RepoDetailView from "@/Components/RepoDetailView.vue";
 import dashboardModule from "@/Store/Modules/Dashboard/index";
-import searchRepos from "@/components/SearchRepos";
+import SearchRepos from "@/Components/SearchRepos";
 import AppLayout from "@/Layouts/AppLayout";
 import RepositoryHeader from "@/Components/RepositoryHeader";
 import BaseContainer from "@/Components/Base/Container";
@@ -41,7 +41,7 @@ export default {
     components: {
         AppLayout,
         RepoDetailView,
-        searchRepos,
+        SearchRepos,
         BaseLoadingSpinner,
         RepositoryHeader,
         BaseContainer,
