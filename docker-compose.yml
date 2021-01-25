@@ -1,46 +1,68 @@
-version: '3.3'
+version: "3.5"
 services:
-  application:
-    container_name: pedigree-app
+  #PHP Service
+  pedigree-php-base:
     build:
-      context: ./
-    environment:
-      WEB_DOCUMENT_ROOT: /var/www/public
-    working_dir: /var/www
+      context: .
+      dockerfile:  ./docker/app/php-base/7.4/Dockerfile
+  pedigree-php:
+    build:
+      context: .
+      dockerfile: ./docker/app/php/production/Dockerfile
+    container_name: pedigree-php
+    restart: unless-stopped
+    tty: true
     volumes:
-      - ./application:/var/www
+      - ./:/var/www/html
+    working_dir: /var/www/html/public
+    networks:
+      - app-network
+    depends_on: 
+      - webserver
+      - mysql
+  #Nginx Service
+  webserver:
+    build:
+      context: .
+      dockerfile: ./docker/app/nginx/Dockerfile
+    container_name: pedigree-nginx
+    restart: unless-stopped
+    tty: true
+    volumes:
+      - ./:/var/www/html
     ports:
       - "8080:80"
     networks:
-      - pedigree-net
-  db:
-    container_name: pedigree-app-db
-    image: mysql:8.0
+      - app-network
+  #MySQL Service
+  mysql:
+    image: mysql:8.0.22
+    container_name: pedigree_mysql
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    volumes:
+      - pedigree-db:/var/lib/mysql
     environment:
       MYSQL_DATABASE: pedigree
-      MYSQL_USER: pedigree
-      MYSQL_PASSWORD: secret
-      MYSQL_ROOT_PASSWORD: root
-    volumes:
-      - pedigree-data:/var/lib/mysql
+      MYSQL_ROOT_PASSWORD: secret
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
     networks:
-      - pedigree-net
-    ports:
-      - "33061:3306"
+      - app-network
   redis:
     container_name: pedigree-app-cache
     image: redis:6.0-alpine
     volumes:
       - pedigree-cache:/data
-    networks:
-      - pedigree-net
-    ports:
-      - "6379:6379"
+#Docker Networks
 networks:
-  pedigree-net:
-    driver: "bridge"
+  app-network:
+    driver: bridge
+#Volumes
 volumes:
-  pedigree-data:
-    driver: "local"
+  pedigree-db:
+    driver: local
   pedigree-cache:
-    driver: "local"
+    driver: local
