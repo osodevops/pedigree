@@ -10,7 +10,7 @@ defaults:
     
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-16.04
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -62,7 +62,7 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install npm dependencies
-        run: npm install --no-dev
+        run: npm install
 
       - name: Run Mix
         run: npm run prod
