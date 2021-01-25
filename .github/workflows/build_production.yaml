@@ -60,6 +60,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Build/Generate static site
+        working-directory: ../
         if: endsWith(github.ref, '/master')
         run: |
           npm run prod
