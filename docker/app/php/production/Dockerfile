@@ -1,4 +1,4 @@
-FROM 109716644331.dkr.ecr.eu-west-2.amazonaws.com/pedigree/php-base:7.4
+FROM 510999144577.dkr.ecr.eu-west-2.amazonaws.com/pedigree/php-base:7.4
 
 LABEL maintainer="josh@osodevops.io"
 
