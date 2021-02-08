@@ -1,0 +1,33 @@
+name: Build & Push Production PHP-Base 7.4 Image
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'docker/app/php-base/7.4/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'
+
+    - name: Login to ECR
+      id: ecr
+      uses: jwalton/gh-ecr-login@v1
+      with:
+        access-key-id: ${{ secrets.PROD_AWS_ACCESS_KEY_ID }}
+        secret-access-key: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
+        region: eu-west-2
+
+    - name: Build PHP Base
+      run: docker build -f docker/app/php-base/7.4/Dockerfile -t ${{ steps.ecr.outputs.account }}.dkr.ecr.eu-west-2.amazonaws.com/pedigree-php-base:7.4.account .
+
+    - name: Push Image to ECR
+      run:  docker push ${{ steps.ecr.outputs.account }}.dkr.ecr.eu-west-2.amazonaws.com/pedigree-php-base:7.4.account
