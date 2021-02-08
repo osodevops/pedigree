@@ -25,7 +25,7 @@ jobs:
         secret_access_key: ${{ secrets.OSO_PROD_AWS_SECRET_ACCESS_KEY }}
         account_id: ${{ secrets.OSO_PROD_AWS_ACCOUNT_ID }}
         dockerfile: ./docker/app/php-base/7.4/Dockerfile
-        path: ./docker/app/php-base/7.4/
+        path: ./
         repo: ${{ env.repo }}
         region: eu-west-2
         tags: latest
