@@ -28,5 +28,5 @@ jobs:
         path: ./
         repo: ${{ env.repo }}
         region: eu-west-2
-        tags: latest
+        tags: 7.4
         create_repo: false
