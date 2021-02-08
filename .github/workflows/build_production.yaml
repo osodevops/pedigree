@@ -1,88 +1,88 @@
-name: Build Production Docker Image
-on:
-  push:
-    branches:
-      - master
-
-jobs:
-  build:
-    runs-on: ubuntu-16.04
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '7.4'
-
-      - name: Set generated env vars
-        id: build_number
-        run: |
-          echo ::set-output name=number::$(echo ${GITHUB_SHA} | cut -c1-8)
-
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-west-2
-
-      - name: Get Composer Cache Directory
-        id: composer-cache
-        run: |
-          echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-      - name: Cache Composer
-        uses: actions/cache@v1
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-
-
-      - name: Install composer dependencies
-        run: composer install --prefer-dist --no-dev
-
-      - name: Setup Node.js 12.13.1 (LTS)
-        uses: actions/setup-node@v1
-        with:
-          node-version: '12.13.1'
-      - name: Cache node modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-      - name: Install Dependencies
-        run: npm i -P
-      - name: Build/Generate static site
-        if: endsWith(github.ref, '/master')
-        run: |
-          npm run prod
-
-      - name: Login to ECR
-        id: ecr
-        uses: jwalton/gh-ecr-login@v1
-        with:
-          access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          region: eu-west-2
-
-      - name: Build NGINX
-        run: docker build -f ./docker/app/nginx/Dockerfile --no-cache=true --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -t ${{ steps.ecr.outputs.account }}.dkr.ecr.eu-west-2.amazonaws.com/pedigree-production-nginx:${{ steps.build_number.outputs.number }} .
-
-      - name: Push NGINX
-        run: |
-          docker push ${{ steps.ecr.outputs.account }}.dkr.ecr.eu-west-2.amazonaws.com/pedigree-production-nginx:${{ steps.build_number.outputs.number }}
-
-      - name: Build PHP
-        run: docker build -f ./docker/app/php/production/Dockerfile --no-cache=true --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -t ${{ steps.ecr.outputs.account }}.dkr.ecr.eu-west-2.amazonaws.com/pedigree-production-php:${{ steps.build_number.outputs.number }} .
-
-      - name: Push PHP
-        run: |
-          docker push ${{ steps.ecr.outputs.account }}.dkr.ecr.eu-west-2.amazonaws.com/pedigree-production-php:${{ steps.build_number.outputs.number }}
+#name: Build Production Docker Image
+#on:
+#  push:
+#    branches:
+#      - master
+#
+#jobs:
+#  build:
+#    runs-on: ubuntu-16.04
+#    steps:
+#      - name: Checkout Code
+#        uses: actions/checkout@v2
+#
+#      - name: Setup PHP
+#        uses: shivammathur/setup-php@v2
+#        with:
+#          php-version: '7.4'
+#
+#      - name: Set generated env vars
+#        id: build_number
+#        run: |
+#          echo ::set-output name=number::$(echo ${GITHUB_SHA} | cut -c1-8)
+#
+#      - name: Configure AWS Credentials
+#        uses: aws-actions/configure-aws-credentials@v1
+#        with:
+#          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#          aws-region: eu-west-2
+#
+#      - name: Get Composer Cache Directory
+#        id: composer-cache
+#        run: |
+#          echo "::set-output name=dir::$(composer config cache-files-dir)"
+#
+#      - name: Cache Composer
+#        uses: actions/cache@v1
+#        with:
+#          path: ${{ steps.composer-cache.outputs.dir }}
+#          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+#          restore-keys: |
+#            ${{ runner.os }}-composer-
+#
+#      - name: Install composer dependencies
+#        run: composer install --prefer-dist --no-dev
+#
+#      - name: Setup Node.js 12.13.1 (LTS)
+#        uses: actions/setup-node@v1
+#        with:
+#          node-version: '12.13.1'
+#      - name: Cache node modules
+#        uses: actions/cache@v2
+#        env:
+#          cache-name: cache-node-modules
+#        with:
+#          # npm cache files are stored in `~/.npm` on Linux/macOS
+#          path: ~/.npm
+#          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+#          restore-keys: |
+#            ${{ runner.os }}-build-${{ env.cache-name }}-
+#      - name: Install Dependencies
+#        run: npm i -P
+#      - name: Build/Generate static site
+#        if: endsWith(github.ref, '/master')
+#        run: |
+#          npm run prod
+#
+#      - name: Login to ECR
+#        id: ecr
+#        uses: jwalton/gh-ecr-login@v1
+#        with:
+#          access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#          secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#          region: eu-west-2
+#
+#      - name: Build NGINX
+#        run: docker build -f ./docker/app/nginx/Dockerfile --no-cache=true --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -t ${{ steps.ecr.outputs.account }}.dkr.ecr.eu-west-2.amazonaws.com/pedigree-production-nginx:${{ steps.build_number.outputs.number }} .
+#
+#      - name: Push NGINX
+#        run: |
+#          docker push ${{ steps.ecr.outputs.account }}.dkr.ecr.eu-west-2.amazonaws.com/pedigree-production-nginx:${{ steps.build_number.outputs.number }}
+#
+#      - name: Build PHP
+#        run: docker build -f ./docker/app/php/production/Dockerfile --no-cache=true --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -t ${{ steps.ecr.outputs.account }}.dkr.ecr.eu-west-2.amazonaws.com/pedigree-production-php:${{ steps.build_number.outputs.number }} .
+#
+#      - name: Push PHP
+#        run: |
+#          docker push ${{ steps.ecr.outputs.account }}.dkr.ecr.eu-west-2.amazonaws.com/pedigree-production-php:${{ steps.build_number.outputs.number }}
