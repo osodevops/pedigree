@@ -62,8 +62,8 @@ jobs:
         id: ecr
         uses: jwalton/gh-ecr-login@v1
         with:
-          access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          access-key-id: ${{ secrets.OSO_PROD_AWS_ACCESS_KEY_ID }}
+          secret-access-key: ${{ secrets.OSO_PROD_AWS_SECRET_ACCESS_KEY }}
           region: eu-west-2
 
       - name: Build NGINX
