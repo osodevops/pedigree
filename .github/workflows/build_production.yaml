@@ -69,24 +69,34 @@ jobs:
           DEFAULT_BUMP: patch
           WITH_V: "true"
 
-      - name: Login to ECR
-        id: ecr
-        uses: jwalton/gh-ecr-login@v1
+      - name: Build NGINX Docker image and Push to ECR
+        uses: kciter/aws-ecr-action@master
+        env:
+          repo: pedigree-production-nginx
         with:
-          access-key-id: ${{ secrets.OSO_PROD_AWS_ACCESS_KEY_ID }}
-          secret-access-key: ${{ secrets.OSO_PROD_AWS_SECRET_ACCESS_KEY }}
+          access_key_id: ${{ secrets.OSO_PROD_AWS_ACCESS_KEY_ID }}
+          secret_access_key: ${{ secrets.OSO_PROD_AWS_SECRET_ACCESS_KEY }}
+          account_id: ${{ secrets.OSO_PROD_AWS_ACCOUNT_IDD }}
+          dockerfile: ./docker/app/nginx/Dockerfile
+          extra_build_args: "BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          path: ./
+          repo: ${{ env.repo }}
           region: eu-west-2
+          tags: ${{ steps.tagging.outputs.new_tag }}
+          create_repo: false
 
-      - name: Build NGINX
-        run: docker build -f ./docker/app/nginx/Dockerfile --no-cache=true --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -t ${{ steps.ecr.outputs.account }}.dkr.ecr.eu-west-2.amazonaws.com/pedigree-production-nginx:${{ steps.tagging.outputs.new_tag }} .
-
-      - name: Push NGINX
-        run: |
-          docker push ${{ steps.ecr.outputs.account }}.dkr.ecr.eu-west-2.amazonaws.com/pedigree-production-nginx:${{ steps.tagging.outputs.new_tag }}
-
-      - name: Build PHP
-        run: docker build -f ./docker/app/php/production/Dockerfile --no-cache=true --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -t ${{ steps.ecr.outputs.account }}.dkr.ecr.eu-west-2.amazonaws.com/pedigree-production-php:${{ steps.tagging.outputs.new_tag }} .
-
-      - name: Push PHP
-        run: |
-          docker push ${{ steps.ecr.outputs.account }}.dkr.ecr.eu-west-2.amazonaws.com/pedigree-production-php:${{ steps.tagging.outputs.new_tag }}
+      - name: Build PHP Docker image and Push to ECR
+        uses: kciter/aws-ecr-action@master
+        env:
+          repo: pedigree-production-ph
+        with:
+          access_key_id: ${{ secrets.OSO_PROD_AWS_ACCESS_KEY_ID }}
+          secret_access_key: ${{ secrets.OSO_PROD_AWS_SECRET_ACCESS_KEY }}
+          account_id: ${{ secrets.OSO_PROD_AWS_ACCOUNT_IDD }}
+          dockerfile: ./docker/app/php/production/Dockerfile
+          extra_build_args: "BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          path: ./
+          repo: ${{ env.repo }}
+          region: eu-west-2
+          tags: ${{ steps.tagging.outputs.new_tag }}
+          create_repo: false
