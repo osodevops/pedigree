@@ -87,7 +87,7 @@ jobs:
       - name: Build PHP Docker image and Push to ECR
         uses: kciter/aws-ecr-action@master
         env:
-          repo: pedigree-production-ph
+          repo: pedigree-production-php
         with:
           access_key_id: ${{ secrets.OSO_PROD_AWS_ACCESS_KEY_ID }}
           secret_access_key: ${{ secrets.OSO_PROD_AWS_SECRET_ACCESS_KEY }}
