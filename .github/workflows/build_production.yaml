@@ -78,7 +78,6 @@ jobs:
           secret_access_key: ${{ secrets.OSO_PROD_AWS_SECRET_ACCESS_KEY }}
           account_id: ${{ secrets.OSO_PROD_AWS_ACCOUNT_ID }}
           dockerfile: ./docker/app/nginx/Dockerfile
-          extra_build_args: BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
           path: ./
           repo: ${{ env.repo }}
           region: eu-west-2
@@ -94,7 +93,6 @@ jobs:
           secret_access_key: ${{ secrets.OSO_PROD_AWS_SECRET_ACCESS_KEY }}
           account_id: ${{ secrets.OSO_PROD_AWS_ACCOUNT_ID }}
           dockerfile: ./docker/app/php/production/Dockerfile
-          extra_build_args: BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
           path: ./
           repo: ${{ env.repo }}
           region: eu-west-2
