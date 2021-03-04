@@ -9,7 +9,9 @@
         "prod": "npm run production",
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
-    "devDependencies": {
+    "dependencies": {
+        "v-title": "^1.0.13",
+        "vuex": "^3.6.0",
         "@inertiajs/inertia": "^0.8.4",
         "@inertiajs/inertia-vue": "^0.2.0",
         "@tailwindcss/ui": "^0.6.0",
@@ -26,9 +28,5 @@
         "tailwindcss": "^1.8.0",
         "vue": "^2.6",
         "vue-template-compiler": "^2.6.10"
-    },
-    "dependencies": {
-        "v-title": "^1.0.13",
-        "vuex": "^3.6.0"
     }
 }
