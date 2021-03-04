@@ -13,7 +13,7 @@
         "v-title": "^1.0.13",
         "vuex": "^3.6.0",
         "@inertiajs/inertia": "^0.8.4",
-        "@inertiajs/inertia-vue": "^0.2.0",
+        "@inertiajs/inertia-vue": "^0.5.4",
         "@tailwindcss/ui": "^0.6.0",
         "axios": ">=0.21.1",
         "cross-env": "^7.0",
