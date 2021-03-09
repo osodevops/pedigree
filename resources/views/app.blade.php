@@ -20,7 +20,9 @@
     </head>
     <body class="antialiased">
         @inertia
-        
+
+        @include('layouts.footer')
+
     @if (app()->environment('production')))
         <script> let GTAG = '{{ env('GTAG') }}'; </script>
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-`${GTAG}`"></script>
