@@ -25,7 +25,7 @@
             >
                 <div class="flex flex-wrap p-4 border-l border-r border-b border-gray-200">
                     <div class="w-full flex flex-wrap justify-between items-center">
-                        <div class="flex-1 flex">
+                        <a :href="`https://github.com/${fork.owner.id}/${fork.name}`" target="_blank" class="flex-1 flex">
                             <div class="mr-4" style="width: 48px; height:48px;">
                                 <img :src="fork.owner.avatar_url" />
                             </div>
@@ -50,7 +50,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
 
                         <div class="mx-2">
                             <span v-if="fork.difference" class="rounded text-xs px-2 py-1 flex items-center" :class="{
