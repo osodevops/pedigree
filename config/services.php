@@ -34,4 +34,8 @@ return [
         'server_key' => env('GITHUB_SERVER_TOKEN'),
     ],
 
+    'gtag' => [
+        'key' => env('GTAG'),
+    ]
+
 ];

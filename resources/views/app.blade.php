@@ -21,19 +21,13 @@
     <body class="antialiased">
         @inertia
 
-        @include('layouts.footer')
-
-    @if (app()->environment('production')))
-        <script> let GTAG = '{{ env('GTAG') }}'; </script>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-`${GTAG}`"></script>
+    @if (app()->environment('production'))
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-{{ config('services.gtag.key') }}"></script>
         <script>
-            <!-- Global site tag (gtag.js) - Google Analytics -->
-
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-
-            gtag('config', "G-`${GTAG}`");
+            gtag('config', "G-{{ config('services.gtag.key') }}");
         </script>
     @endif
     </body>
