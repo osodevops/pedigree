@@ -3,6 +3,7 @@
         :autocompleteMethod="searchRepositories"
         :searchMethod="getRepositoryInformation"
         :searchResults="getSearchResults"
+        :loading="isLoadingSearchResults"
         @choose="emptySearchResults"
     ></search-bar>
 </template>
@@ -25,7 +26,7 @@ export default {
         },
     },
     computed: {
-        ...mapGetters("searchRepos", ["getSearchResults"]),
+        ...mapGetters("searchRepos", ["getSearchResults", "isLoadingSearchResults"]),
     },
 };
 </script>

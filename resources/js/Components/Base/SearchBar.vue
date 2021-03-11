@@ -9,6 +9,9 @@
                     @input="autocomplete()"
                     onClick="this.select();"
                 ></jet-input>
+                <div class="absolute h-full flex items-center top-0 right-3" v-show="loading">
+                    <Icon icon="spinner" :spins="true" />
+                </div>
                 <div class="absolute left-0 w-full divide-y-1 divide-gray-200 shadow-lg rounded-lg overflow-hidden" style="top:110%">
                     <a @click="navigateTo(repo)" class="block px-6 py-2 w-full bg-white text-gray-800 hover:bg-blue-500 hover:text-white cursor-pointer active:bg-blue-500 active:text-white" v-for="repo in searchResults" v-bind:key="repo.id">
                         <div class="flex items-center">
@@ -61,7 +64,11 @@ export default {
             type: String,
             default: ""
         },
-        searchResults: {}
+        searchResults: {},
+        loading: {
+            type: Boolean,
+            default: false
+        },
     },
     data() {
         return {

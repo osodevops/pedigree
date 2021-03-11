@@ -13,6 +13,7 @@ export default {
         forkData: [],
         loadingGithubInfo: false,
         searchResults: [],
+        loadingSearchResults: false,
     },
     mutations: {
         [Types.SEARCH_REPOS_UPDATE_REPOSITORY_BREAKDOWN](
@@ -58,10 +59,16 @@ export default {
         [Types.SEARCH_REPOS_UPDATE_RESULTS](state, results) {
             state.searchResults = results;
         },
+        [Types.SEARCH_REPOS_SEARCH_LOADING_STATE](state, loading) {
+            state.loadingSearchResults = loading;
+        }
     },
     getters: {
         getSearchResults: (state) => {
             return state.searchResults;
+        },
+        isLoadingSearchResults: (state) => {
+            return state.loadingSearchResults;
         },
         filteredForks: (state) => (query, status) => {
             return state.forkData.filter(fork => {
@@ -190,8 +197,10 @@ export default {
         },
         searchRepositories: _.debounce(({ commit }, queryString) => {
             if (queryString.length < 3) return;
+            commit(Types.SEARCH_REPOS_SEARCH_LOADING_STATE, true);
             axios.get(`/repos?q=${queryString}`)
                 .then(({ data }) => {
+                    commit(Types.SEARCH_REPOS_SEARCH_LOADING_STATE, false);
                     commit(
                         Types.SEARCH_REPOS_UPDATE_RESULTS,
                         data.data
