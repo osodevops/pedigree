@@ -8,3 +8,4 @@ export const SEARCH_REPOS_UPDATE_FORKS_INFORMATION = "updateForksInformation";
 export const SEARCH_REPO_LOADING_STATE = "updateLoading";
 export const SEARCH_REPOS_UPDATE_FORK_DIFFERENCES = "updateForkDifferences";
 export const SEARCH_REPOS_UPDATE_FORK_SHOW_STATE = "updateForkShowState";
+export const SEARCH_REPOS_UPDATE_RESULTS = "setSearchRepositories";

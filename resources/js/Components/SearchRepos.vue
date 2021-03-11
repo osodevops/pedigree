@@ -1,9 +1,13 @@
 <template>
-    <search-bar :searchMethod="getRepositoryInformation"></search-bar>
+    <search-bar
+        :autocompleteMethod="searchRepositories"
+        :searchMethod="getRepositoryInformation"
+        :searchResults="getSearchResults"
+    ></search-bar>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import SearchBar from "@/Components/Base/SearchBar";
 import JetButton from "@/Jetstream/Button";
 import SearchReposModule from "@/Store/Modules/SearchRepos/index";
@@ -13,15 +17,12 @@ export default {
         SearchBar,
         JetButton,
     },
-    mounted() {
-        this.$store.registerModule("searchRepos", SearchReposModule);
-    },
-    beforeDestroy() {
-        this.$store.unregisterModule("searchRepos", SearchReposModule);
-    },
     methods: {
-        ...mapActions("searchRepos", ["getRepositoryInformation"])
-    }
+        ...mapActions("searchRepos", ["getRepositoryInformation", "searchRepositories"])
+    },
+    computed: {
+        ...mapGetters("searchRepos", ["getSearchResults"]),
+    },
 };
 </script>
 

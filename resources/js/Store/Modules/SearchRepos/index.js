@@ -1,5 +1,7 @@
 import * as Types from "./types";
 import Vue from "vue";
+import axios from "axios";
+import _ from "lodash";
 
 export default {
     namespaced: true,
@@ -9,7 +11,8 @@ export default {
         githubUsername: "",
         githubRepositoryName: "",
         forkData: [],
-        loadingGithubInfo: false
+        loadingGithubInfo: false,
+        searchResults: [],
     },
     mutations: {
         [Types.SEARCH_REPOS_UPDATE_REPOSITORY_BREAKDOWN](
@@ -51,9 +54,15 @@ export default {
             state.forkData[index].showMore === true
                 ? (state.forkData[index].showMore = false)
                 : (state.forkData[index].showMore = true);
-        }
+        },
+        [Types.SEARCH_REPOS_UPDATE_RESULTS](state, results) {
+            state.searchResults = results;
+        },
     },
     getters: {
+        getSearchResults: (state) => {
+            return state.searchResults;
+        },
         filteredForks: (state) => (query, status) => {
             return state.forkData.filter(fork => {
                 if (query === "" && status === "") return fork;
@@ -95,6 +104,9 @@ export default {
                     /(https:\/\/github\.com\/)?([\w\d-\.]*)\/([\w\d-\.]*)(.*)?/g
                 )
             ];
+
+            if (!matches[0]) return;
+
             const [username, repository] = [matches[0][2], matches[0][3]];
 
             commit(Types.SEARCH_REPOS_UPDATE_GITHUB_USERNAME, username);
@@ -175,6 +187,16 @@ export default {
                         }
                     );
             }, 3000);
-        }
+        },
+        searchRepositories: _.debounce(({ commit }, queryString) => {
+            if (queryString.length < 3) return;
+            axios.get(`/repos?q=${queryString}`)
+                .then(({ data }) => {
+                    commit(
+                        Types.SEARCH_REPOS_UPDATE_RESULTS,
+                        data.data
+                    )
+                })
+        }, 1000)
     }
 };
