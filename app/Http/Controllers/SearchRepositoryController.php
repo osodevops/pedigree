@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Services\GitHub;
 use Illuminate\Http\Request;
 use App\Http\Resources\RepositoryResource;
@@ -30,11 +31,33 @@ class SearchRepositoryController
      */
     public function index(Request $request)
     {
-        return RepositoryResource::collection(
-            $this->service->repository()->search([
-                'q' => $request->get('q', ''),
-                'per_page' => $request->get('per_page', 3),
-            ])['items']
-        );
+        $queryString = $request->get('q');
+
+        if (is_null($queryString)) {
+            return $this->emptyResponse();
+        }
+
+        try {
+            return RepositoryResource::collection(
+                $this->service->repository()->search([
+                    'q' => $queryString,
+                    'per_page' => $request->get('per_page', 3),
+                ])['items']
+            );
+        } catch (Exception $e) {
+            return $this->emptyResponse();
+        }
+    }
+
+    /**
+     * Get an empty response.
+     *
+     * @return array
+     */
+    private function emptyResponse(): array
+    {
+        return [
+            'data' => []
+        ];
     }
 }
