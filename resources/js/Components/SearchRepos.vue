@@ -3,14 +3,14 @@
         :autocompleteMethod="searchRepositories"
         :searchMethod="getRepositoryInformation"
         :searchResults="getSearchResults"
+        @choose="emptySearchResults"
     ></search-bar>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 import SearchBar from "@/Components/Base/SearchBar";
 import JetButton from "@/Jetstream/Button";
-import SearchReposModule from "@/Store/Modules/SearchRepos/index";
 
 export default {
     components: {
@@ -18,7 +18,11 @@ export default {
         JetButton,
     },
     methods: {
-        ...mapActions("searchRepos", ["getRepositoryInformation", "searchRepositories"])
+        ...mapMutations("searchRepos", ["setSearchRepositories"]),
+        ...mapActions("searchRepos", ["getRepositoryInformation", "searchRepositories"]),
+        emptySearchResults() {
+            this.setSearchRepositories([]);
+        },
     },
     computed: {
         ...mapGetters("searchRepos", ["getSearchResults"]),

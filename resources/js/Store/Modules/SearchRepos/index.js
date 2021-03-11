@@ -197,6 +197,6 @@ export default {
                         data.data
                     )
                 })
-        }, 1000)
+        }, 300)
     }
 };
