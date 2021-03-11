@@ -45,7 +45,7 @@ export default {
     props: {
         placeholder: {
             type: String,
-            default: "Search for a GitHub Repo"
+            default: "Enter a GitHub user/repository, or search for a repository"
         },
         errorMessage: {
             type: String
