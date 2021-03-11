@@ -59,6 +59,25 @@ class RepositoriesService
     }
 
     /**
+     * Search for a repository by keyword.
+     *
+     * @param  array  $query
+     * @return array
+     */
+    public function search(array $query = []): array
+    {
+        $queryString = http_build_query(array_merge([
+            'sort' => 'stars',
+            'q' => '',
+        ], $query));
+
+        return $this->service->request(
+            'GET',
+            "search/repositories?{$queryString}"
+        );
+    }
+
+    /**
      * Get issues for this repository from the GitHub API.
      *
      * @param  array  $query
