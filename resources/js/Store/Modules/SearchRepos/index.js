@@ -122,6 +122,7 @@ export default {
                 repository
             );
 
+            commit(Types.SEARCH_REPOS_UPDATE_RESULTS, []);
             commit(Types.SEARCH_REPOS_UPDATE_FORKS_INFORMATION, []);
             commit(Types.SEARCH_REPOS_UPDATE_REPOSITORY_BREAKDOWN, {});
             commit(Types.SEARCH_REPO_LOADING_STATE, true);
@@ -137,6 +138,7 @@ export default {
                             data
                         );
                         commit(Types.SEARCH_REPO_LOADING_STATE, false);
+                        commit(Types.SEARCH_REPOS_UPDATE_RESULTS, []);
                         dispatch("getRepositoryForkInformation");
                     },
                     error => {

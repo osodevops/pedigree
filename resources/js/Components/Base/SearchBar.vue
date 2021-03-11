@@ -1,5 +1,5 @@
 <template>
-    <form class="w-full relative" @submit.prevent="searchMethod(internalUrl)">
+    <form class="w-full relative" @submit.prevent="search">
         <div class="flex flex-no-wrap">
             <div class="flex-1 relative mr-2">
                 <jet-input
@@ -77,10 +77,15 @@ export default {
         };
     },
     methods: {
+        search() {
+            this.searchMethod(this.internalUrl)
+            this.internalUrl = "";
+            this.emptySearchResults();
+        },
         navigateTo(repo) {
             this.searchMethod(`${repo.owner.id}/${repo.name}`);
             this.internalUrl = "";
-            this.emptySearchResults()
+            this.emptySearchResults();
         },
         autocomplete() {
             if (! this.internalUrl) return this.emptySearchResults();
