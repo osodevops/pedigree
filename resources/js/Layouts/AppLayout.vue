@@ -9,6 +9,10 @@
                                 <jet-application-mark class="block h-8 w-auto"/>
                                 <span class="ml-4 text-white uppercase tracking-widest text-xl font-bold">Pedigree</span>
                             </inertia-link>
+                            <inertia-link :href="route('ross-index')" class="flex items-center">
+                                <jet-application-mark class="block h-4 w-auto"/>
+                                <span class="ml-4 text-white uppercase tracking-widest text-sm font-semibold">Ross Index</span>
+                            </inertia-link>
                         </div>
                     </div>
                 </div>
