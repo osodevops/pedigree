@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Inertia\Inertia;
+use App\Repositories\RossIndex\IndexQ42020;
 
 class RossIndexController
 {
@@ -13,6 +14,8 @@ class RossIndexController
      */
     public function index()
     {
-        return Inertia::render('RossIndex');
+        return Inertia::render('RossIndex', [
+            'companies' => app(IndexQ42020::class),
+        ]);
     }
 }
