@@ -17,14 +17,13 @@
             <div class="flex flex-col mt-14">
                 <div class="mt-8 md:w-3/5 self-center px-6">
                     <p class="text-md leading-9">
-                        Runa actively invests in OSS startups (like Nginx and MariaDB) and considers an active developer community to be instrumental for open-source businesses. We look for promising companies with a fast-growing army of fans, track them at Github, and decided to open-source our findings as an index.
+                        We look for promising companies with a fast-growing army of fans, track them at Github, and decided to open-source our findings as an index.
                         ROSS index highlights top-20 open-source startups by the annualised growth rate (AGR) of Github stars at their repositories. While these stars are not a perfect metric for community evaluation, they allow us to understand which OSS products were on top of developers’ mind last quarter. Our index is transparent, measurable and fully focused on startups.
                     </p>
                 </div>
             </div>
             
-            <!-- This example requires Tailwind CSS v2.0+ -->
-                <div class="relative bg-gray py-16 sm:py-24">
+            <div class="relative bg-gray py-16 sm:py-24">
                 <div class="lg:mx-auto lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:gap-24 lg:items-start">
                     <div class="relative sm:py-16 lg:py-0">
                     <div aria-hidden="true" class="hidden sm:block lg:absolute lg:inset-y-0 lg:right-0 lg:w-screen">
@@ -58,10 +57,10 @@
                     <!-- Content area -->
                     <div class="pt-12 sm:pt-16 lg:pt-20">
                         <h2 class="text-3xl text-gray-900 font-extrabold tracking-tight sm:text-4xl">
-                         Our Methodology
+                        Our Methodology
                         </h2>
                         <div class="mt-6 text-gray-500 space-y-6">
-                      
+                    
                         <p class="text-base leading-7">
                             ROSS index uses only public data from Github, Crunchbase, mass media, and other sources. We strive to show cities and countries connected with the origin of companies, not just formal HQ locations. We are purely focused on companies using the English language in descriptions at their repos and corporate websites, so some local startups (e.g. Chinese) could be missed in the index. We define a “startup” as:                        
                         </p>
@@ -97,10 +96,8 @@
                     </div>
                     </div>
                 </div>
-                </div>
-
+            </div>
         </section>
-
     </app-layout>
 </template>
 
