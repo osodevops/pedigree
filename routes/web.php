@@ -8,7 +8,9 @@ use App\Http\Controllers\RossIndexController;
 use App\Http\Controllers\DifferenceController;
 use App\Http\Controllers\RepositoryController;
 
-$router->get('/{user?}/{repository?}', [DashboardController::class, 'show'])->name('dashboard');
+$router->get('/', [DashboardController::class, 'show'])->name('dashboard');
+$router->get('/ross-index', [RossIndexController::class, 'index'])->name('ross-index');
+$router->get('/{user}/{repository}', [DashboardController::class, 'show'])->name('dashboard.with-data');
 
 $router->group(['prefix' => 'repos/{user}/{repository}'], function ($router) {
     $router->get('/', [RepositoryController::class, 'show']);
@@ -20,4 +22,3 @@ $router->group(['prefix' => 'repos/{user}/{repository}'], function ($router) {
         ->middleware(['cache.response']);
 });
 
-$router->get('/ross-index', [RossIndexController::class, 'index'])->name('ross-index');
