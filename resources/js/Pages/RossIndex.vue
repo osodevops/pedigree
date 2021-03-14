@@ -3,7 +3,7 @@
         <section class="bg-gray-100 w-full border-b border-gray-200 pt-8 mb-8">
             <div class="flex flex-col sm:mx-6 px-6">
                 <div class="md:mt-32 mt-12 md:w-4/5 self-center">
-                    <h1 class="font-bold text-center md:text-6xl text-5xl leading-12"> 
+                    <h1 class="font-bold text-center md:text-6xl text-5xl leading-12">
                         ROSS Index: the fastest-growing open-source startups, every quarter
                     </h1>
                 </div>
@@ -111,5 +111,8 @@ export default {
     components: {
         AppLayout,
     },
+    props: [
+        'companies'
+    ]
 };
 </script>
