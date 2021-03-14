@@ -22,7 +22,7 @@
                     </p>
                 </div>
             </div>
-            
+
             <div class="relative bg-gray py-16 sm:py-24">
                 <div class="lg:mx-auto lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:gap-24 lg:items-start">
                     <div class="relative sm:py-16 lg:py-0">
@@ -60,9 +60,9 @@
                         Our Methodology
                         </h2>
                         <div class="mt-6 text-gray-500 space-y-6">
-                    
+
                         <p class="text-base leading-7">
-                            ROSS index uses only public data from Github, Crunchbase, mass media, and other sources. We strive to show cities and countries connected with the origin of companies, not just formal HQ locations. We are purely focused on companies using the English language in descriptions at their repos and corporate websites, so some local startups (e.g. Chinese) could be missed in the index. We define a “startup” as:                        
+                            ROSS index uses only public data from Github, Crunchbase, mass media, and other sources. We strive to show cities and countries connected with the origin of companies, not just formal HQ locations. We are purely focused on companies using the English language in descriptions at their repos and corporate websites, so some local startups (e.g. Chinese) could be missed in the index. We define a “startup” as:
                         </p>
                         </div>
                     </div>
@@ -101,6 +101,7 @@
 
         <section class="mx-auto max-w-5xl border-gray-200 min-w-sm overflow-x-auto pt-8 mb-8">
             <CompaniesTable :companies="companies"></CompaniesTable>
+            <CompaniesChart :companies="companies"></CompaniesChart>
         </section>
 
     </app-layout>
@@ -109,11 +110,13 @@
 <script>
 import AppLayout from "@/Layouts/AppLayout";
 import CompaniesTable from "@/Components/RossIndex/CompaniesTable";
+import CompaniesChart from "@/Components/RossIndex/CompaniesChart";
 
 export default {
     components: {
         AppLayout,
         CompaniesTable,
+        CompaniesChart,
     },
     props: [
         'companies'
