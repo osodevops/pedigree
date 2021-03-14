@@ -3,7 +3,7 @@ require("./bootstrap");
 require("moment");
 
 import Vue from "vue";
-import { plugin } from '@inertiajs/inertia-vue'
+import { InertiaApp, plugin } from '@inertiajs/inertia-vue'
 import PortalVue from "portal-vue";
 
 Vue.config.devtools = true;
