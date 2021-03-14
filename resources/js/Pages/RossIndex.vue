@@ -3,7 +3,7 @@
         <section class="bg-gray-100 w-full border-b border-gray-200 pt-8 mb-8">
             <div class="flex flex-col sm:mx-6 px-4">
                 <div class="mt-32 sm:w-4/5 self-center">
-                    <h1 class="font-bold text-center sm:text-6xl text-3xl leading-12"> 
+                    <h1 class="font-bold text-center sm:text-6xl text-4xl leading-12"> 
                         ROSS Index: the fastest-growing open-source startups, every quarter
                     </h1>
                 </div>
