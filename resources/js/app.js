@@ -3,13 +3,13 @@ require("./bootstrap");
 require("moment");
 
 import Vue from "vue";
-import { InertiaApp } from "@inertiajs/inertia-vue";
+import { plugin } from '@inertiajs/inertia-vue'
 import PortalVue from "portal-vue";
 
 Vue.config.devtools = true;
 
 Vue.mixin({ methods: { route } });
-Vue.use(InertiaApp);
+Vue.use(plugin)
 Vue.use(PortalVue);
 
 import store from "@/Store/store";
