@@ -23,7 +23,7 @@ class GitHub
      * @param  string  $name
      * @return App\Services\GitHub\RepositoriesService
      */
-    public function repository($username, $name)
+    public function repository($username = '', $name = '')
     {
         return (new RepositoriesService($this))
             ->setRepository($username, $name);
