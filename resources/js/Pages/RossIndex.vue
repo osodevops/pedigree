@@ -1,6 +1,6 @@
 <template>
-    <app-layout>
-        <section class="bg-gray-100 w-full border-b border-gray-200 pt-8 mb-8">
+    <app-layout class="bg-gray-100">
+        <section class=" w-full border-gray-200 pt-8 mb-8">
             <div class="flex flex-col sm:mx-6 px-6">
                 <div class="md:mt-32 mt-12 md:w-4/5 self-center">
                     <h1 class="font-bold text-center md:text-6xl text-5xl leading-12">
@@ -99,7 +99,7 @@
             </div>
         </section>
 
-        <section class="mx-auto max-w-5xl min-w-sm overflow-x-auto pt-8 mb-8">
+        <section class="mx-auto max-w-5xl border-gray-200 min-w-sm overflow-x-auto pt-8 mb-8">
             <CompaniesTable :companies="companies"></CompaniesTable>
         </section>
 
