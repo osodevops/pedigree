@@ -98,15 +98,22 @@
                 </div>
             </div>
         </section>
+
+        <section class="mx-auto max-w-5xl min-w-sm overflow-x-auto pt-8 mb-8">
+            <CompaniesTable :companies="companies"></CompaniesTable>
+        </section>
+
     </app-layout>
 </template>
 
 <script>
 import AppLayout from "@/Layouts/AppLayout";
+import CompaniesTable from "@/Components/RossIndex/CompaniesTable";
 
 export default {
     components: {
         AppLayout,
+        CompaniesTable,
     },
     props: [
         'companies'
