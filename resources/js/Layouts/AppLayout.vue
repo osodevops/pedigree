@@ -9,9 +9,8 @@
                                 <jet-application-mark class="block h-8 w-auto"/>
                                 <span class="ml-4 text-white uppercase tracking-widest text-xl font-bold">Pedigree</span>
                             </inertia-link>
-                            <inertia-link :href="route('ross-index')" class="flex items-center">
-                                <jet-application-mark class="block h-4 w-auto"/>
-                                <span class="ml-4 text-white uppercase tracking-widest text-sm font-semibold">Poss Index</span>
+                            <inertia-link :href="route('poss-index')" class="flex items-center">
+                                <span :class="`border-b ml-4 uppercase tracking-widest text-sm font-semibold ${$route().current() === 'poss-index' ? 'text-white border-blue-200' : 'text-gray-200 border-transparent'}`">Poss Index</span>
                             </inertia-link>
                         </div>
                     </div>

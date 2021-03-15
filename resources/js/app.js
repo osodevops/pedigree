@@ -18,6 +18,7 @@ import VTitle from "v-title";
 import "v-title/lib/element-ui";
 
 Vue.use(VTitle);
+Vue.prototype.$route = (...args) => route(...args);
 
 const app = document.getElementById("app");
 
