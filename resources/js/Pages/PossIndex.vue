@@ -102,7 +102,7 @@
         </section>
 
         <section class="mx-auto max-w-5xl border-gray-200 min-w-sm overflow-x-auto pt-8">
-            <p class="text-gray-900 font-extrabold tracking-tight sm:text-3xl mb-4">The fastest-growing open-source startups (Q4 2020)</p>
+            <p class="text-gray-900 font-extrabold tracking-tight sm:text-3xl mb-4">The fastest-growing open-source repositories (March 2021)</p>
             <CompaniesTable :companies="companies"></CompaniesTable>
             
             <CompaniesChart :companies="companies"></CompaniesChart>
