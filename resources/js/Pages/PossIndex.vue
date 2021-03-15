@@ -2,20 +2,20 @@
     <app-layout class="bg-gray-100">
         <section class=" w-full border-gray-200 pt-8 mb-8">
             <div class="flex flex-col sm:mx-6 px-6">
-                <div class="md:mt-32 mt-12 md:w-4/5 self-center">
-                    <h1 class="font-bold text-center md:text-5xl text-4xl leading-12">
+                <div class="lg:mt-32 mt-12 lg:w-4/5 self-center">
+                    <h1 class="font-bold text-center text-5xl leading-12">
                         POS Index: the fastest-growing open-source repositories, every quarter.
                     </h1>
                 </div>
-                <div class="mt-16 md:w-1/2 self-center px-6">
-                    <p class="text-center md:text-2xl text-xl leading-12">
+                <div class="mt-16 lg:w-1/2 self-center px-6">
+                    <p class="text-center lg:text-2xl text-xl leading-12">
                        We select the top-20 open-source repositories by their developer growth at Github monthly. Our transparent and measurable methodology is known as the Pedigree Open Source (POS) Index.
                     </p>
                 </div>
             </div>
 
             <div class="flex flex-col mt-8">
-                <div class="mt-8 md:w-3/5 self-center px-6">
+                <div class="mt-8 lg:w-3/5 self-center px-6">
                     <p class="text-md leading-9">
                        Pedigree is an open source project itself, built by developers for developers who leverage the power of open source communities. Our algorithms trawl GitHub hourly for promising projects with a fast-growing army of fans, to help every developer keep upto date with the latest emerging technologies, our findings are published as an index monthly.
                     </p>
@@ -45,7 +45,7 @@
                             <div class="absolute inset-0 bg-blue-400" style="mix-blend-mode: multiply;"></div>
                             <div class="absolute inset-0 bg-gradient-to-t from-blue-400 via-blue-500 opacity-90"></div>
                             <div class="relative px-8">
-                                <div class="relative text-lg font-medium text-white md:flex-grow">
+                                <div class="relative text-lg font-medium text-white lg:flex-grow">
                                     <p class="relative">
                                         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Qui quas autem repellat iure blanditiis culpa ullam asperiores, veniam atque aut fuga se
                                     </p>
