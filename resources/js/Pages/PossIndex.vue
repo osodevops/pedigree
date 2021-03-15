@@ -19,8 +19,8 @@
                     <p class="text-md leading-9">
                        Pedigree is an open source project itself, built by developers for developers who leverage the power of open source communities. Our algorithms trawl GitHub hourly for promising projects with a fast-growing army of fans, to help every developer keep upto date with the latest emerging technologies, our findings are published as an index monthly.
                     </p>
-                    <p class="text-md leading-9">
-                        Pedigree picks the top 20 open source projects by the annualised growth rate (AGR) made up from Github commits, stars and contributors. Issue resolution is a track metric for community adoption, this allows us to understand which projects are actively being improved every month. Our index is transparent, measurable and fully focused on public GitHub repositories.
+                    <p class="text-md leading-9 mt-4">
+                       Pedigree picks the top 20 open source projects by the annualised growth rate (AGR) made up from Github commits, stars and contributors. Issue resolution is a track metric for community adoption, this allows us to understand which projects are actively being improved every month. Our index is transparent, measurable and fully focused on public GitHub repositories.
                     </p>
                 </div>
             </div>
@@ -93,7 +93,7 @@
                                 
                             </dl>
                             <div class="mt-10">
-                                <a href="https://osodevops.io/" target="_blank" class="text-base font-medium text-gray-600"> Learn more about OSO DevOps can help you <span aria-hidden="true">&rarr;</span> </a>
+                                <a href="https://osodevops.io/" target="_blank" class="text-base font-medium text-gray-600"> Sponsored by OSO DevOps <span aria-hidden="true">&rarr;</span> </a>
                             </div>
                         </div>
                     </div>
