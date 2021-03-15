@@ -51,6 +51,11 @@ export default {
           title: {
             text: 'Star growth (AGR)'
           },
+          labels: {
+            formatter: (value) => {
+              return value + "%";
+            }
+          },
           axisTicks: {
               show: true,
           }
