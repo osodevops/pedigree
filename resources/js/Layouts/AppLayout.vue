@@ -11,7 +11,7 @@
                             </inertia-link>
                             <inertia-link :href="route('ross-index')" class="flex items-center">
                                 <jet-application-mark class="block h-4 w-auto"/>
-                                <span class="ml-4 text-white uppercase tracking-widest text-sm font-semibold">Ross Index</span>
+                                <span class="ml-4 text-white uppercase tracking-widest text-sm font-semibold">Poss Index</span>
                             </inertia-link>
                         </div>
                     </div>
