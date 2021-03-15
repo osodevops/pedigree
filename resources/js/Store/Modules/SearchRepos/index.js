@@ -1,5 +1,7 @@
 import * as Types from "./types";
 import Vue from "vue";
+import axios from "axios";
+import _ from "lodash";
 
 export default {
     namespaced: true,
@@ -9,7 +11,9 @@ export default {
         githubUsername: "",
         githubRepositoryName: "",
         forkData: [],
-        loadingGithubInfo: false
+        loadingGithubInfo: false,
+        searchResults: [],
+        loadingSearchResults: false,
     },
     mutations: {
         [Types.SEARCH_REPOS_UPDATE_REPOSITORY_BREAKDOWN](
@@ -51,9 +55,21 @@ export default {
             state.forkData[index].showMore === true
                 ? (state.forkData[index].showMore = false)
                 : (state.forkData[index].showMore = true);
+        },
+        [Types.SEARCH_REPOS_UPDATE_RESULTS](state, results) {
+            state.searchResults = results;
+        },
+        [Types.SEARCH_REPOS_SEARCH_LOADING_STATE](state, loading) {
+            state.loadingSearchResults = loading;
         }
     },
     getters: {
+        getSearchResults: (state) => {
+            return state.searchResults;
+        },
+        isLoadingSearchResults: (state) => {
+            return state.loadingSearchResults;
+        },
         filteredForks: (state) => (query, status) => {
             return state.forkData.filter(fork => {
                 if (query === "" && status === "") return fork;
@@ -95,6 +111,9 @@ export default {
                     /(https:\/\/github\.com\/)?([\w\d-\.]*)\/([\w\d-\.]*)(.*)?/g
                 )
             ];
+
+            if (!matches[0]) return;
+
             const [username, repository] = [matches[0][2], matches[0][3]];
 
             commit(Types.SEARCH_REPOS_UPDATE_GITHUB_USERNAME, username);
@@ -103,6 +122,7 @@ export default {
                 repository
             );
 
+            commit(Types.SEARCH_REPOS_UPDATE_RESULTS, []);
             commit(Types.SEARCH_REPOS_UPDATE_FORKS_INFORMATION, []);
             commit(Types.SEARCH_REPOS_UPDATE_REPOSITORY_BREAKDOWN, {});
             commit(Types.SEARCH_REPO_LOADING_STATE, true);
@@ -118,6 +138,7 @@ export default {
                             data
                         );
                         commit(Types.SEARCH_REPO_LOADING_STATE, false);
+                        commit(Types.SEARCH_REPOS_UPDATE_RESULTS, []);
                         dispatch("getRepositoryForkInformation");
                     },
                     error => {
@@ -175,6 +196,18 @@ export default {
                         }
                     );
             }, 3000);
-        }
+        },
+        searchRepositories: _.debounce(({ commit }, queryString) => {
+            if (queryString.length < 3) return;
+            commit(Types.SEARCH_REPOS_SEARCH_LOADING_STATE, true);
+            axios.get(`/repos?q=${queryString}`)
+                .then(({ data }) => {
+                    commit(Types.SEARCH_REPOS_SEARCH_LOADING_STATE, false);
+                    commit(
+                        Types.SEARCH_REPOS_UPDATE_RESULTS,
+                        data.data
+                    )
+                })
+        }, 300)
     }
 };
