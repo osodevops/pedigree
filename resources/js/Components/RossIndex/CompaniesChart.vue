@@ -1,5 +1,5 @@
 <template>
-    <div id="chart"></div>
+    <div id="chart" class="py-12"></div>
 </template>
 
 <script>

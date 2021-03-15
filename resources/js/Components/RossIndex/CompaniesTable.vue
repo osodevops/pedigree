@@ -1,5 +1,5 @@
 <template>
-    <table class="w-full">
+    <table class="w-full shadow-lg bg-white">
         <thead>
             <tr class="font-semibold text-xs bg-gray-100 border border-gray-200">
                 <td>Company</td>
