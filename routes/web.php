@@ -10,7 +10,7 @@ use App\Http\Controllers\RepositoryController;
 use App\Http\Controllers\SearchRepositoryController;
 
 $router->get('/', [DashboardController::class, 'show'])->name('dashboard');
-$router->get('/poss-index', [PosssIndexController::class, 'index'])->name('poss-index');
+$router->get('/pos-index', [PosssIndexController::class, 'index'])->name('pos-index');
 $router->get('repos', [SearchRepositoryController::class, 'index']);
 $router->get('/{user}/{repository}', [DashboardController::class, 'show'])->name('dashboard.with-data');
 
