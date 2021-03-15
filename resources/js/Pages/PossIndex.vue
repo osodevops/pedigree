@@ -58,8 +58,8 @@
                     <div class="relative mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-0">
                         <!-- Content area -->
                         <div class="pt-12 sm:pt-16 lg:pt-20">
-                            <h2 class="text-3xl text-gray-900 font-extrabold tracking-tight sm:text-4xl">
-                                Learn more about POS methodology
+                            <h2 class="text-3xl text-gray-900 font-extrabold tracking-tight">
+                                Learn more about POS Methodology
                             </h2>
                             <div class="mt-6 text-gray-500 space-y-6">
                                 <p class="text-base leading-7">
@@ -70,25 +70,27 @@
                          <!-- Stats section -->
                         <div class="mt-10">
                             <dl class="grid grid-cols-2 gap-x-4 gap-y-8">
-                            <div class="border-t-2 border-gray-100 pt-6">
-                                <dt class="text-base font-medium text-gray-500">Minimum GitHub stars</dt>
-                                <dd class="text-lg font-extrabold tracking-tight text-gray-900">1000</dd>
-                            </div>
 
-                            <div class="border-t-2 border-gray-100 pt-6">
-                                <dt class="text-base font-medium text-gray-500">Founded</dt>
-                                <dd class="text-lg font-extrabold tracking-tight text-gray-900">Less than 10 years ago</dd>
-                            </div>
+                                <div class="border-t-2 border-gray-100 pt-6">
+                                    <dt class="text-base font-medium text-gray-500">TO DO </dt>
+                                    <dd class="text-lg font-extrabold tracking-tight text-gray-900">TO DO</dd>
+                                </div>
 
-                            <div class="border-t-2 border-gray-100 pt-6">
-                                <dt class="text-base font-medium text-gray-500">Money raised</dt>
-                                <dd class="text-lg font-extrabold tracking-tight text-gray-900">Less than 100m</dd>
-                            </div>
+                                <div class="border-t-2 border-gray-100 pt-6">
+                                    <dt class="text-base font-medium text-gray-500">TO DO </dt>
+                                    <dd class="text-lg font-extrabold tracking-tight text-gray-900">TO DO</dd>
+                                </div>
 
-                            <div class="border-t-2 border-gray-100 pt-6">
-                                <dt class="text-base font-medium text-gray-500">Company status</dt>
-                                <dd class="text-lg font-extrabold tracking-tight text-gray-900">Not acquired or public</dd>
-                            </div>
+                                <div class="border-t-2 border-gray-100 pt-6">
+                                    <dt class="text-base font-medium text-gray-500">TO DO </dt>
+                                    <dd class="text-lg font-extrabold tracking-tight text-gray-900">TO DO</dd>
+                                </div>
+
+                                <div class="border-t-2 border-gray-100 pt-6">
+                                    <dt class="text-base font-medium text-gray-500">TO DO </dt>
+                                    <dd class="text-lg font-extrabold tracking-tight text-gray-900">TO DO</dd>
+                                </div>
+                                
                             </dl>
                             <div class="mt-10">
                                 <a href="https://osodevops.io/" target="_blank" class="text-base font-medium text-gray-600"> Learn more about OSO DevOps can help you <span aria-hidden="true">&rarr;</span> </a>
