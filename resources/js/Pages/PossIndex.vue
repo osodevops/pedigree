@@ -1,31 +1,32 @@
 <template>
-    <app-layout class="bg-gray-100">
-        <section class=" w-full border-gray-200 pt-8 mb-8">
-            <div class="flex flex-col sm:mx-6 px-6">
-                <div class="lg:mt-32 mt-12 lg:w-4/5 self-center">
-                    <h1 class="font-bold text-center text-5xl leading-12">
+    <app-layout>
+        <section class="w-full bg-gray-100 py-8 mb-8 border-b border-gray-200">
+            <base-container>
+                <div class="lg:mt-32 mt-12">
+                    <h1 class="font-bold text-center text-4xl leading-12">
                         POS Index: the fastest-growing open-source repositories, every quarter.
                     </h1>
                 </div>
-                <div class="mt-16 lg:w-1/2 self-center px-6">
+                <div class="mt-12 self-center px-6">
                     <p class="text-center lg:text-2xl text-xl leading-12">
-                       We select the top-20 open-source repositories by their developer growth at Github monthly. Our transparent and measurable methodology is known as the Pedigree Open Source (POS) Index.
+                       We select the top-20 open-source repositories by their developer growth at GitHub monthly. Our transparent and measurable methodology is known as the Pedigree Open Source (POS) Index.
                     </p>
                 </div>
-            </div>
-
-            <div class="flex flex-col mt-8">
-                <div class="mt-8 lg:w-3/5 self-center px-6">
+            </base-container>
+        </section>
+        <main>
+            <base-container>
+                <div class="mt-8 self-center px-6">
                     <p class="text-md leading-9">
                        Pedigree is an open source project itself, built by developers for developers who leverage the power of open source communities. Our algorithms trawl GitHub hourly for promising projects with a fast-growing army of fans, to help every developer keep upto date with the latest emerging technologies, our findings are published as an index monthly.
                     </p>
                     <p class="text-md leading-9 mt-4">
-                       Pedigree picks the top 20 open source projects by the annualised growth rate (AGR) made up from Github commits, stars and contributors. Issue resolution is a track metric for community adoption, this allows us to understand which projects are actively being improved every month. Our index is transparent, measurable and fully focused on public GitHub repositories.
+                       Pedigree picks the top 20 open source projects by the annualised growth rate (AGR) made up from GitHub commits, stars and contributors. Issue resolution is a track metric for community adoption, this allows us to understand which projects are actively being improved every month. Our index is transparent, measurable and fully focused on public GitHub repositories.
                     </p>
                 </div>
-            </div>
+            </base-container>
 
-            <div class="relative bg-gray py-16 sm:py-24">
+            <div class="relative py-16 sm:py-24">
                 <div class="lg:mx-auto lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:gap-24 lg:items-start">
                     <div class="relative sm:py-16 lg:py-0">
                     <div aria-hidden="true" class="hidden sm:block lg:absolute lg:inset-y-0 lg:right-0 lg:w-screen">
@@ -63,7 +64,7 @@
                             </h2>
                             <div class="mt-6 text-gray-500 space-y-6">
                                 <p class="text-base leading-7">
-                                    We select the top-20 open-source repositories by their developer growth at Github monthly. Our transparent and measurable methodology is known as the Pedigree Open Source (POS) Index.
+                                    We select the top-20 open-source repositories by their developer growth at GitHub monthly. Our transparent and measurable methodology is known as the Pedigree Open Source (POS) Index.
                                 </p>
                             </div>
                         </div>
@@ -90,7 +91,7 @@
                                     <dt class="text-base font-medium text-gray-500">TO DO </dt>
                                     <dd class="text-lg font-extrabold tracking-tight text-gray-900">TO DO</dd>
                                 </div>
-                                
+
                             </dl>
                             <div class="mt-10">
                                 <a href="https://osodevops.io/" target="_blank" class="text-base font-medium text-gray-600"> Sponsored by OSO DevOps <span aria-hidden="true">&rarr;</span> </a>
@@ -99,14 +100,16 @@
                     </div>
                 </div>
             </div>
+        </main>
+
+        <section class="mx-4 sm:ml-8 lg:mx-auto max-w-5xl border-gray-200 min-w-sm overflow-x-auto pt-8">
+            <p class="text-gray-900 font-extrabold tracking-tight text-lg sm:text-2xl mb-4">The fastest-growing open-source repositories (March 2021)</p>
+            <CompaniesTable :companies="companies"></CompaniesTable>
         </section>
 
-        <section class="mx-auto max-w-5xl border-gray-200 min-w-sm overflow-x-auto pt-8">
-            <p class="text-gray-900 font-extrabold tracking-tight sm:text-3xl mb-4">The fastest-growing open-source repositories (March 2021)</p>
-            <CompaniesTable :companies="companies"></CompaniesTable>
-            
+        <base-container>
             <CompaniesChart :companies="companies"></CompaniesChart>
-        </section>
+        </base-container>
 
     </app-layout>
 </template>
@@ -115,12 +118,14 @@
 import AppLayout from "@/Layouts/AppLayout";
 import CompaniesTable from "@/Components/RossIndex/CompaniesTable";
 import CompaniesChart from "@/Components/RossIndex/CompaniesChart";
+import BaseContainer from "@/Components/Base/Container";
 
 export default {
     components: {
         AppLayout,
         CompaniesTable,
         CompaniesChart,
+        BaseContainer,
     },
     props: [
         'companies'
