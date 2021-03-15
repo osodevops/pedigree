@@ -2,13 +2,13 @@
     <app-layout>
         <section class="w-full bg-gray-100 py-8 mb-8 border-b border-gray-200">
             <base-container>
-                <div class="lg:mt-32 mt-12">
-                    <h1 class="font-bold text-center text-4xl leading-12">
+                <div class="mt-8 sm:mt-12 lg:mt-16">
+                    <h1 class="font-bold text-center text-2xl sm:text-3xl lg:text-4xl leading-12">
                         POS Index: the fastest-growing open-source repositories, every quarter.
                     </h1>
                 </div>
-                <div class="mt-12 self-center px-6">
-                    <p class="text-center lg:text-2xl text-xl leading-12">
+                <div class="mt-8 sm:mt-12 self-center">
+                    <p class="text-center sm:text-xl lg:text-2xl leading-12">
                        We select the top-20 open-source repositories by their developer growth at GitHub monthly. Our transparent and measurable methodology is known as the Pedigree Open Source (POS) Index.
                     </p>
                 </div>
@@ -102,8 +102,10 @@
             </div>
         </main>
 
-        <section class="mx-4 sm:ml-8 lg:mx-auto max-w-5xl border-gray-200 min-w-sm overflow-x-auto pt-8">
-            <p class="text-gray-900 font-extrabold tracking-tight text-lg sm:text-2xl mb-4">The fastest-growing open-source repositories (March 2021)</p>
+        <base-container>
+            <h2 class="text-gray-900 font-extrabold tracking-tight text-lg sm:text-2xl pt-8 mb-4">The fastest-growing open-source repositories (March 2021)</h2>
+        </base-container>
+        <section class="mx-4 sm:ml-8 lg:mx-auto max-w-5xl border-gray-200 min-w-sm overflow-x-auto">
             <CompaniesTable :companies="companies"></CompaniesTable>
         </section>
 
