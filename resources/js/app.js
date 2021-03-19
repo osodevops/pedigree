@@ -9,7 +9,7 @@ import PortalVue from "portal-vue";
 Vue.config.devtools = true;
 
 Vue.mixin({ methods: { route } });
-Vue.use(plugin)
+Vue.use(plugin);
 Vue.use(PortalVue);
 
 import store from "@/Store/store";
@@ -18,6 +18,7 @@ import VTitle from "v-title";
 import "v-title/lib/element-ui";
 
 Vue.use(VTitle);
+Vue.prototype.$route = (...args) => route(...args);
 
 const app = document.getElementById("app");
 

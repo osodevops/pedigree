@@ -21,6 +21,7 @@
     </head>
     <body class="antialiased">
         @inertia
+        @include('layouts.footer')
 
     @if (app()->environment('production'))
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-{{ config('services.gtag.key') }}"></script>

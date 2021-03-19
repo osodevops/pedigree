@@ -40,9 +40,12 @@
         </div>
     </div>
     <div class="mt-8 md:mt-0 md:order-1 text-sm text-gray-300">
-        <div class="text-gray-300 mb-2 flex justify-center md:justify-start">
-            <div class="border-b border-gray-300 hover:text-white hover:border-white transition-all">
-                <a href="/">Home</a>
+        <div class="text-gray-300 mb-2 flex justify-center md:justify-start divide-x-2 divide-gray-300 -mx-1">
+            <div class="hover:text-white transition-all px-2">
+                <a class="underline" href="/">Home</a>
+            </div>
+            <div class="hover:text-white transition-all px-2">
+                <a class="underline" href="{{ route('pos-index') }}">POS Index</a>
             </div>
         </div>
         <p class="text-center">
