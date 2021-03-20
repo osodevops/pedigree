@@ -44,9 +44,11 @@
             <div class="hover:text-white transition-all px-2">
                 <a class="underline" href="/">Home</a>
             </div>
+            {{--
             <div class="hover:text-white transition-all px-2">
                 <a class="underline" href="{{ route('pos-index') }}">POS Index</a>
             </div>
+            --}}
         </div>
         <p class="text-center">
             &copy; {{ date("Y") }} OSO DevOps. All rights reserved.
