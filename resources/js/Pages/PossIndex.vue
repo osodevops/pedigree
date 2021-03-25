@@ -3,7 +3,7 @@
         <section class="w-full bg-gray-100 py-8 mb-8 border-b border-gray-200">
             <base-container>
                 <div class="mt-8 sm:mt-12 lg:mt-16">
-                    <h1 class="font-bold text-center text-2xl sm:text-3xl lg:text-4xl leading-12">
+                    <h1 class="font-bold text-center text-5xl lg:text-6xl leading-12">
                         POS Index: the fastest-growing open-source repositories, every quarter.
                     </h1>
                 </div>
