@@ -1,15 +1,13 @@
-/node_modules
-/public/hot
-/public/storage
-/public/css
-/public/js
-/storage/*.key
-/vendor
-.env
-.env.backup
-.phpunit.result.cache
-Homestead.json
-Homestead.yaml
-npm-debug.log
-yarn-error.log
-.vscode
+# Compiled files
+*.tfstate
+*.tfstate.backup
+
+# Module directory
+.terraform
+.idea
+*.iml
+
+.build-harness
+build-harness
+
+test.log
