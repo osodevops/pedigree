@@ -27,13 +27,13 @@
                     <div class="w-full flex flex-wrap justify-between items-center">
                         <div class="flex-1 flex">
                             <div class="mr-4" style="width: 48px; height:48px;">
-                                <a class="block w-full" :href="`https://gihub.com/${fork.owner.id}/${fork.name}`" target="_blank">
+                                <a class="block w-full" :href="`https://github.com/${fork.owner.id}/${fork.name}`" target="_blank">
                                     <img :src="fork.owner.avatar_url" />
                                 </a>
                             </div>
 
                             <div class="w-auto">
-                                <a class="capitalize text-xl font-semibold" :href="`https://gihub.com/${fork.owner.id}/${fork.name}`" target="_blank">
+                                <a class="capitalize text-xl font-semibold" :href="`https://github.com/${fork.owner.id}/${fork.name}`" target="_blank">
                                     {{ fork.owner.id }}
                                 </a>
 

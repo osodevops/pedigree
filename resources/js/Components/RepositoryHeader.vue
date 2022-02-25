@@ -2,13 +2,13 @@
     <div>
         <div class="flex flex-col sm:flex-row mb-4">
             <div style="width: 75px; height:75px" class="mr-4">
-                <a class="block w-full" :href="`https://gihub.com/${repository.owner.id}/${repository.name}`" target="_blank">
+                <a class="block w-full" :href="`https://github.com/${repository.owner.id}/${repository.name}`" target="_blank">
                     <img :src="repository.owner.avatar_url" />
                 </a>
             </div>
             <div class="flex flex-col">
                 <h1 class="mb-2">
-                    <a class="flex flex-col sm:flex-row" :href="`https://gihub.com/${repository.owner.id}/${repository.name}`" target="_blank">
+                    <a class="flex flex-col sm:flex-row" :href="`https://github.com/${repository.owner.id}/${repository.name}`" target="_blank">
                         <span class="text-md sm:text-xl">{{ repository.owner.id }}</span>
                         <span class="text-xl px-2 hidden sm:block">/</span>
                         <span class="text-xl font-semibold">{{ repository.name }}</span>
