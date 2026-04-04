@@ -4,12 +4,15 @@ on:
     branches:
       - master
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -63,7 +66,7 @@ jobs:
       - name: Bump version and push tag
         id: tagging
         if: contains(github.ref, 'master')
-        uses: anothrNick/github-tag-action@1.21.0
+        uses: anothrNick/github-tag-action@4ed44965e0db8dab2b466a16da04aec3cc312fd8 # v1.75.0
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_ORG_REPO_TAG }}
           DEFAULT_BUMP: patch
