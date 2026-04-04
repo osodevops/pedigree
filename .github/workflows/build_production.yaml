@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2
         with:
           php-version: '7.4'
 
@@ -30,7 +30,7 @@ jobs:
           echo "::set-output name=dir::$(composer config cache-files-dir)"
 
       - name: Cache Composer
-        uses: actions/cache@v1
+        uses: actions/cache@f5ce41475b483ad7581884324a6eca9f48f8dcc7 # v1
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -41,12 +41,12 @@ jobs:
         run: composer install --prefer-dist --no-dev
 
       - name: Setup Node.js 12.13.1 (LTS)
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e # v1
         with:
           node-version: '12.13.1'
 
       - name: Cache node modules
-        uses: actions/cache@v2
+        uses: actions/cache@8492260343ad570701412c2f464a5877dc76bace # v2
         env:
           cache-name: cache-node-modules
         with:
@@ -73,7 +73,7 @@ jobs:
           WITH_V: "true"
 
       - name: Build NGINX Docker image and Push to ECR
-        uses: kciter/aws-ecr-action@master
+        uses: kciter/aws-ecr-action@0589ad88c51a1b08fd910361ca847ee2cb708a30 # v2
         env:
           repo: pedigree-production-nginx
         with:
@@ -88,7 +88,7 @@ jobs:
           create_repo: false
 
       - name: Build PHP Docker image and Push to ECR
-        uses: kciter/aws-ecr-action@master
+        uses: kciter/aws-ecr-action@0589ad88c51a1b08fd910361ca847ee2cb708a30 # v2
         env:
           repo: pedigree-production-php
         with:

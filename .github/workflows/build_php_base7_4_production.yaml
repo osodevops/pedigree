@@ -6,6 +6,9 @@ on:
     paths:
       - 'docker/app/php-base/7.4/**'
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,12 +17,12 @@ jobs:
       uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
     - name: Setup PHP
-      uses: shivammathur/setup-php@v2
+      uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2
       with:
         php-version: '7.4'
 
     - name: Build Docker image and Push to ECR
-      uses: kciter/aws-ecr-action@master
+      uses: kciter/aws-ecr-action@0589ad88c51a1b08fd910361ca847ee2cb708a30 # v2
       env:
         repo: pedigree/php-base
       with:
